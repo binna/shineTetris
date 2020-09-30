@@ -132,7 +132,9 @@ buildNumber.properties
 /test/*
 */test/*
 */resources
+*/resources/*
 log4j.xml
+*src/test/*
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -161,6 +163,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/git,java,maven,windows,eclipse
-
-
-src/test/*
