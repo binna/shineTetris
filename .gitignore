@@ -131,8 +131,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 /test/*
 */test/*
-*/resources
-*/resources/*
 log4j.xml
 *src/test/*
 
