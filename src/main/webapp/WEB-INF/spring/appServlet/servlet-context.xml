@@ -21,12 +21,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-<<<<<<< HEAD
-	<context:component-scan base-package="com.server.login.dao.controller" />
-=======
 	<context:component-scan base-package="com.server.*" />
->>>>>>> branch 'master' of https://github.com/binna/shineTetris.git
-	
-	
 	
 </beans:beans>

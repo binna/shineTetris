@@ -7,13 +7,21 @@
 		
 	<!-- 컨테이너의 HTTP security 요소 -->
 	<security:http>
-		<security:form-login/>
+		<!-- /login/loginAfter URI 요청은 ROLE_MEMBER 라는 권한이 있는 사용자만이 접근 가능 -->
+		<security:intercept-url pattern="/login/loginAfter" access="hasRole('ROLE_MEMBER')"/>
+		
+		<security:form-login login-page="/login/loginMain"/>
+
 	</security:http>
-	
-	<!-- Spring Security가 동작하기 위해서는 AuthenticationManager가 필요 -->
-	<!-- AuthenticationManager 빈 생성 -->
-	<security:authentication-manager>  
-	
+
+	<!-- Spring Security가 동작하기 위해서는 AuthenticationManager가 필요, AuthenticationManager 빈 생성 -->
+	<security:authentication-manager>
+		<!-- UserDetailsService 사용한 인증과 권한 처리 -->
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+			</security:user-service>
+		</security:authentication-provider>
 	</security:authentication-manager>
 
 </beans>
