@@ -1,4 +1,4 @@
-package com.server.login.controller;
+package com.server.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
