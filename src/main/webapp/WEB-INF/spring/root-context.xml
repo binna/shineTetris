@@ -13,29 +13,4 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<!-- MySQL dataSource -->    
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://aws엔드포인트 입력:3306/webservice?useSSL=false"></property>
-        <property name="username" value="본인의 id"></property>
-        <property name="password" value="본인의 Password"></property>
-    </bean>      
-    
-    <bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="/WEB-INF/database/mybatis-config.xml"></property>
-	</bean>
-	
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean> 
-	
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg  ref="sqlSessionFactory"></constructor-arg>
-	</bean>	
-		
 </beans>

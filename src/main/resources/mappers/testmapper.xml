@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 자바클랙스에서 mapper을 찾는경로 다른  mapper와 중복되지 않도록 네임 스페이스기제 -->
+<mapper namespace="com.server.login">
+	<select id="selectTest" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from test
+	</select>
+</mapper>
