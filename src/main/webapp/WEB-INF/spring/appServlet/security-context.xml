@@ -7,11 +7,21 @@
 		
 	<!-- 컨테이너의 HTTP security 요소 -->
 	<security:http>
-		<!-- /login/loginAfter URI 요청은 ROLE_MEMBER 라는 권한이 있는 사용자만이 접근 가능 -->
+		<!-- ROLE_MEMBER 라는 권한이 있는 사용자만이 접근 가능 -->
 		<security:intercept-url pattern="/login/loginAfter" access="hasRole('ROLE_MEMBER')"/>
 		
+		
+		
+		
+		<!-- 로그인 -->
 		<security:form-login login-page="/login/loginMain"/>
-
+		
+		<!-- 접근 제한 메시지 처리 -->
+		<security:access-denied-handler ref="/login/AccessDenied"/>
+		
+		<!-- 로그아웃 -->
+		<security:logout logout-url="/login/logout" invalidate-session="true" delete-cookies="JSESSIONID"/>
+		
 	</security:http>
 
 	<!-- Spring Security가 동작하기 위해서는 AuthenticationManager가 필요, AuthenticationManager 빈 생성 -->
