@@ -64,10 +64,13 @@
 			<!-- query문 : 별명 중요, 순서대로 spring에서 사용하는 컬럼명으로 작성해야함(순서, 컬럼명 모두 중요!) -->
 			<security:jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query
-					="SELECT userid username, userpw password, enabled FROM tbl_member WHERE userid = ?"
-				authorities-by-username-query
-					="SELECT userid username, auth authority FROM tbl_member_auth WHERE userid = ?"
+					="SELECT user_id, user_nm, pwd enabled FROM tcm_member WHERE user_id = ?"
 			/>
+				<!-- 
+				authorities-by-username-query
+					="SELECT userid username, auth authority FROM tcm_member_auth WHERE userid = ?"
+				-->
+			
 			
 			<!-- PasswordEncoder 설정 -->
 			<!-- 
