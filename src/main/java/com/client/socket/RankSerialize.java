@@ -9,7 +9,8 @@ public class RankSerialize implements Serializable{
 	private String id;
 	private String score;
 	
-	public RankSerialize(String date,String id,String score) {
+	//public RankSerialize(String date,String id,String score) {
+	public RankSerialize(String id,String score,String date) {
 		this.date = date;
 		this.id = id;
 		this.score = score;
@@ -26,6 +27,7 @@ public class RankSerialize implements Serializable{
 	}
 	public String toString(){
 		String str = date+"   "+id+"   "+score;
+//		String str = id+"   "+score;
 		return str;
 	}
 }

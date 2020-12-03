@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ServerThread extends Thread {
 	//socket
@@ -29,9 +30,12 @@ public class ServerThread extends Thread {
 	private ObjectOutputStream oos = null;
 	
 	//sql문 고정
-	private final String rankSQL = "select T.* from (select * from MEMBER order by 3 desc)T where rownum<=10 and score<>0";
-	private final String insertSQL = "insert into MEMBER(id,score) values(?,?)";
-
+//	private final String rankSQL = "select T.* from (select * from trm_score order by score desc)T where T.score>''  limit 10 ";
+	private final String rankSQL = "SELECT TM.USER_NM, TS.SCORE, STR_TO_DATE(TS.REG_DT,'%Y%m%d%H%i%S') as REG_DT FROM trm_score TS LEFT OUTER JOIN tcm_member TM ON TM.USER_ID = TS.USER_ID where TS.score>''  limit 10 ";
+	
+	//private final String insertSQL = "insert into tcm_member (user_seq, user_id, pwd, user_nm, score) values(NEXTVAL(member_user_seq),?,?,?,?)";
+	private final String insertSQL = "insert into trm_score values(NEXTVAL(rank_seq), ?, ?, DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 9 HOUR),'%Y%m%d%H%i%S'));";
+	
 	private String id;
 	private String score;
 	
@@ -79,7 +83,13 @@ public class ServerThread extends Thread {
 				//Out
 				try {
 					while(rs.next()){
-						list.add(new RankSerialize(rs.getString("writedate"), rs.getString("id"), rs.getString("score")));
+						//랭크목록조회
+						//list.add(new RankSerialize(rs.getString("user_nm"), rs.getString("score")));
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("user_nm", rs.getString("user_nm"));
+						map.put("score", rs.getString("score"));
+						map.put("reg_dt", rs.getString("reg_dt"));
+						list.add(map);
 					}
 					oos.writeObject(list);
 				} catch (SQLException e) {e.printStackTrace();}

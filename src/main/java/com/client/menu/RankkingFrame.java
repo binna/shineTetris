@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -61,16 +63,15 @@ public class RankkingFrame extends JFrame{
 			g.drawString("TETRIS RANK", 110, 40);
 			g.setFont(new Font("�޸տ�����", Font.PLAIN, 20));
 			g.setColor(Color.red);
-			g.drawString("RANK        DATE        USER   SCORE", 8, 80);
+			g.drawString("RANK        DATE             USER   SCORE", 8, 80);
 
 			g.setFont(new Font("�޸տ�����", Font.PLAIN, 17));
 			g.setColor(Color.black);
 			for(int i=0;i<list.size();i++) {
-				sil = (RankSerialize)list.get(i);
-				System.out.println(sil.getDate());
-				g.drawString(String.format("%3d",(i+1))+"st      "+sil.getDate().substring(2,16),10,110+40*i);
-				g.drawString(sil.getId(), 250, 110+40*i);
-				g.drawString(String.format("%4s",sil.getScore()), 340, 110+40*i);
+				HashMap<String, Object> r= (HashMap<String, Object>) list.get(i);
+				g.drawString(String.format("%3d",(i+1))+"st      "+r.get("reg_dt").toString().substring(0, 16),10,110+40*i);
+				g.drawString(r.get("user_nm").toString(), 250, 110+40*i);
+				g.drawString(String.format("%4s",r.get("score")), 340, 110+40*i);
 			}
 		}
 }}

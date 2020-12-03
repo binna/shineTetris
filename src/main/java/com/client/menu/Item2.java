@@ -20,7 +20,7 @@ public class Item2 extends JMenuItem{
 				if(Data.maxScore>0) {
 					SocketConnect.getInstance().InsertRank(Data.maxScore);
 				}else {
-					JOptionPane.showMessageDialog(getParent(),"������ �����ϼ���!");
+					JOptionPane.showMessageDialog(getParent(),"게임을 진행하세요!");
 				}
 				GameFrame.bgp.repaint();
 			}

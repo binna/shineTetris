@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -84,12 +85,12 @@ public class CenterPanel extends JPanel {
 			g.drawString(Data.overMsg, 25, 280);
 		}
 		
-		
+		//안쪽 블럭
 		if(Data.status) {
 			for(int i=0;i<4;i++) {
 				int bx = sX+(Data.BlockSize*Data.nowBlock[0][i]);
 				int by = sY+(Data.BlockSize*Data.nowBlock[1][i]);
-				g.setColor(Color.red);
+				g.setColor(Color.blue);
 				g.fillRect(bx, by, Data.BlockSize, Data.BlockSize);
 				g.setColor(Color.white);
 				g.drawRect(bx, by, Data.BlockSize, Data.BlockSize);

@@ -19,6 +19,7 @@ public class SocketConnect {
 	
 	public SocketConnect() {
 		try {
+			//서버ip 서버에 올릴떄 변경필요
 			s = new Socket("127.0.0.1", 54321);
 			System.out.println("Server Connect OK!!");
 			
@@ -44,15 +45,16 @@ public class SocketConnect {
 	public void InsertRank(int sc){
 		pw.println("2");
 		String ID="";
-		//�̱��� >>
+		
 		while(true) {
 			try {
-				ID = (String)JOptionPane.showInputDialog("Input ID (length: 1~4)"); //�Է¹����� ����				
+				ID = (String)JOptionPane.showInputDialog("Input ID (length: 1~4)"); //ID 입력				
 				if(ID.length()>1&&ID.length()<=4) { 
 					String score = String.valueOf(sc);
-					pw.println(ID);
+//					pw.println(ID);
+					pw.println("test"); //임시테스트용으로 박아놓음
 					pw.println(score);
-					JOptionPane.showMessageDialog(null,"��� �Ϸ�!");
+					JOptionPane.showMessageDialog(null,"등록 완료!");
 					break;					
 				} 
 			}catch(NullPointerException e) { break; }

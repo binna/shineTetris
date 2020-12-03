@@ -8,15 +8,15 @@ import java.sql.SQLException;
 
 public class TetrisServer {
 	public void go() throws IOException {
-		try {Class.forName("oracle.jdbc.driver.OracleDriver");} catch (ClassNotFoundException e1) {e1.printStackTrace();}
+		try {Class.forName("org.mariadb.jdbc.Driver");} catch (ClassNotFoundException e1) {e1.printStackTrace();}
 		
 		ServerSocket ss = null;
 		Socket s = null;
 		Connection conn = null;
 
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String user = "tetris";
-		String pass = "1234";
+		String url = "jdbc:mysql://database.cld8fsdm7gmh.us-east-2.rds.amazonaws.com:3306/shineTetris?useSSL=false";
+		String user = "admin";
+		String pass = "h201303037";
 		// DataBase connect
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
