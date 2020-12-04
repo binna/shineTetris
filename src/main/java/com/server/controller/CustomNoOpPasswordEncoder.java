@@ -1,4 +1,4 @@
-package com.server.controller.security;
+package com.server.controller;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
