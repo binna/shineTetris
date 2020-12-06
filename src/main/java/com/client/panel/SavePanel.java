@@ -20,9 +20,9 @@ public class SavePanel extends JPanel{
 	public SavePanel(){
 		setPreferredSize(new Dimension(250, 710));
 		setBackground(new Color(255, 0, 0, 0));
-		font = new Font("Jokerman", Font.ITALIC, 20);
-		status = new Font("Jokerman", Font.ITALIC, 13);
-		X = new Font("���� ���", Font.ITALIC, 50);
+		font = new Font("Franklin Gothic Medium", Font.PLAIN, 20);
+		status = new Font("Franklin Gothic Medium", Font.PLAIN, 14);
+		X = new Font("Franklin Gothic Medium", Font.PLAIN, 50);
 	}
 	/*
 	 * s: 시작 e: 끝 x: x좌표 y: y좌표
@@ -37,13 +37,13 @@ public class SavePanel extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		g.setFont(status);
 		g.drawString("SAVE : "+String.valueOf(Data.savestatus).toUpperCase(), sX+17, sY-60);
 		g.setFont(font);
 		g.drawString("[SAVE]", sX+20, sY-20);
 		
-		// Block
+		// Block 다음블럭
 		if(Data.saveIdx!=-1){
 		for(int i=0;i<4;i++){
 			int x = bsX+(Block.getInstance().bX[Data.saveIdx][i]*Data.BlockSize);
@@ -58,7 +58,7 @@ public class SavePanel extends JPanel{
 			g.drawString("?", sX+40, sY+40);
 			
 		}
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		g.setFont(font);
 		g.drawString("MAX  : "+Data.maxScore , sX-30, sY+200);
 		g.drawString("SCORE : "+Data.score , sX-30, sY+230);
