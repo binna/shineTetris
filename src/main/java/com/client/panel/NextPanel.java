@@ -21,11 +21,11 @@ public class NextPanel extends JPanel{
 	protected void paintComponent(Graphics g){ 
 		super.paintComponent(g);
 		int bsX=50;
-		int bsY=220;
-		g.setColor(Color.BLACK);
-		g.setFont(new Font("Jokerman", Font.ITALIC, 30));
+		int bsY=250;
+		g.setColor(Color.white);
+		g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 30));
 		g.drawString("Level : "+Data.level, 20, bsY-100);
-		g.setFont(new Font("Jokerman", Font.ITALIC, 20));
+		g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 20));
 		g.drawString("[next]", 50, bsY-30);
 		if(Data.status){
 			for (int i = 0; i < 4; i++) {

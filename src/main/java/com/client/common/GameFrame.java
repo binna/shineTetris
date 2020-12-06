@@ -83,6 +83,7 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 				Block.getInstance().startCount();
 				bgp.repaint();
 				cp.requestFocus();
+//				CenterPanel.btn.setBounds(10, 150, 150, 30);
 			}
 		});
 		CenterPanel.btnHold.addActionListener(new ActionListener() {
