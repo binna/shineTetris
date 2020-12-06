@@ -37,6 +37,7 @@
 				users-by-username-query="SELECT user_id username, user_pw password, enabled FROM shineTetris.tcm_member WHERE user_id = ?"
 				authorities-by-username-query="SELECT user_id username, authority FROM shineTetris.tcm_member WHERE user_id = ?" />
 			
+			
 			<!-- PasswordEncoder 설정 --> 
 			<security:password-encoder ref="bcryptPasswordEncoder"/>
 		</security:authentication-provider>
