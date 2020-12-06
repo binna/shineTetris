@@ -6,17 +6,17 @@
 		http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
-		<!-- 
-	<bean id="bcryptPasswordEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-		 -->
+		
+<bean id="bcryptPasswordEncoder"
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
 	<!-- 컨테이너의 HTTP security 요소 -->
 	<security:http>
 		<!-- 특정 url pattern 의 요청이 들어올때 인터셉터를 이용해 접근 제한 설정 -->
 		<security:intercept-url pattern="/login/all" access="permitAll"/>
 		
 		<!-- ROLE_MEMBER 라는 권한이 있는 사용자만 접근 가능 -->
-		<security:intercept-url pattern="/login/member" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/login/member" access="hasRole('ROLE_USER')"/>
 		
 		<!-- login 페이지 -->
 		<security:form-login login-page="/customLogin" />
@@ -31,15 +31,14 @@
 		<!-- UserDetailsService 사용자 인증과 권한 처리 -->
 		<security:authentication-provider>
 			<!-- JDBC 사용 -->
-			<!-- query문 : 별명 중요, 순서대로 spring에서 사용하는 컬럼명으로 작성해야함(순서, 컬럼명 모두 중요!) -->
+			<!-- query문 : 별명 중요, 순서대로 spring에서 사용하는 컬럼명으로 작성해야함(순서, 컬럼명 모두 중요!),
+				 		  enabled(활성 : 1/비활성 : 0) : 회원이어도 휴면계정이거나 정지된 회원일 때 enabled 0, authority : 권한 -->
 			<security:jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query = "SELECT USER_ID username, USER_PW password, enabled FROM shineTetris.tcm_member WHERE USER_ID = ?" />
+				users-by-username-query="SELECT user_id username, user_pw password, enabled FROM shineTetris.tcm_member WHERE user_id = ?"
+				authorities-by-username-query="SELECT user_id username, authority FROM shineTetris.tcm_member WHERE user_id = ?" />
 			
-			
-			<!-- PasswordEncoder 설정 -->
-			<!-- 
+			<!-- PasswordEncoder 설정 --> 
 			<security:password-encoder ref="bcryptPasswordEncoder"/>
-			 -->
 		</security:authentication-provider>
 	</security:authentication-manager>		
 
