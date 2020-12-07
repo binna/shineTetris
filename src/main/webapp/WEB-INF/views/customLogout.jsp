@@ -9,9 +9,11 @@
 </head>
 <body>
 <h1> Logout Page</h1>
+
 <form action="${pageContext.request.contextPath}/customLogout" method='post'>
-<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
-<button>로그아웃</button>
+	<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+	<button>로그아웃</button>
 </form>
+
 </body>
 </html>

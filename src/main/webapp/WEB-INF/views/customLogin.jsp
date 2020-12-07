@@ -14,8 +14,8 @@
   <h2><c:out value="${logout}"/></h2>
   
   <form method='post' action="${pageContext.request.contextPath}/login">
-    <input type='text' name='username' value='admin'><br>
-    <input type='password' name='password' value='admin'><br>
+    <input type='text' name='username'><br>
+    <input type='password' name='password'><br>
     <input type='checkbox' name='remember-me'> Remember Me <br>
     <input type='submit'><br>
     <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />  
