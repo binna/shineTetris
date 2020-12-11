@@ -19,10 +19,10 @@
 		<input type='password' name='password'><br>
 		<input type='checkbox' name='remember-me'> Remember Me <br>
 		<input type='submit'><br>
-		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />  
+		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 	</form>
 	
-	<input type="button" value="회원가입" onClick="${path}/tetris/login/memberJoin">
+	<input type="button" value="회원가입" onClick="location.href='${path}/tetris/login/memberJoin'">
 
 </body>
 </html>

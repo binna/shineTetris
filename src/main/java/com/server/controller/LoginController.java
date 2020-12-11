@@ -1,6 +1,7 @@
 package com.server.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,15 +33,19 @@ public class LoginController {
 	 @Inject
 	 EmailService emailService;		// 서비스를 호출 하기 위한 의존성 주입
 	 @RequestMapping("/email")
-	 public String send(Model model) {
+	 public String send(HttpServletRequest request, Model model) {
+		 String mail = request.getParameter("mail");
+		 String joinSecurityKey = "";
+		 
+		 //HashMap<Stirng, Stirng> value = HashMap Map<Stirng, Stirng>();
+		 
+		 joinSecurityKey = emailService.sendMail(mail);
 
-		 try {
-			 emailService.sendMail();
-			 model.addAttribute("message", "이메일이 발송되었습니다.");
- 
-		 } catch (Exception e) {
-			 e.printStackTrace();
+		 if(joinSecurityKey.length() != 0) {
+			 model.addAttribute("joinSecurityKey", joinSecurityKey);
 			 model.addAttribute("message", "메일 발송을 실패했습니다.");
+		 } else {
+			 model.addAttribute("message", "이메일이 발송되었습니다.");
 		 }
 		 
 		 return "/login/memberJoin";

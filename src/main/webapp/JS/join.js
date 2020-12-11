@@ -1,5 +1,6 @@
 'use strict'
 
+
 window.onload = function(){
 	
     
@@ -14,22 +15,27 @@ function sendit() {
 	const userpw_re = document.getElementById('userpw_re');
 	const username = document.getElementById('username');
 	const email = document.getElementById('email');
+	const zipcode = document.getElementById('sample6_postcode');
+	const address1 = document.getElementById('sample6_address');
+	const address2 = document.getElementById('sample6_detailAddress');
 	
-	const zipcode = document.getElementById('zipcode');
-	const address1 = document.getElementById('address1');
-	const address2 = document.getElementById('address2');
-
 	// 정규식
 	const expPwText = /^.*(?=^.{4,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()+=]).*$/;
 	const expNameText = /[가-힣]+$/; 
-	const expHpText = /^\d{3}-\d{3,4}-\d{4}$/;
 	const expEmailText = /^[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
 	
+	// 아이디 유효성
 	if(userid.value == '') {
 		alert('아이디를 입력하세요.');
 		userid.focus();
 		return false;
 	}
+	if(userid.value.length < 4 || userid.value.length > 20) {
+		alert('아이디를 4자이상 20자 이하로 입력하세요.');
+		userid.focus(); return false;
+	}
+	
+	// 비밀번호 유효성
 	if(userpw.value == '') {
 		alert('비밀번호를 입력하세요.');
 		userpw.focus();
@@ -40,29 +46,101 @@ function sendit() {
 		userpw_re.focus();
 		return false;
 	}
+	if(expPwText.test(userpw.value) == false) {
+		alert('비밀번호 형식을 확인하세요.');
+		userpw.focus();
+		return false;
+	}
+	if(userpw.value != userpw_re.value) {
+		alert('비밀번호와 비밀번호 확인의 값이 서로 다릅니다.');
+		userpw.focus();
+		return false;
+	}
+	
+	// 이름 유효성
 	if(username.value == '') {
 		alert('이름을 입력하세요.');
 		username.focus();
 		return false;
 	}
+	if(expNameText.test(username.value) == false) {
+		alert('이름 형식을 확인하세요.');
+		username.focus();
+		return false;
+	}
+
+	// 이메일 유효성
 	if(email.value == '') {
 		alert('이메일을 입력하세요.');
 		email.focus();
 		return false;
 	}
-	if(zipcode == null || address1 == null) {
-		alert('주소를 입력하세요');
-		document.getElementById('#adrBtn').focus();
+	if(expEmailText.test(email.value) == false) {
+		alert('이메일 형식을 확인하세요.');
+		email.focus();
 		return false;
 	}
-	if(address2 == null) {
+	
+	// 집 주소 유효성
+	if(zipcode.value == '' || address1.value == '') {
+		alert('주소를 입력하세요.');
+		document.getElementById('adrBtn').focus();
+		return false;
+	}
+	if(address2.value == '') {
 		alert('주소를 입력하세요.');
 		address2.focus();
 		return false;
 	}
 
-}
+} // end sendit()
 
+// 이메일 인증
+function doEmailAuth() {
+	// 이메일 검증을 위한 객체 생성
+	const email = document.getElementById('email');
+
+	// 이메일 검증을 위한 정규식, 유효성 검사후 이메일 정보를 담을 변수
+	const expEmailText = /^[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
+	let paraEmail;
+	
+	// XMLHttpRequest 객체 생성
+	let xhttp = new XMLHttpRequest();
+	
+	// 이메일 유효성 검사
+	if(email.value == '') {
+		alert('이메일을 입력하세요.');
+		email.focus();
+		return false;
+	}
+	if(expEmailText.test(email.value) == false) {
+		alert('이메일 형식을 확인하세요.');
+		email.focus();
+		return false;
+	}
+	
+	// 모든 유효성 검사 통과 후 이메일 정보 변수에 저장
+	paraEmail = email.value;
+	
+	xhttp.open('GET', '/tetris/login/email?mail=' + paraEmail, true);	// open(request method, URL, 비동기식 true 동기식 false) 
+	xhttp.send(null);													// send() : POST 방식으로 요구한 경우 서버로 보내고 싶은 데이터
+	
+	
+	/*
+	
+	try {
+		if (xhttp.readyState === XMLHttpRequest.DONE) {
+			if (xhttp.status === 200) {
+				alert(xhttp.responseText);
+			} else {
+				alert('There was a problem with the request.');
+			}
+		}
+	} catch (e) {
+		alert('Caught Exception: ' + e.description);
+	}
+	*/
+} // end doEmailAuth()
 
 
 
@@ -118,4 +196,4 @@ function sample6_execDaumPostcode() {
 			document.getElementById("sample6_detailAddress").focus();
 		}
     }).open();
-}
+} // end sample6_execDaumPostcode()

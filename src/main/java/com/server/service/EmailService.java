@@ -31,7 +31,7 @@ public class EmailService {
 	}
     
 	// 이메일 발송
-    public void sendMail() {
+    public String sendMail(String mail) {
     	
     	// 인증코드 만들기
     	getAuthCode(10);
@@ -41,7 +41,7 @@ public class EmailService {
         	MimeMessage mimeMessage = mailSender.createMimeMessage();
         	
         	// 받는 사람
-        	mimeMessage.addRecipient(RecipientType.TO, new InternetAddress("bgogi14@naver.com"));
+        	mimeMessage.addRecipient(RecipientType.TO, new InternetAddress(mail));
         	
         	// 보내는 사람
         	mimeMessage.addFrom(new InternetAddress[] { new InternetAddress("shinetetris@gmail.com", "샤인테트리스") });
@@ -62,6 +62,9 @@ public class EmailService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        // 보안키 넘기기
+        return joinSecurityKey;
     } // end sendMail()
 
 } // end Service
