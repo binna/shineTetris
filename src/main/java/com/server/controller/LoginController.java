@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.server.dto.EmailDTO;
 import com.server.service.EmailService;
 
 @Controller
 @RequestMapping("/login/*")
 public class LoginController {
+	
+	String joinSecurityKey = "";
 	
 	@GetMapping("/all")
 	public void doAll() {  // 리턴타입 없으면 url 과 같은 경로의 jsp 파일을 찾는다.
@@ -27,25 +30,34 @@ public class LoginController {
 	 @GetMapping("/memberJoin")
 	 public void doMemberJoin(){
 		 System.out.println("doMemberJoin()");
-	}
+	 }
 	 
 	 // 회원 가입 이메일 발송
 	 @Inject
 	 EmailService emailService;		// 서비스를 호출 하기 위한 의존성 주입
-	@RequestMapping("/email")
-	 public String send(HttpServletRequest request, Model model) {
+	 @RequestMapping("/email")
+	 public String sendEmail(HttpServletRequest request) {
 		 String mail = request.getParameter("mail");
-		 String joinSecurityKey = "";
 		 
 		 joinSecurityKey = emailService.sendMail(mail);
-		 if(joinSecurityKey.length() > 0) {
-			 model.addAttribute("joinSecurityKey", joinSecurityKey);
-			 model.addAttribute("message", "이메일을 발송했습니다.");
-		 } else {
-			 model.addAttribute("message", "이메일 발송이 실패했습니다.");
-		 }
 		 
 		 return "/login/memberJoin";
+	 }
+	 
+	 // 이메일 인증 번호와 내가 입력한 값 일치 여부 검증
+	 @RequestMapping("/compare")
+	 public EmailDTO compareNumber(HttpServletRequest request) {
+		 String myAuthNum = request.getParameter("myAuthNum");
+		 
+		 EmailDTO emaildto = new EmailDTO();
+		 
+		 if(myAuthNum.equals(joinSecurityKey)) {
+			 emaildto.setResult(1);
+		 } else {
+			 emaildto.setResult(0);
+		 }
+		 
+		 return emaildto;
 	 }
 	 
 } // end Controller

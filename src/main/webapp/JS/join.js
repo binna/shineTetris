@@ -95,7 +95,7 @@ function sendit() {
 
 } // end sendit()
 
-// 이메일 인증
+//이메일 인증
 function doEmailAuth() {
 	// 이메일 검증을 위한 객체 생성
 	const email = document.getElementById('email');
@@ -119,17 +119,20 @@ function doEmailAuth() {
 	// 모든 유효성 검사 통과 후 이메일 정보 변수에 저장
 	paraEmail = email.value;
 	
+	console.log(paraEmail)
+	
 	// XMLHttpRequest 객체 생성
 	let xhttp = new XMLHttpRequest();
-	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === XMLHttpRequest.DONE) {
 			if (xhttp.status === 200) {
+				//document.write(xhttp.responseText);		// ajax를 보내고 다시 해당페이지로 리다이렉트되어 화면을 덮어씨워서 값을 뿌려줌
 				
-				let setTime = 10;	// 3분 -> 180초
+				let setTime = 180;	// 3분 -> 180초
 				
 				// 이메일 발송 버튼 숨기기
 				document.getElementById('emailAuth').setAttribute('type', 'hidden');
+				document.getElementById('emailAuthArea').style.display ='block';
 				
 				// 3분 타이머
 				let timeId = setInterval(function() {
@@ -141,6 +144,7 @@ function doEmailAuth() {
 						// 인증 초과 팝업과 함께 버튼 활성과, 숫자 표시 없애기
 						alert('인증시간이 초과됬습니다.');
 						document.getElementById('emailAuth').setAttribute('type', 'button');
+						document.getElementById('emailAuthArea').style.display ='none';
 						document.getElementById('result').innerHTML = "";
 					}
 				}, 1000);
@@ -155,13 +159,30 @@ function doEmailAuth() {
 	xhttp.send();														// send() : POST 방식으로 요구한 경우 서버로 보내고 싶은 데이터
 } // end doEmailAuth()
 
-
-
-
-
-
-
-
+function doEmailNumberAuth() {
+	const authNum = document.getElementById('emailAuthText');
+	console.log(authNum)
+	// 모든 유효성 검사 통과 후 이메일 정보 변수에 저장
+	let paraAuthNum = authNum.value;
+	console.log(paraAuthNum)
+	// XMLHttpRequest 객체 생성
+	let xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState === XMLHttpRequest.DONE) {
+			if (xhttp.status === 200) {
+				callback(xhttp.responseText);
+				
+			} else {
+				
+			}
+		}
+	};
+	
+	xhttp.overrideMimeType("application/json");
+	xhttp.open('GET', '/tetris/login/compare?myAuthNum=' + paraAuthNum, false);
+	xhttp.send();
+	console.log(xhttp.responseText)
+}
 
 
 // 우편 API

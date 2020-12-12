@@ -25,12 +25,17 @@ button:focus {
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 		<p><label>아이디 : <input type="text" name="userid" id="userid" maxlength="20"></label></p>
 		<p><label>비밀번호 : <input type="password" name="userpw" id="userpw" maxlength="20"></label></p>
-		<p><label>비밀번호 확인 : <input type="password" name="userpw_re" id="userpw_re" maxlength="20"></label></p>
+		<p><label>비밀번호 확인 : <input type="password" name="userpw_re" id="WWuserpw_re" maxlength="20"></label></p>
 		<p><label>이름 : <input type="text" name="username" id="username"></label></p>
-		<p><label>이메일 : <input type="text" name="email" id="email"></label>
+
+		<!-- 이메일 인증 -->
+		<p><label>이메일 : <input type="text" name="email" id="email" value="${mail}"></label>
 		&nbsp;<input type="button" id="emailAuth" value="이메일 발송" onclick="doEmailAuth()"><span id="result"></span></p>
-		<input id="mailSecuKey" value="${joinSecurityKey}">
-		<input id="mailMessage" value="${message}">
+		<p id="emailAuthArea" style="display: none;"><label>인증번호 : <input type="text" name="emailAuthText" id="emailAuthText" maxlength="10"></label>
+		&nbsp;<input type="button" id="emailNumber" value="인증번호 확인" onclick="doEmailNumberAuth()"></p>
+		
+		<!-- 이메일 인증 관련 hidden -->
+		<input type="hidden" name="isSsn" id="isSsn" value="false">
 		
 		<!-- 우편 API -->
 		<p>우편번호 : <input type="text" name="zipcode" id="sample6_postcode" disabled="disabled">
