@@ -1,7 +1,5 @@
 package com.server.controller;
 
-import java.util.HashMap;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.server.service.EmailService;
 
@@ -36,26 +33,19 @@ public class LoginController {
 	 @Inject
 	 EmailService emailService;		// 서비스를 호출 하기 위한 의존성 주입
 	@RequestMapping("/email")
-	 public ModelAndView send(HttpServletRequest request, Model model) {
+	 public String send(HttpServletRequest request, Model model) {
 		 String mail = request.getParameter("mail");
 		 String joinSecurityKey = "";
 		 
-		 ModelAndView mav = new ModelAndView();
-		 mav.setViewName("/login/memberJoin");
-		 
 		 joinSecurityKey = emailService.sendMail(mail);
 		 if(joinSecurityKey.length() > 0) {
-			 mav.addObject("joinSecurityKey",joinSecurityKey);
-			 mav.addObject("message","메일 발송을 실패했습니다.");
-//			 model.addAttribute("joinSecurityKey", joinSecurityKey);
-//			 model.addAttribute("message", "메일 발송을 실패했습니다.");
+			 model.addAttribute("joinSecurityKey", joinSecurityKey);
+			 model.addAttribute("message", "이메일을 발송했습니다.");
 		 } else {
-			 mav.addObject("message","이메일이 발송되었습니다.");
-//			 model.addAttribute("message", "이메일이 발송되었습니다.");
+			 model.addAttribute("message", "이메일 발송이 실패했습니다.");
 		 }
 		 
-//		 return "/login/memberJoin";
-		 return mav;
+		 return "/login/memberJoin";
 	 }
 	 
 } // end Controller

@@ -19,7 +19,8 @@ public class EmailService {
 	
 	//인증코드 생성 메서드
 	private void getAuthCode(int size) {
-	    Random random = new Random();
+		joinSecurityKey = "";
+		Random random = new Random();
 	    
 	    String key = "0123456789ABCDEFGHIJKLMNOPQRSTUVWSYZabcdefghijklmnopqrstuvwsyz";
 	    int num;

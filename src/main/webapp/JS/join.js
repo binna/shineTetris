@@ -104,8 +104,6 @@ function doEmailAuth() {
 	const expEmailText = /^[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
 	let paraEmail;
 	
-	
-	
 	// 이메일 유효성 검사
 	if(email.value == '') {
 		alert('이메일을 입력하세요.');
@@ -123,24 +121,39 @@ function doEmailAuth() {
 	
 	// XMLHttpRequest 객체 생성
 	let xhttp = new XMLHttpRequest();
-													// send() : POST 방식으로 요구한 경우 서버로 보내고 싶은 데이터
 	
-	xhttp.onreadystatechange = function() {	// onreadystatechange 이벤트 핸들러를 작성함.
-		// 서버상에 문서가 존재하고 요청한 데이터의 처리가 완료되어 응답할 준비가 완료되었을 때
+	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === XMLHttpRequest.DONE) {
 			if (xhttp.status === 200) {
-				document.write(xhttp.responseText);
+				
+				let setTime = 10;	// 3분 -> 180초
+				
+				// 이메일 발송 버튼 숨기기
+				document.getElementById('emailAuth').setAttribute('type', 'hidden');
+				
+				// 3분 타이머
+				let timeId = setInterval(function() {
+					const m = Math.floor(setTime / 60) + "분 " + (setTime % 60) + "초";	// 남은 시간 계산
+				    document.getElementById('result').innerHTML = m;
+					setTime--;
+					if(setTime < 0) {
+						clearInterval(timeId);
+						// 인증 초과 팝업과 함께 버튼 활성과, 숫자 표시 없애기
+						alert('인증시간이 초과됬습니다.');
+						document.getElementById('emailAuth').setAttribute('type', 'button');
+						document.getElementById('result').innerHTML = "";
+					}
+				}, 1000);
+				
 			} else {
-				alert('There was a problem with the request.');
+				alert('이메일 발송이 실패했습니다.');
 			}
 		}
 	};
 	
 	xhttp.open('GET', '/tetris/login/email?mail=' + paraEmail, false);	// open(request method, URL, 비동기식 true 동기식 false) 
-	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
-	xhttp.send();	
+	xhttp.send();														// send() : POST 방식으로 요구한 경우 서버로 보내고 싶은 데이터
 } // end doEmailAuth()
-
 
 
 

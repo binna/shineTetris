@@ -28,8 +28,9 @@ button:focus {
 		<p><label>비밀번호 확인 : <input type="password" name="userpw_re" id="userpw_re" maxlength="20"></label></p>
 		<p><label>이름 : <input type="text" name="username" id="username"></label></p>
 		<p><label>이메일 : <input type="text" name="email" id="email"></label>
-		&nbsp;<input type="button" id="emailAuth" value="이메일 발송" onclick="doEmailAuth()"></p>
+		&nbsp;<input type="button" id="emailAuth" value="이메일 발송" onclick="doEmailAuth()"><span id="result"></span></p>
 		<input id="mailSecuKey" value="${joinSecurityKey}">
+		<input id="mailMessage" value="${message}">
 		
 		<!-- 우편 API -->
 		<p>우편번호 : <input type="text" name="zipcode" id="sample6_postcode" disabled="disabled">
