@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dto.EmailDTO;
 import com.server.service.EmailService;
@@ -46,10 +47,14 @@ public class LoginController {
 	 
 	 // 이메일 인증 번호와 내가 입력한 값 일치 여부 검증
 	 @RequestMapping("/compare")
+	 @ResponseBody
 	 public EmailDTO compareNumber(HttpServletRequest request) {
 		 String myAuthNum = request.getParameter("myAuthNum");
 		 
 		 EmailDTO emaildto = new EmailDTO();
+		 
+		 System.out.println("myAuthNum>>>>>>>>"+myAuthNum);
+		 System.out.println("joinSecurityKey>>>>>>>>"+joinSecurityKey);
 		 
 		 if(myAuthNum.equals(joinSecurityKey)) {
 			 emaildto.setResult(1);

@@ -1,20 +1,13 @@
 'use strict'
 
-
-window.onload = function(){
-	
-    
-
-}
-
-
+// 유효성 검사
 function sendit() {
 	// 객체 저장 
 	const userid = document.getElementById('userid');
 	const userpw = document.getElementById('userpw');
 	const userpw_re = document.getElementById('userpw_re');
 	const username = document.getElementById('username');
-	const email = document.getElementById('email');
+	const isSsn = document.getElementById('isSsn');
 	const zipcode = document.getElementById('sample6_postcode');
 	const address1 = document.getElementById('sample6_address');
 	const address2 = document.getElementById('sample6_detailAddress');
@@ -22,7 +15,6 @@ function sendit() {
 	// 정규식
 	const expPwText = /^.*(?=^.{4,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()+=]).*$/;
 	const expNameText = /[가-힣]+$/; 
-	const expEmailText = /^[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
 	
 	// 아이디 유효성
 	if(userid.value == '') {
@@ -70,14 +62,9 @@ function sendit() {
 	}
 
 	// 이메일 유효성
-	if(email.value == '') {
-		alert('이메일을 입력하세요.');
-		email.focus();
-		return false;
-	}
-	if(expEmailText.test(email.value) == false) {
-		alert('이메일 형식을 확인하세요.');
-		email.focus();
+	if(isSsn.value == 'false') {
+		alert('이메일 인증은 필수입니다.');
+		isSsn.focus();
 		return false;
 	}
 	
@@ -116,10 +103,8 @@ function doEmailAuth() {
 		return false;
 	}
 	
-	// 모든 유효성 검사 통과 후 이메일 정보 변수에 저장
+	// 유효성 검사 통과 후 이메일 정보 변수에 저장
 	paraEmail = email.value;
-	
-	console.log(paraEmail)
 	
 	// XMLHttpRequest 객체 생성
 	let xhttp = new XMLHttpRequest();
@@ -159,31 +144,44 @@ function doEmailAuth() {
 	xhttp.send();														// send() : POST 방식으로 요구한 경우 서버로 보내고 싶은 데이터
 } // end doEmailAuth()
 
+// 이메일 인증 번호 검사
 function doEmailNumberAuth() {
+	// 객체 저장
 	const authNum = document.getElementById('emailAuthText');
-	console.log(authNum)
-	// 모든 유효성 검사 통과 후 이메일 정보 변수에 저장
+
+	// 유효성 검사
+	if(userid.value.length < 10) {
+		alert('이메일 인증번호는 10자리입니다.\다시 확인해주세요');
+		authNum.focus(); return false;
+	}
+	
+	// 유효성 검사 후 사용자가 작성한 내용 변수에 저장
 	let paraAuthNum = authNum.value;
-	console.log(paraAuthNum)
+	
 	// XMLHttpRequest 객체 생성
 	let xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (xhttp.readyState === XMLHttpRequest.DONE) {
-			if (xhttp.status === 200) {
-				callback(xhttp.responseText);
-				
-			} else {
-				
-			}
-		}
-	};
-	
-	xhttp.overrideMimeType("application/json");
+
+	// 입력한 값이 인증번호와 일치하는지 검사
 	xhttp.open('GET', '/tetris/login/compare?myAuthNum=' + paraAuthNum, false);
 	xhttp.send();
-	console.log(xhttp.responseText)
-}
-
+	
+	// 검사한 값 response
+	const resultText = xhttp.responseText;
+	const resultObj = JSON.parse(resultText);
+	
+	// 결과 값에 따라 화면 노출
+	if(resultObj.result == 1) {
+		alert('정상적으로 인증되었습니다.');
+		document.getElementById('result').innerHTML = "";
+		document.getElementById('emailAuthText').setAttribute('disabled', 'disabled');
+		document.getElementById('emailNumber').setAttribute('value', '인증 완료');
+		document.getElementById('emailNumber').setAttribute('disabled', 'disabled');
+		document.getElementById('isSsn').setAttribute('value', 'true');
+	} else {
+		alert('인증번호가 일치하지 않습니다.\n다시 확인 후 입력해주세요.');
+	}
+	
+} // end doEmailNumberAuth()
 
 // 우편 API
 function sample6_execDaumPostcode() { 
