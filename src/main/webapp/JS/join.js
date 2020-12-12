@@ -104,8 +104,7 @@ function doEmailAuth() {
 	const expEmailText = /^[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
 	let paraEmail;
 	
-	// XMLHttpRequest 객체 생성
-	let xhttp = new XMLHttpRequest();
+	
 	
 	// 이메일 유효성 검사
 	if(email.value == '') {
@@ -122,24 +121,24 @@ function doEmailAuth() {
 	// 모든 유효성 검사 통과 후 이메일 정보 변수에 저장
 	paraEmail = email.value;
 	
-	xhttp.open('GET', '/tetris/login/email?mail=' + paraEmail, true);	// open(request method, URL, 비동기식 true 동기식 false) 
-	xhttp.send(null);													// send() : POST 방식으로 요구한 경우 서버로 보내고 싶은 데이터
+	// XMLHttpRequest 객체 생성
+	let xhttp = new XMLHttpRequest();
+													// send() : POST 방식으로 요구한 경우 서버로 보내고 싶은 데이터
 	
-	
-	/*
-	
-	try {
+	xhttp.onreadystatechange = function() {	// onreadystatechange 이벤트 핸들러를 작성함.
+		// 서버상에 문서가 존재하고 요청한 데이터의 처리가 완료되어 응답할 준비가 완료되었을 때
 		if (xhttp.readyState === XMLHttpRequest.DONE) {
 			if (xhttp.status === 200) {
-				alert(xhttp.responseText);
+				document.write(xhttp.responseText);
 			} else {
 				alert('There was a problem with the request.');
 			}
 		}
-	} catch (e) {
-		alert('Caught Exception: ' + e.description);
-	}
-	*/
+	};
+	
+	xhttp.open('GET', '/tetris/login/email?mail=' + paraEmail, false);	// open(request method, URL, 비동기식 true 동기식 false) 
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+	xhttp.send();	
 } // end doEmailAuth()
 
 
