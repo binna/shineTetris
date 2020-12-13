@@ -15,7 +15,7 @@ public class Item4 extends JMenuItem{
 		
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				//System.exit(0);
 			}
 		});
 	}

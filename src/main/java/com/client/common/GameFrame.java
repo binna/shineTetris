@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 
 import com.client.panel.BackGroundPanel;
 import com.client.panel.CenterPanel;
+import com.client.main.GameMain;
 import com.client.menu.TetrisMenuBar;
 import com.client.panel.NextPanel;
 import com.client.panel.SavePanel;
@@ -23,18 +24,16 @@ import com.client.socket.SocketConnect;
 public class GameFrame extends JFrame implements KeyListener,Runnable{
 	private static final long serialVersionUID = 1L;
 	
-	
-	public static BackGroundPanel bgp=new BackGroundPanel();
+	public static BackGroundPanel bgp = null;
 	NextPanel np=new NextPanel();
 	SavePanel sp=new SavePanel();
 	CenterPanel cp=new CenterPanel();
-
-
 	
 	public GameFrame(){
 		super("testris!");
 		/* MenuBar */
 		TetrisMenuBar menu = new TetrisMenuBar();
+		bgp= new BackGroundPanel();
 		setJMenuBar(menu);
 		/* Setting Each Panel */
 		bgp.add(sp,"West");
@@ -73,17 +72,19 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 	
 	@Override
 	public void run() {
+		try {Thread.sleep(10);} catch (InterruptedException e1) { System.out.println("GameFrame Exit");}
 		cp.addKeyListener(this);
 		CenterPanel.btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CenterPanel.btn.setText("RESTART");
 				CenterPanel.btn.setVisible(false);
+				CenterPanel.Exitbtn.setVisible(false);
 				CenterPanel.btnHold.setVisible(false);
 				Block.getInstance().startCount();
 				bgp.repaint();
 				cp.requestFocus();
-//				CenterPanel.btn.setBounds(10, 150, 150, 30);
+//					CenterPanel.btn.setBounds(10, 150, 150, 30);
 			}
 		});
 		CenterPanel.btnHold.addActionListener(new ActionListener() {
@@ -95,6 +96,14 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 				bgp.repaint();
 			}
 		});
+		CenterPanel.Exitbtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				GameMain.gameStart("E");
+			}
+		});
+		
 	}
 	
 	@Override

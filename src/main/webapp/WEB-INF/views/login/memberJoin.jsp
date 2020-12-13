@@ -10,6 +10,9 @@
 <!-- JS -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/JS/join.js"></script>
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="${pageContext.request.contextPath}/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
 <style>
 input:focus {
   background-color: yellow;
@@ -20,32 +23,43 @@ button:focus {
 </style>
 </head>
 <body>
-	<h2>회원가입</h2> 
-	<form name="regform" id="regform" action="${path}/tetris/login/memberJoin" method="post" onsubmit="return sendit()">
-		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-		<p><label>아이디 : <input type="text" name="userid" id="userid" maxlength="20"></label></p>
-		<p><label>비밀번호 : <input type="password" name="userpw" id="userpw" maxlength="20"></label></p>
-		<p><label>비밀번호 확인 : <input type="password" name="userpw_re" id="WWuserpw_re" maxlength="20"></label></p>
-		<p><label>이름 : <input type="text" name="username" id="username"></label></p>
-
-		<!-- 이메일 인증 -->
-		<p><label>이메일 : <input type="text" name="email" id="email" value="${mail}"></label>
-		&nbsp;<input type="button" id="emailAuth" value="이메일 발송" onclick="doEmailAuth()"><span id="result"></span></p>
-		<p id="emailAuthArea" style="display: none;"><label>인증번호 : <input type="text" name="emailAuthText" id="emailAuthText" maxlength="10"></label>
-		&nbsp;<input type="button" id="emailNumber" value="인증번호 확인" onclick="doEmailNumberAuth()"></p>
-		
-		<!-- 이메일 인증 관련 hidden -->
-		<input type="hidden" name="isSsn" id="isSsn" value="false">
-		
-		<!-- 우편 API -->
-		<p>우편번호 : <input type="text" name="zipcode" id="sample6_postcode" disabled="disabled">
-		&nbsp;<input type="button" id="adrBtn" value="우편번호 검색" onclick="sample6_execDaumPostcode()"></p>
-		<p><label>주소 : <input type="text" name="address1" id="sample6_address"></label></p>
-		<p><label>상세주소 : <input type="text" name="address2" id="sample6_detailAddress"></label></p>
-		
-		<!-- 버튼 -->
-		<p><input type="submit" value="가입완료"> <input type="reset" value="다시작성"></p>
-	</form>
-
+<div class="main-container">
+		<div id="page" class="container" style="top: 20%"> 
+			<div class="sign-in-content">
+				<div class="sign-in-form">
+					<div class="singInTitle">
+						<!-- <h2>Login</h2> -->
+					</div>
+					<div>
+						<form name="regform" id="regform" action="${path}/tetris/login/memberJoin" method="post" onsubmit="return sendit()">
+							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+							<p><label>아이디 : <input type="text" name="userid" id="userid" maxlength="20"></label></p>
+							<p><label>비밀번호 : <input type="password" name="userpw" id="userpw" maxlength="20"></label></p>
+							<p><label>비밀번호 확인 : <input type="password" name="userpw_re" id="WWuserpw_re" maxlength="20"></label></p>
+							<p><label>이름 : <input type="text" name="username" id="username"></label></p>
+					
+							<!-- 이메일 인증 -->
+							<p><label>이메일 : <input type="text" name="email" id="email" value="${mail}"></label>
+							&nbsp;<input type="button" id="emailAuth" value="이메일 발송" onclick="doEmailAuth()"><span id="result"></span></p>
+							<p id="emailAuthArea" style="display: none;"><label>인증번호 : <input type="text" name="emailAuthText" id="emailAuthText" maxlength="10"></label>
+							&nbsp;<input type="button" id="emailNumber" value="인증번호 확인" onclick="doEmailNumberAuth()"></p>
+							
+							<!-- 이메일 인증 관련 hidden -->
+							<input type="hidden" name="isSsn" id="isSsn" value="false">
+							
+							<!-- 우편 API -->
+							<p>우편번호 : <input type="text" name="zipcode" id="sample6_postcode" disabled="disabled">
+							&nbsp;<input type="button" id="adrBtn" value="우편번호 검색" onclick="sample6_execDaumPostcode()"></p>
+							<p><label>주소 : <input type="text" name="address1" id="sample6_address"></label></p>
+							<p><label>상세주소 : <input type="text" name="address2" id="sample6_detailAddress"></label></p>
+							
+							<!-- 버튼 -->
+							<p><input type="submit" value="가입완료"> <input type="reset" value="다시작성"></p>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

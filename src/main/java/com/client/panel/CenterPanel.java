@@ -23,6 +23,7 @@ import com.client.common.GameFrame;
 
 public class CenterPanel extends JPanel {
 	public static JButton btn;
+	public static JButton Exitbtn;
 	public static JButton btnHold;
 	/*
 	 * s: 시작 e: 끝 x: x좌표 y: y좌표
@@ -39,14 +40,19 @@ public class CenterPanel extends JPanel {
 		setBackground(new Color(255, 0, 0, 0));
 		setLayout(null);
 		btn=new JButton("START");
-		btn.setLocation(130,320);
+		btn.setLocation(80,320);
 		btn.setSize(100,30);
+		
+		Exitbtn=new JButton("Exit");
+		Exitbtn.setLocation(180,320);
+		Exitbtn.setSize(100,30);
 		
 		btnHold=new JButton("HOLD");
 		btnHold.setLocation(130,320);
 		btnHold.setSize(100,30);
 		
 		add(btn);
+		add(Exitbtn);
 		add(btnHold);
 	}// 생성자
 	
@@ -84,8 +90,9 @@ public class CenterPanel extends JPanel {
 		
 		//게임시작  count
 		if(Data.startCount!=0) {
-			g.setColor(Color.red);
-			g.setFont(new Font("Franklin Gothic Medium", Font.ITALIC,Data.startCountFontSize));
+			g.setColor(Color.CYAN);
+			g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN,Data.startCountFontSize));
+//			g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 40));
 			g.drawString(String.valueOf(Data.startCount), 110, 400);
 		}else if(Data.overMsg!=null) {
 			//gameover 타이틀

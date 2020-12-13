@@ -39,11 +39,13 @@ public class DropBlock extends Thread{
 	}
 	
 	public void run(){
+		
 		while(true){
-			try {Thread.sleep(1);} catch (InterruptedException e1) {}
+			try {Thread.sleep(10);} catch (InterruptedException e1) {System.out.println("DropBlock Exit");}
 			if(Data.gameOver)	gameOver();
 			if(Data.startCount>0) startCount();		
 			if(Data.status) gameStart(); 
 		}
 	}
+	
 }

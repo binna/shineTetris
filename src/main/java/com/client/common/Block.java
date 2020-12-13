@@ -7,6 +7,7 @@ import javax.net.ssl.SSLEngineResult.Status;
 import com.client.panel.CenterPanel;
 
 public class Block {
+	
 	Random r = new Random();
 		public final int[][] bX ={
 				{0,1,0,1},{-1,0,1,2},{0,0,1,2},{2,2,1,0},{0,1,1,2},{0,1,1,2},{2,1,1,0}, //0-6
@@ -46,15 +47,28 @@ public class Block {
 		   	 	 	   	   ─┘	   │ 
 		
 		 */
-	private Block(){}
-	private static class Singleton{
-		private static final Block instance = new Block();
-	}
-
-	public static Block getInstance(){
-		return Singleton.instance;
+//	private Block(){}
+//	private static class Singleton{
+//		private static final Block instance = new Block();
+//	}
+//
+//	public static Block getInstance(){
+//		return Singleton.instance;
+//	}
+	
+		
+	private static Block instance;
+	
+	static {
+		instance = new Block();
 	}
 	
+	private Block(){}
+	
+	public static synchronized Block getInstance(){
+		return instance;
+	}
+		
 	private int random() {
 		int rNum = r.nextInt(7);
 		
@@ -292,6 +306,7 @@ public class Block {
 			Data.maxScore=Data.score;
 		}
 		CenterPanel.btn.setVisible(true);
+		CenterPanel.Exitbtn.setVisible(true);
 		GameFrame.bgp.repaint();
 	}
 	

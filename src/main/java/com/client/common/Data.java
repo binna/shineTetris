@@ -6,10 +6,10 @@ public class Data {
 	 [][1~10][]
 	 [][][0~20]
 	 left/right-0 bottom-1 */
-	public static boolean[][][] map=new boolean[2][12][21];
+	public static boolean[][][] map = new boolean[2][12][21];
 	
 	/*0-x 1-y*/
-	public static int[][] nowBlock=new int[2][4];
+	public static int[][] nowBlock = new int[2][4];
 	
 
 	public final static int BlockSize = 20;
@@ -37,13 +37,13 @@ public class Data {
 	public static boolean spacestatus = false;
 	public static boolean gameOver = false;
 	
-	public static int startCount =0;
-	public static int startCountFontSize=40;
+	public static int startCount = 0;
+	public static int startCountFontSize = 40;
 	public static int comboCount = 0;
 	public static int lineCount = 0;
 	public static int lineTemp = -1;
 	
-	public static String overMsg=null;
+	public static String overMsg = null;
 	public static String clearMsg = null;
 	public static String tSpinMsg = null;
 	/* bX[] frist init

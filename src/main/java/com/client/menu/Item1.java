@@ -15,6 +15,7 @@ public class Item1 extends JMenuItem{
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Block.getInstance().gameOver();
+				
 				GameFrame.bgp.repaint();
 			}
 		});
