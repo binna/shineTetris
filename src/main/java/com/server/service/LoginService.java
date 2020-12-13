@@ -45,4 +45,20 @@ public class LoginService{
 		map.put("code", successCode);
 		return map;
 	}
+	
+	public HashMap<String, Object>deleteMember(Map<String, Object> dto) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int successCode = 0;
+//		for (String key : dto.keySet()) {
+//			String value = String.valueOf(dto.get(key));
+//			System.out.println(key + " : " + value);
+//		}
+		successCode = memberJoinDao.deleteMember(dto);
+//		map2 = list.get(0);
+//		
+		System.out.println("successCode >>>>"+successCode);
+		map.put("code", successCode);
+		return map;
+	}
 }

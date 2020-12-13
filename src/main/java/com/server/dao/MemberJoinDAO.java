@@ -39,9 +39,9 @@ public class MemberJoinDAO{
 		return sqlSession.insert(NAMESPACE+"memberInsert", dto);
 	}
 	
-//	public Object sampleDelete(Map<String, Object> dto)throws SQLException{
-//		return sqlSession.delete(NAMESPACE+"selectTest", dto);
-//	}
+	public int deleteMember(Map<String, Object> dto)throws SQLException{
+		return sqlSession.delete(NAMESPACE+"memberDelete", dto);
+	}
 	
 
 

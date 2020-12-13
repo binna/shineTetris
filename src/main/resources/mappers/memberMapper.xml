@@ -33,4 +33,9 @@
 		WHERE user_id = #{user_id}
 	</update>
 	
+	<delete id="memberDelete" parameterType="java.util.HashMap">
+		DELETE FROM tcm_member 
+		WHERE user_id = #{user_id}
+	</delete>
+	
 </mapper>

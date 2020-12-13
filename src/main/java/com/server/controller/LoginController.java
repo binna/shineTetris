@@ -82,7 +82,7 @@ public class LoginController {
 	 }
 	 
 	// 회원정보 update
-	 @RequestMapping("/insert")
+	 @RequestMapping("/update")
 	 @ResponseBody
 	 public HashMap<String, Object> doUpdate(HttpServletRequest request) {
 		 HashMap<String, Object>map =  new HashMap<String, Object>();
@@ -95,6 +95,30 @@ public class LoginController {
 					System.out.println(key + " : " + value);
 				}
 			map = loginService.updateMember(dto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			map.put("code", "9999");
+			map.put("message", e.getMessage());
+		}
+		 
+		 return map;
+	 }
+	 
+	// 회원정보 삭제
+	 @RequestMapping("/delete")
+	 @ResponseBody
+	 public HashMap<String, Object> doDelete(HttpServletRequest request) {
+		 HashMap<String, Object>map =  new HashMap<String, Object>();
+		 //ajax로 들어온값 Map형식으로 변환 웹의 name값 기준
+		 Map<String, Object> dto = CommonUtil.request2Map(request);
+		 try {
+			 //어떤값이 들어왔는지 확인용
+			 for (String key : dto.keySet()) {
+					String value = String.valueOf(dto.get(key));
+					System.out.println(key + " : " + value);
+				}
+			map = loginService.deleteMember(dto);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
