@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CommonController {
+	@GetMapping("/welcome")
+	public void doWelcome() {}
+	
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model) {
 		System.out.println("error: " + error);

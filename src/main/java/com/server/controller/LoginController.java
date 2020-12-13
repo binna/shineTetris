@@ -3,12 +3,14 @@ package com.server.controller;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.server.common.C;
 import com.server.dto.EmailDTO;
 import com.server.service.EmailService;
 
@@ -17,6 +19,18 @@ import com.server.service.EmailService;
 public class LoginController {
 	
 	String joinSecurityKey = "";
+	
+	private SqlSession sqlSession;
+	
+	public LoginController() {
+		System.out.println("Controller() 생성");
+	}
+	
+	@Autowired  
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+		C.sqlSession = sqlSession;
+	}
 	
 	@GetMapping("/all")
 	public void doAll() {  // 리턴타입 없으면 url 과 같은 경로의 jsp 파일을 찾는다.

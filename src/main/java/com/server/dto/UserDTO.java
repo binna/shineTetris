@@ -1,7 +1,6 @@
 package com.server.dto;
 
 public class UserDTO {
-	private int user_seq;
 	private String user_id;
 	private String user_pw;
 	private String user_name;
@@ -9,19 +8,10 @@ public class UserDTO {
 	private String user_zipcode;
 	private String user_address1;
 	private String user_address2; 
-	private String enabled;
-	private String authority;
 	
 	
 	public UserDTO() {}
 
-
-	public int getUser_seq() {
-		return user_seq;
-	}
-	public void setUser_seq(int user_seq) {
-		this.user_seq = user_seq;
-	}
 
 	public String getUser_id() {
 		return user_id;
@@ -70,19 +60,5 @@ public class UserDTO {
 	}
 	public void setUser_address2(String user_address2) {
 		this.user_address2 = user_address2;
-	}
-
-	public String getEnabled() {
-		return enabled;
-	}
-	public void setEnabled(String enabled) {
-		this.enabled = enabled;
-	}
-
-	public String getAuthority() {
-		return authority;
-	}
-	public void setAuthority(String authority) {
-		this.authority = authority;
 	}
 } // end DTO
