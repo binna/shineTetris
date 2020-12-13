@@ -1,4 +1,4 @@
-package com.server.dto;
+package com.server.service;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,20 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class LoginDTO {
+public class MemberJoinService {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private final String NAMESPACE = "com.server.login.";
+	private final String NAMESPACE = "com.server.mapper.";
+	
+	public int insert(Map<String, Object> dto)throws SQLException{
+		return sqlSession.insert(NAMESPACE+"selectTest", dto);
+	}
+	
+	
+	
+	
 	
 	public List<?> sampleSelectOne(Map<String, Object> dto)throws SQLException{
 		return sqlSession.selectOne(NAMESPACE+"selectTest");
 	}
 	public List<?> sampleSelectList(Map<String, Object> dto)throws SQLException{
 		return sqlSession.selectList(NAMESPACE+"selectTest");
-	}
-	public Object sampleInsert(Map<String, Object> dto)throws SQLException{
-		return sqlSession.insert(NAMESPACE+"selectTest", dto);
 	}
 	public Object sampleUpdate(Map<String, Object> dto)throws SQLException{
 		return sqlSession.update(NAMESPACE+"selectTest", dto);

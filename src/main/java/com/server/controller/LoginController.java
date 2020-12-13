@@ -33,6 +33,12 @@ public class LoginController {
 		 System.out.println("doMemberJoin()");
 	 }
 	 
+	 // 회원가입 insert
+	 @RequestMapping("/insert")
+	 public void doInsert() {
+		 
+	 }
+	 
 	 // 회원 가입 이메일 발송
 	 @Inject
 	 EmailService emailService;		// 서비스를 호출 하기 위한 의존성 주입
