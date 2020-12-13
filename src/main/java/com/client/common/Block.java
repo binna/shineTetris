@@ -57,22 +57,35 @@ public class Block {
 //	}
 	
 		
-	private static Block instance;
+	private volatile static Block instance;
 	
-	static {
-		instance = new Block();
-	}
+//	static {
+//		instance = new Block();
+//	}
 	
 	private Block(){}
 	
-	public static synchronized Block getInstance(){
+//	public static synchronized Block getInstance(){
+	public static Block getInstance(){
+		if(instance == null) {
+			synchronized (Block.class) {
+				if(instance == null) {
+					instance = new Block();
+				}
+			}
+		}
+		
 		return instance;
 	}
-		
+	
+	public void distroy() {
+		instance = null;
+	}
+	
 	private int random() {
 		int rNum = r.nextInt(7);
 		
-		while(rNum==Data.nextIdx2 || rNum==Data.nextIdx3 || rNum==Data.nextIdx4 || rNum==Data.nextIdx5) {
+		while(rNum==Data.getInstance().nextIdx2 || rNum==Data.getInstance().nextIdx3 || rNum==Data.getInstance().nextIdx4 || rNum==Data.getInstance().nextIdx5) {
 			rNum = r.nextInt(7);
 		}
 		
@@ -81,13 +94,13 @@ public class Block {
 	}
 	
 	private int spincheck(){
-		/* �� .. �ٲܶ� ��� �ٲ�� ���� �𸣰ڴ� .*/
+		
 		int j=0;
 		for (j = 0; j < bSpinX.length; j++) {
 			int i = 0;
 			for (i = 0; i < 4; i++) {
 				try {
-					if (Data.map[0][bX[Data.spinIdx][i] + Data.lineX + 1 + bSpinX[j]][bY[Data.spinIdx][i] + Data.lineY
+					if (Data.getInstance().map[0][bX[Data.getInstance().spinIdx][i] + Data.getInstance().lineX + 1 + bSpinX[j]][bY[Data.getInstance().spinIdx][i] + Data.getInstance().lineY
 							+ bSpinY[j]])
 						break;
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -95,15 +108,15 @@ public class Block {
 				}
 			}
 			if (i == 4) {
-				Data.idx = Data.spinIdx;
-				Data.lineX=Data.lineX+bSpinX[j];
-				Data.lineY=Data.lineY+bSpinY[j];
-				switch(Data.idx) {
+				Data.getInstance().idx = Data.getInstance().spinIdx;
+				Data.getInstance().lineX=Data.getInstance().lineX+bSpinX[j];
+				Data.getInstance().lineY=Data.getInstance().lineY+bSpinY[j];
+				switch(Data.getInstance().idx) {
 				case 4:
 				case 16:
 				case 17:
 				case 18:
-					Data.tSpin = true;
+					Data.getInstance().tSpin = true;
 				}
 				break;
 			}
@@ -112,32 +125,32 @@ public class Block {
 	}
 	
 	public void spin(){
-		switch(Data.idx) {
-		case 0: Data.spinIdx=0;break;
-		case 1:	Data.spinIdx=7;break;
-		case 2:	Data.spinIdx=10;break;
-		case 3: Data.spinIdx=13;break;
-		case 4: Data.spinIdx=16;break;
-		case 5: Data.spinIdx=19;break;
-		case 6: Data.spinIdx=22;break;
-		case 7: Data.spinIdx=8;break;
-		case 8: Data.spinIdx=9;break;
-		case 9: Data.spinIdx=1;break;
-		case 10: Data.spinIdx=11;break;
-		case 11: Data.spinIdx=12;break;
-		case 12: Data.spinIdx=2;break;
-		case 13: Data.spinIdx=14;break;
-		case 14: Data.spinIdx=15;break;
-		case 15: Data.spinIdx=3;break;
-		case 16: Data.spinIdx=17;break;
-		case 17: Data.spinIdx=18;break;
-		case 18: Data.spinIdx=4;break;
-		case 19: Data.spinIdx=20;break;
-		case 20: Data.spinIdx=21;break;
-		case 21: Data.spinIdx=5;break;
-		case 22: Data.spinIdx=23;break;
-		case 23: Data.spinIdx=24;break;
-		case 24: Data.spinIdx=6;break;
+		switch(Data.getInstance().idx) {
+		case 0: Data.getInstance().spinIdx=0;break;
+		case 1:	Data.getInstance().spinIdx=7;break;
+		case 2:	Data.getInstance().spinIdx=10;break;
+		case 3: Data.getInstance().spinIdx=13;break;
+		case 4: Data.getInstance().spinIdx=16;break;
+		case 5: Data.getInstance().spinIdx=19;break;
+		case 6: Data.getInstance().spinIdx=22;break;
+		case 7: Data.getInstance().spinIdx=8;break;
+		case 8: Data.getInstance().spinIdx=9;break;
+		case 9: Data.getInstance().spinIdx=1;break;
+		case 10: Data.getInstance().spinIdx=11;break;
+		case 11: Data.getInstance().spinIdx=12;break;
+		case 12: Data.getInstance().spinIdx=2;break;
+		case 13: Data.getInstance().spinIdx=14;break;
+		case 14: Data.getInstance().spinIdx=15;break;
+		case 15: Data.getInstance().spinIdx=3;break;
+		case 16: Data.getInstance().spinIdx=17;break;
+		case 17: Data.getInstance().spinIdx=18;break;
+		case 18: Data.getInstance().spinIdx=4;break;
+		case 19: Data.getInstance().spinIdx=20;break;
+		case 20: Data.getInstance().spinIdx=21;break;
+		case 21: Data.getInstance().spinIdx=5;break;
+		case 22: Data.getInstance().spinIdx=23;break;
+		case 23: Data.getInstance().spinIdx=24;break;
+		case 24: Data.getInstance().spinIdx=6;break;
 		default:break;
 		}
 		int idx = spincheck();
@@ -145,32 +158,32 @@ public class Block {
 	}
 	
 	public void reverseSpin() {
-		switch(Data.idx) {
-		case 0: Data.spinIdx=0;break;
-		case 1:	Data.spinIdx=9;break;
-		case 2:	Data.spinIdx=12;break;
-		case 3: Data.spinIdx=15;break;
-		case 4: Data.spinIdx=18;break;
-		case 5: Data.spinIdx=21;break;
-		case 6: Data.spinIdx=24;break;
-		case 7: Data.spinIdx=1;break;
-		case 8: Data.spinIdx=7;break;
-		case 9: Data.spinIdx=8;break;
-		case 10: Data.spinIdx=2;break;
-		case 11: Data.spinIdx=10;break;
-		case 12: Data.spinIdx=11;break;
-		case 13: Data.spinIdx=3;break;
-		case 14: Data.spinIdx=13;break;
-		case 15: Data.spinIdx=14;break;
-		case 16: Data.spinIdx=4;break;
-		case 17: Data.spinIdx=16;break;
-		case 18: Data.spinIdx=17;break;
-		case 19: Data.spinIdx=5;break;
-		case 20: Data.spinIdx=19;break;
-		case 21: Data.spinIdx=20;break;
-		case 22: Data.spinIdx=6;break;
-		case 23: Data.spinIdx=22;break;
-		case 24: Data.spinIdx=23;break;
+		switch(Data.getInstance().idx) {
+		case 0: Data.getInstance().spinIdx=0;break;
+		case 1:	Data.getInstance().spinIdx=9;break;
+		case 2:	Data.getInstance().spinIdx=12;break;
+		case 3: Data.getInstance().spinIdx=15;break;
+		case 4: Data.getInstance().spinIdx=18;break;
+		case 5: Data.getInstance().spinIdx=21;break;
+		case 6: Data.getInstance().spinIdx=24;break;
+		case 7: Data.getInstance().spinIdx=1;break;
+		case 8: Data.getInstance().spinIdx=7;break;
+		case 9: Data.getInstance().spinIdx=8;break;
+		case 10: Data.getInstance().spinIdx=2;break;
+		case 11: Data.getInstance().spinIdx=10;break;
+		case 12: Data.getInstance().spinIdx=11;break;
+		case 13: Data.getInstance().spinIdx=3;break;
+		case 14: Data.getInstance().spinIdx=13;break;
+		case 15: Data.getInstance().spinIdx=14;break;
+		case 16: Data.getInstance().spinIdx=4;break;
+		case 17: Data.getInstance().spinIdx=16;break;
+		case 18: Data.getInstance().spinIdx=17;break;
+		case 19: Data.getInstance().spinIdx=5;break;
+		case 20: Data.getInstance().spinIdx=19;break;
+		case 21: Data.getInstance().spinIdx=20;break;
+		case 22: Data.getInstance().spinIdx=6;break;
+		case 23: Data.getInstance().spinIdx=22;break;
+		case 24: Data.getInstance().spinIdx=23;break;
 		default:break;
 		}
 		int idx = spincheck();
@@ -180,130 +193,130 @@ public class Block {
 	/* real block setting*/
 	private void blockSetting() {
 		for(int i=0;i<4;i++) {
-			Data.nowBlock[0][i]=bX[Data.idx][i]+Data.lineX;
-			Data.nowBlock[1][i]=bY[Data.idx][i]+Data.lineY;
+			Data.getInstance().nowBlock[0][i]=bX[Data.getInstance().idx][i]+Data.getInstance().lineX;
+			Data.getInstance().nowBlock[1][i]=bY[Data.getInstance().idx][i]+Data.getInstance().lineY;
 		}
 	}
 
 	
 	private void newBlock(){
-		Data.savestatus=true;
-		Data.idx=Data.nextIdx1;
-		Data.nextIdx1=Data.nextIdx2;
-		Data.nextIdx2=Data.nextIdx3;
-		Data.nextIdx3=Data.nextIdx4;
-		Data.nextIdx4=Data.nextIdx5;
-		Data.nextIdx5=random();
-		Data.lineX=4;
-		Data.lineY=0;
+		Data.getInstance().savestatus=true;
+		Data.getInstance().idx=Data.getInstance().nextIdx1;
+		Data.getInstance().nextIdx1=Data.getInstance().nextIdx2;
+		Data.getInstance().nextIdx2=Data.getInstance().nextIdx3;
+		Data.getInstance().nextIdx3=Data.getInstance().nextIdx4;
+		Data.getInstance().nextIdx4=Data.getInstance().nextIdx5;
+		Data.getInstance().nextIdx5=random();
+		Data.getInstance().lineX=4;
+		Data.getInstance().lineY=0;
 		blockSetting();
 	}
 
 	public void saveBlock(){
-		if(Data.saveIdx==-1) {
-			Data.saveIdx=Data.idx;
-			Data.idx=Data.nextIdx1;
-			Data.nextIdx1=Data.nextIdx2;
-			Data.nextIdx2=Data.nextIdx3;
-			Data.nextIdx3=Data.nextIdx4;
-			Data.nextIdx4=Data.nextIdx5;
-			Data.nextIdx5=random();
+		if(Data.getInstance().saveIdx==-1) {
+			Data.getInstance().saveIdx=Data.getInstance().idx;
+			Data.getInstance().idx=Data.getInstance().nextIdx1;
+			Data.getInstance().nextIdx1=Data.getInstance().nextIdx2;
+			Data.getInstance().nextIdx2=Data.getInstance().nextIdx3;
+			Data.getInstance().nextIdx3=Data.getInstance().nextIdx4;
+			Data.getInstance().nextIdx4=Data.getInstance().nextIdx5;
+			Data.getInstance().nextIdx5=random();
 		}else {
-			int tmp = Data.saveIdx;
-			Data.saveIdx=Data.idx;
-			Data.idx=tmp;
+			int tmp = Data.getInstance().saveIdx;
+			Data.getInstance().saveIdx=Data.getInstance().idx;
+			Data.getInstance().idx=tmp;
 		}
-		switch(Data.saveIdx) {
-		case	0:	Data.saveIdx=0; break;
+		switch(Data.getInstance().saveIdx) {
+		case	0:	Data.getInstance().saveIdx=0; break;
 		case	1:
 		case	7:
 		case	8:
-		case	9: Data.saveIdx=1; break;
+		case	9: Data.getInstance().saveIdx=1; break;
 		case	2:
 		case	10:
 		case	11:
-		case	12: Data.saveIdx=2; break;
+		case	12: Data.getInstance().saveIdx=2; break;
 		case	3:
 		case	13:
 		case	14:
-		case	15: Data.saveIdx=3; break;
+		case	15: Data.getInstance().saveIdx=3; break;
 		case	4:
 		case	16:
 		case	17:
-		case	18: Data.saveIdx=4; break;
+		case	18: Data.getInstance().saveIdx=4; break;
 		case	5:
 		case	19:
 		case	20:
-		case	21: Data.saveIdx=5; break;
+		case	21: Data.getInstance().saveIdx=5; break;
 		case	6:
 		case	22:
 		case	23:
-		case	24: Data.saveIdx=6; break;
+		case	24: Data.getInstance().saveIdx=6; break;
 		}
 		
-		Data.lineX=4;
-		Data.lineY=0;
+		Data.getInstance().lineX=4;
+		Data.getInstance().lineY=0;
 		blockSetting();
 		// only 1 save
-		Data.savestatus=false;
+		Data.getInstance().savestatus=false;
 	}
 	
 	public void gameHold() {
-		Data.status=false;
+		Data.getInstance().status=false;
 		CenterPanel.btnHold.setVisible(true);
 	}
 
 	public void startCount() {
-		Data.startCount=3;
-		Data.startCountFontSize=260;
+		Data.getInstance().startCount=3;
+		Data.getInstance().startCountFontSize=260;
 	}
 	
 	public void gameStart() {
-		Data.tSpinMsg = null;
-		Data.status = true;
-		Data.savestatus = true;
-		Data.comboCount=0;
-		Data.lineCount = 0;
-		Data.lineTemp = -1;
-		Data.level=0;
-		Data.levelSleep=1500;
-		Data.saveIdx=-1;
-		Data.score=0;
-		Data.idx=random();
-		Data.nextIdx1=random();
-		Data.nextIdx2=random();
-		Data.nextIdx3=random();
-		Data.nextIdx4=random();
-		Data.nextIdx5=random();
-		Data.lineX=4;
-		Data.lineY=0;
-		Data.clearMsg=null;
-		Data.overMsg = null;
+		Data.getInstance().tSpinMsg = null;
+		Data.getInstance().status = true;
+		Data.getInstance().savestatus = true;
+		Data.getInstance().comboCount=0;
+		Data.getInstance().lineCount = 0;
+		Data.getInstance().lineTemp = -1;
+		Data.getInstance().level=0;
+		Data.getInstance().levelSleep=1500;
+		Data.getInstance().saveIdx=-1;
+		Data.getInstance().score=0;
+		Data.getInstance().idx=random();
+		Data.getInstance().nextIdx1=random();
+		Data.getInstance().nextIdx2=random();
+		Data.getInstance().nextIdx3=random();
+		Data.getInstance().nextIdx4=random();
+		Data.getInstance().nextIdx5=random();
+		Data.getInstance().lineX=4;
+		Data.getInstance().lineY=0;
+		Data.getInstance().clearMsg=null;
+		Data.getInstance().overMsg = null;
 		blockSetting();
 		/* init map */
 		for(int i=0;i<12;i++){
 			for(int j=0;j<21;j++){
-				Data.map[0][i][j]=false;
-				Data.map[1][i][j]=false;
+				Data.getInstance().map[0][i][j]=false;
+				Data.getInstance().map[1][i][j]=false;
 		}}
 		/* x, y */
 		for(int i=0;i<12;i++){
-			Data.map[0][i][20]=true;//
-			Data.map[1][i][20]=true;
+			Data.getInstance().map[0][i][20]=true;//
+			Data.getInstance().map[1][i][20]=true;
 		}
 		for(int i=0;i<21;i++){
-			Data.map[0][0][i]=true;
-			Data.map[0][11][i]=true;
-			Data.map[1][0][i]=true;//
-			Data.map[1][11][i]=true;//
+			Data.getInstance().map[0][0][i]=true;
+			Data.getInstance().map[0][11][i]=true;
+			Data.getInstance().map[1][0][i]=true;//
+			Data.getInstance().map[1][11][i]=true;//
 		}
 	}
 	
 	public void gameOver() {
-		Data.gameOver = false;
-		Data.status = false;
-		if(Data.score>Data.maxScore) {
-			Data.maxScore=Data.score;
+		Data.getInstance().gameOver = false;
+		Data.getInstance().status = false;
+		if(Data.getInstance().score>Data.getInstance().maxScore) {
+			Data.getInstance().maxScore=Data.getInstance().score;
 		}
 		CenterPanel.btn.setVisible(true);
 		CenterPanel.Exitbtn.setVisible(true);
@@ -327,15 +340,15 @@ public class Block {
 		switch(str){
 		case "down":
 			for(i=0;i<4;i++){
-				if(Data.map[1][Data.nowBlock[0][i]+1][Data.nowBlock[1][i]+1])break;
+				if(Data.getInstance().map[1][Data.getInstance().nowBlock[0][i]+1][Data.getInstance().nowBlock[1][i]+1])break;
 			}break;
 		case "left":
 			for(i=0;i<4;i++){
-				if(Data.map[0][Data.nowBlock[0][i]][Data.nowBlock[1][i]])break;
+				if(Data.getInstance().map[0][Data.getInstance().nowBlock[0][i]][Data.getInstance().nowBlock[1][i]])break;
 			}break;
 		case "right":
 			for(i=0;i<4;i++){
-				if(Data.map[0][Data.nowBlock[0][i]+2][Data.nowBlock[1][i]])break;
+				if(Data.getInstance().map[0][Data.getInstance().nowBlock[0][i]+2][Data.getInstance().nowBlock[1][i]])break;
 			}break;
 		}
 		
@@ -343,19 +356,19 @@ public class Block {
 		if(i==4){
 			switch (str) {
 			case "down":
-				Data.lineY++;
+				Data.getInstance().lineY++;
 				for (i = 0; i < 4; i++) {
-					Data.nowBlock[1][i]++;
+					Data.getInstance().nowBlock[1][i]++;
 				}break;
 			case "left":
-				Data.lineX--;
+				Data.getInstance().lineX--;
 				for (i = 0; i < 4; i++) {
-					Data.nowBlock[0][i]--;
+					Data.getInstance().nowBlock[0][i]--;
 				}break;
 			case "right":
-				Data.lineX++;
+				Data.getInstance().lineX++;
 				for (i = 0; i < 4; i++) {
-					Data.nowBlock[0][i]++;
+					Data.getInstance().nowBlock[0][i]++;
 				}break;
 			}
 			
@@ -366,56 +379,56 @@ public class Block {
 	
 	private void clear(String str) {
 		/* check true */
-		Data.spacestatus = false;
+		Data.getInstance().spacestatus = false;
 		gameOverCheck();
-		if (Data.status) {
+		if (Data.getInstance().status) {
 			clearCheck();
-			if(Data.tSpin) Data.tSpin =false;		
+			if(Data.getInstance().tSpin) Data.getInstance().tSpin =false;		
 			newBlock();
 		}
 	}
 	
-	/* ���� ������ ���� üũ */
+	/* 블럭이 맨위에 인지 체크 */
 	private void gameOverCheck() {
 		for (int i = 0; i < 4; i++) {
-			Data.map[0][Data.nowBlock[0][i] + 1][Data.nowBlock[1][i]] = true;
-			Data.map[1][Data.nowBlock[0][i] + 1][Data.nowBlock[1][i]] = true;
+			Data.getInstance().map[0][Data.getInstance().nowBlock[0][i] + 1][Data.getInstance().nowBlock[1][i]] = true;
+			Data.getInstance().map[1][Data.getInstance().nowBlock[0][i] + 1][Data.getInstance().nowBlock[1][i]] = true;
 
-			if (Data.nowBlock[0][i] + 1 > 3 && Data.nowBlock[0][i] <= 7 && Data.nowBlock[1][i] == 0) {
-				Data.gameOver = true; // first line is game over....
-				Data.status = false;
+			if (Data.getInstance().nowBlock[0][i] + 1 > 3 && Data.getInstance().nowBlock[0][i] <= 7 && Data.getInstance().nowBlock[1][i] == 0) {
+				Data.getInstance().gameOver = true; // first line is game over....
+				Data.getInstance().status = false;
 			}
 		}
 	}
 	
-	/* ���� ���� */
+	/* 라인 삭제 */
 	
 	private void clearCheck() {
 		int i = 0;
 		/* line clear */
-		int combo = 0; // �ѹ��� ��� �����ߴ��� üũ
+		int combo = 0; //한번에 몇개를 삭제했는지 체크
 		for (int j = 0; j < 4; j++) {
 			for (i = 1; i < 11; i++) {
-				if (!Data.map[0][i][Data.nowBlock[1][j]]) {
+				if (!Data.getInstance().map[0][i][Data.getInstance().nowBlock[1][j]]) {
 					break;
 				} else if (i == 10) {
 					// clear line
-					Data.lineTemp = Data.nowBlock[1][j];
+					Data.getInstance().lineTemp = Data.getInstance().nowBlock[1][j];
 					combo++;
-					Data.comboCount++;
+					Data.getInstance().comboCount++;
 					for (int kx = 1; kx < 11; kx++) {
-						Data.map[0][kx][Data.nowBlock[1][j]] = false;
-						Data.map[1][kx][Data.nowBlock[1][j]] = false;
+						Data.getInstance().map[0][kx][Data.getInstance().nowBlock[1][j]] = false;
+						Data.getInstance().map[1][kx][Data.getInstance().nowBlock[1][j]] = false;
 					}
 					
 					/* each down 1line */
-					for (int ky = Data.nowBlock[1][j]; ky >= 0; ky--) {
+					for (int ky = Data.getInstance().nowBlock[1][j]; ky >= 0; ky--) {
 						for (int kx = 1; kx < 11; kx++) {
-							if (Data.map[0][kx][ky]) {
-								Data.map[0][kx][ky] = false;
-								Data.map[1][kx][ky] = false;
-								Data.map[0][kx][ky + 1] = true;
-								Data.map[1][kx][ky + 1] = true;
+							if (Data.getInstance().map[0][kx][ky]) {
+								Data.getInstance().map[0][kx][ky] = false;
+								Data.getInstance().map[1][kx][ky] = false;
+								Data.getInstance().map[0][kx][ky + 1] = true;
+								Data.getInstance().map[1][kx][ky + 1] = true;
 							}
 						}
 					}
@@ -429,28 +442,28 @@ public class Block {
 	/* 콤보 설정 */
 	private void comboCount(int combo) {
 		if (combo > 0) {
-			Data.clearMsg = combo + " line clear!";
-			if(Data.tSpin) {
+			Data.getInstance().clearMsg = combo + " line clear!";
+			if(Data.getInstance().tSpin) {
 				switch(combo) {
-				case 1:	Data.tSpinMsg = "  Single T-spin!"; break;
-				case 2: Data.tSpinMsg = "Back To Back~!"; break;
-				case 3: Data.tSpinMsg = " Triple T-spin!"; break;
+				case 1:	Data.getInstance().tSpinMsg = "  Single T-spin!"; break;
+				case 2: Data.getInstance().tSpinMsg = "Back To Back~!"; break;
+				case 3: Data.getInstance().tSpinMsg = " Triple T-spin!"; break;
 				}
 			}
 		} else {
-			Data.tSpinMsg = null;
-			Data.lineTemp = -1;
-			Data.comboCount = 0;
+			Data.getInstance().tSpinMsg = null;
+			Data.getInstance().lineTemp = -1;
+			Data.getInstance().comboCount = 0;
 		}
-		Data.lineCount = (int) Math.pow(2, combo);
-		Data.score += (Math.pow(2, combo) + Data.comboCount);
+		Data.getInstance().lineCount = (int) Math.pow(2, combo);
+		Data.getInstance().score += (Math.pow(2, combo) + Data.getInstance().comboCount);
 		// 15점마다 1씩증가
-		Data.level = Data.score / 15 + 1;
-		if (Data.levelSleep > 100) {
-			Data.levelSleep = 1600 - (Data.level * 50);
+		Data.getInstance().level = Data.getInstance().score / 15 + 1;
+		if (Data.getInstance().levelSleep > 100) {
+			Data.getInstance().levelSleep = 1600 - (Data.getInstance().level * 50);
 		} else {
-			if (Data.level > 25) Data.levelSleep = 50;
-			else if (Data.level > 32) Data.levelSleep = 30;
+			if (Data.getInstance().level > 25) Data.getInstance().levelSleep = 50;
+			else if (Data.getInstance().level > 32) Data.getInstance().levelSleep = 30;
 		}
 	}
 }

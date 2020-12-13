@@ -6,50 +6,73 @@ public class Data {
 	 [][1~10][]
 	 [][][0~20]
 	 left/right-0 bottom-1 */
-	public static boolean[][][] map = new boolean[2][12][21];
+	public boolean[][][] map = new boolean[2][12][21];
 	
 	/*0-x 1-y*/
-	public static int[][] nowBlock = new int[2][4];
+	public int[][] nowBlock = new int[2][4];
 	
 
-	public final static int BlockSize = 20;
+	public final int BlockSize = 20;
 
-	public static int idx=0;
-	public static int saveIdx=-1;
-	public static int spinIdx=0;
-	public static int nextIdx1=0;
-	public static int nextIdx2=0;
-	public static int nextIdx3=0;
-	public static int nextIdx4=0;
-	public static int nextIdx5=0;
+	public int idx=0;
+	public int saveIdx=-1;
+	public int spinIdx=0;
+	public int nextIdx1=0;
+	public int nextIdx2=0;
+	public int nextIdx3=0;
+	public int nextIdx4=0;
+	public int nextIdx5=0;
 	
-	public static int maxScore=0;
-	public static int score=0;
-	public static int lineX=0;
-	public static int lineY=0;
+	public int maxScore=0;
+	public int score=0;
+	public int lineX=0;
+	public int lineY=0;
 	
-	public static int level=0;
-	public static int levelSleep=0;
+	public int level=0;
+	public int levelSleep=0;
 	
-	public static boolean status = false;
-	public static boolean tSpin = false;
-	public static boolean savestatus = false;
-	public static boolean spacestatus = false;
-	public static boolean gameOver = false;
+	public boolean status = false;
+	public boolean tSpin = false;
+	public boolean savestatus = false;
+	public boolean spacestatus = false;
+	public boolean gameOver = false;
 	
-	public static int startCount = 0;
-	public static int startCountFontSize = 40;
-	public static int comboCount = 0;
-	public static int lineCount = 0;
-	public static int lineTemp = -1;
+	public int startCount = 0;
+	public int startCountFontSize = 40;
+	public int comboCount = 0;
+	public int lineCount = 0;
+	public int lineTemp = -1;
 	
-	public static String overMsg = null;
-	public static String clearMsg = null;
-	public static String tSpinMsg = null;
+	public String overMsg = null;
+	public String clearMsg = null;
+	public String tSpinMsg = null;
 	/* bX[] frist init
 	 * >> newBlock();
 	 * >> gameStart();
 	 * >> changeBlock(); if(saveBlock!=null)
 	 *   */
+	
+	private volatile static Data instance;
+	
+//	static {
+//		instance = new Data();
+//	}
+	
+	private Data(){}
+	
+	public static Data getInstance(){
+		if(instance == null) {
+			synchronized (Data.class) {
+				if(instance == null) {
+					instance = new Data();
+				}
+			}
+		}
+		return instance;
+	}
+	
+	public void distroy() {
+		instance = null;
+	}
 	
 }

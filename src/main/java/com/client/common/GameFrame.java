@@ -15,20 +15,22 @@ import javax.swing.JFrame;
 
 import com.client.panel.BackGroundPanel;
 import com.client.panel.CenterPanel;
+import com.client.lobby.WaitRoomUI;
 import com.client.main.GameMain;
+import com.client.main.GameMain.GameSingleton;
 import com.client.menu.TetrisMenuBar;
 import com.client.panel.NextPanel;
 import com.client.panel.SavePanel;
 import com.client.socket.SocketConnect;
 
-public class GameFrame extends JFrame implements KeyListener,Runnable{
+//public class GameFrame extends JFrame implements KeyListener,Runnable{
+public class GameFrame extends JFrame implements KeyListener, Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	public static BackGroundPanel bgp = null;
 	NextPanel np=new NextPanel();
 	SavePanel sp=new SavePanel();
 	CenterPanel cp=new CenterPanel();
-	
 	public GameFrame(){
 		super("testris!");
 		/* MenuBar */
@@ -72,7 +74,7 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 	
 	@Override
 	public void run() {
-		try {Thread.sleep(10);} catch (InterruptedException e1) { System.out.println("GameFrame Exit");}
+//		try {Thread.sleep(10);} catch (InterruptedException e1) { System.out.println("GameFrame Exit");}
 		cp.addKeyListener(this);
 		CenterPanel.btn.addActionListener(new ActionListener() {
 			@Override
@@ -91,7 +93,7 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CenterPanel.btnHold.setVisible(false);
-				Data.status=true;
+				Data.getInstance().status=true;
 				cp.requestFocus();
 				bgp.repaint();
 			}
@@ -99,8 +101,9 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 		CenterPanel.Exitbtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+//				GameMain.gameStart("E");
+//				GameMain.getInstance().gameExit();
 				dispose();
-				GameMain.gameStart("E");
 			}
 		});
 		
@@ -108,7 +111,7 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(Data.status){
+		if(Data.getInstance().status){
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 				Block.getInstance().left();
@@ -123,12 +126,12 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 				Block.getInstance().down();
 				break;
 			case 32:
-				//�����̽��ٷ� �س����� �ȵǼ� ���ڷ� ǥ��
-				Data.spacestatus = true;
+				//스페이스바로 해놓으면 안되서 숫자로 표기
+				Data.getInstance().spacestatus = true;
 				int i=0;
-				while (Data.spacestatus) {
+				while (Data.getInstance().spacestatus) {
 					if(i>1) {
-						Data.tSpin = false;
+						Data.getInstance().tSpin = false;
 					}
 					Block.getInstance().down();
 					i++;
@@ -145,7 +148,7 @@ public class GameFrame extends JFrame implements KeyListener,Runnable{
 				Block.getInstance().spin();
 				break;
 			case KeyEvent.VK_C:
-				if (Data.savestatus) Block.getInstance().saveBlock();
+				if (Data.getInstance().savestatus) Block.getInstance().saveBlock();
 				break;
 			default:
 				System.out.println(e.getKeyCode());

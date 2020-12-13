@@ -46,6 +46,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
+import com.client.common.DropBlock;
+import com.client.common.GameFrame;
 import com.client.lobby.DBDelete;
 import com.client.lobby.DBRevise;
 import com.client.lobby.EightClient;
@@ -207,7 +209,7 @@ public class WaitRoomUI extends JFrame implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// 방 들어가기
-				gameStart();
+				gameInfo("S");
 			}
 		});
 		panel2.add(startGameBtn);
@@ -465,9 +467,11 @@ public class WaitRoomUI extends JFrame implements ActionListener {
 		}
 	}
 	
-	private void gameStart() {
+	public void gameInfo(String flag) {
 		// 선택한 방 정보
-		GameMain.gameStart("S");
+//		GameMain gameMain = new GameMain();
+		GameMain.getInstance().gameStart();
+		
 	}
 	
 	public void maker() {
