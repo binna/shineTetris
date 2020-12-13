@@ -1,17 +1,51 @@
 package com.server.dao;
 
-import org.apache.ibatis.annotations.Param;
-import org.mybatis.spring.annotation.MapperScan;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
-@MapperScan
-public interface MemberJoinDAO {
-		// 신규 회원 등록 삽입
-		public int insert(
-				@Param("userid")String user_id, 
-				@Param("userpw")String user_pw, 
-				@Param("username")int user_name, 
-				@Param("email")int user_email, 
-				@Param("zipcode")String user_zipcode, 
-				@Param("address1")String user_address1, 
-				@Param("address2")String user_address2);
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class MemberJoinDAO{
+	@Autowired
+	private SqlSession sqlSession;
+	
+	private final String NAMESPACE = "com.server.dao.memberMapper.";
+	
+//	@Override
+//	public int insert(String user_id, String user_pw, int user_name, int user_email, String user_zipcode,
+//			String user_address1, String user_address2) {
+//		MemberJoinDAO dao = C.sqlSession.getMapper(MemberJoinDAO.class);
+//	
+//		return 0;
+//	}
+	
+	/*
+	public List<?> sampleSelectOne(Map<String, Object> dto)throws SQLException{
+		return sqlSession.selectOne(NAMESPACE+"selectTest");
+	}
+	public List<?> sampleSelectList(Map<String, Object> dto)throws SQLException{
+		return sqlSession.selectList(NAMESPACE+"selectTest");
+	}
+	
+	public Object sampleUpdate(Map<String, Object> dto)throws SQLException{
+		return sqlSession.update(NAMESPACE+"selectTest", dto);
+	}
+	*/
+	public int insertMember(Map<String, Object> dto)throws SQLException{
+		return sqlSession.insert(NAMESPACE+"memberInsert", dto);
+	}
+	
+//	public Object sampleDelete(Map<String, Object> dto)throws SQLException{
+//		return sqlSession.delete(NAMESPACE+"selectTest", dto);
+//	}
+	
+
+
+
+
+
 }

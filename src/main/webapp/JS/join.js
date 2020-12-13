@@ -3,14 +3,14 @@
 // 유효성 검사
 function sendit() {
 	// 객체 저장 
-	const userid = document.getElementById('userid');
-	const userpw = document.getElementById('userpw');
+	const userid = document.getElementById('user_id');
+	const userpw = document.getElementById('user_pw');
 	const userpw_re = document.getElementById('userpw_re');
-	const username = document.getElementById('username');
+	const username = document.getElementById('user_name');
 	const isSsn = document.getElementById('isSsn');
-	const zipcode = document.getElementById('sample6_postcode');
-	const address1 = document.getElementById('sample6_address');
-	const address2 = document.getElementById('sample6_detailAddress');
+	const zipcode = document.getElementById('user_zipcode');
+	const address1 = document.getElementById('user_address1');
+	const address2 = document.getElementById('user_address2');
 	
 	// 정규식
 	const expPwText = /^.*(?=^.{4,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()+=]).*$/;
@@ -85,7 +85,7 @@ function sendit() {
 //이메일 인증
 function doEmailAuth() {
 	// 이메일 검증을 위한 객체 생성
-	const email = document.getElementById('email');
+	const email = document.getElementById('user_email');
 
 	// 이메일 검증을 위한 정규식, 유효성 검사후 이메일 정보를 담을 변수
 	const expEmailText = /^[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z0-9\.\-]+$/;
@@ -148,9 +148,9 @@ function doEmailAuth() {
 function doEmailNumberAuth() {
 	// 객체 저장
 	const authNum = document.getElementById('emailAuthText');
-
+	
 	// 유효성 검사
-	if(userid.value.length < 10) {
+	if(authNum.value.length < 10) {
 		alert('이메일 인증번호는 10자리입니다.\다시 확인해주세요');
 		authNum.focus(); return false;
 	}
@@ -221,10 +221,10 @@ function sample6_execDaumPostcode() {
 			}
 
 			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			document.getElementById('sample6_postcode').value = data.zonecode;
-			document.getElementById("sample6_address").value = addr;
+			document.getElementById('user_zipcode').value = data.zonecode;
+			document.getElementById("user_address1").value = addr;
 			// 커서를 상세주소 필드로 이동한다.
-			document.getElementById("sample6_detailAddress").focus();
+			document.getElementById("user_address2").focus();
 		}
     }).open();
 } // end sample6_execDaumPostcode()

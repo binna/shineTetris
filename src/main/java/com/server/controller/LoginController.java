@@ -1,18 +1,23 @@
 package com.server.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.server.common.C;
 import com.server.dto.EmailDTO;
 import com.server.service.EmailService;
+import com.server.service.LoginService;
+import com.server.util.CommonUtil;
 
 @Controller
 @RequestMapping("/login/*")
@@ -20,17 +25,22 @@ public class LoginController {
 	
 	String joinSecurityKey = "";
 	
-	private SqlSession sqlSession;
+	@Autowired
+	LoginService loginService;
 	
-	public LoginController() {
-		System.out.println("Controller() 생성");
-	}
+//	private SqlSession sqlSession;
+//	
+//	public LoginController() {
+//		System.out.println("Controller() 생성");
+//	}
+//	
+//	@Autowired  
+//	public void setSqlSession(SqlSession sqlSession) {
+//		this.sqlSession = sqlSession;
+//		C.sqlSession = sqlSession;
+//	}
 	
-	@Autowired  
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-		C.sqlSession = sqlSession;
-	}
+	
 	
 	@GetMapping("/all")
 	public void doAll() {  // 리턴타입 없으면 url 과 같은 경로의 jsp 파일을 찾는다.
@@ -49,8 +59,26 @@ public class LoginController {
 	 
 	 // 회원가입 insert
 	 @RequestMapping("/insert")
-	 public void doInsert() {
+	 @ResponseBody
+	 public HashMap<String, Object> doInsert(HttpServletRequest request) {
+		 HashMap<String, Object>map =  new HashMap<String, Object>();
+		 //ajax로 들어온값 Map형식으로 변환 웹의 id값 기준
+		 Map<String, Object> dto = CommonUtil.request2Map(request);
+		 try {
+			 //어떤값이 들어왔는지 확인용
+//			 for (String key : dto.keySet()) {
+//					String value = String.valueOf(dto.get(key));
+//					System.out.println(key + " : " + value);
+//				}
+			map = loginService.insertMember(dto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			map.put("code", "9999");
+			map.put("message", e.getMessage());
+		}
 		 
+		 return map;
 	 }
 	 
 	 // 회원 가입 이메일 발송
