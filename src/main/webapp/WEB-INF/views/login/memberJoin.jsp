@@ -31,7 +31,7 @@ button:focus {
 						<!-- <h2>Login</h2> -->
 					</div>
 					<div>
-						<form name="regform" id="regform" action="${path}/tetris/login/memberJoin" method="post" onsubmit="return sendit()">
+						<form name="regform" id="regform" class="sign-in-reg-form" action="${path}/tetris/login/memberJoin" method="post" onsubmit="return sendit()">
 							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 							<p><label>아이디 : <input type="text" name="userid" id="userid" maxlength="20"></label></p>
 							<p><label>비밀번호 : <input type="password" name="userpw" id="userpw" maxlength="20"></label></p>
