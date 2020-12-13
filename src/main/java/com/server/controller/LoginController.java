@@ -62,14 +62,14 @@ public class LoginController {
 	 @ResponseBody
 	 public HashMap<String, Object> doInsert(HttpServletRequest request) {
 		 HashMap<String, Object>map =  new HashMap<String, Object>();
-		 //ajax로 들어온값 Map형식으로 변환 웹의 id값 기준
+		 //ajax로 들어온값 Map형식으로 변환 웹의 name값 기준
 		 Map<String, Object> dto = CommonUtil.request2Map(request);
 		 try {
 			 //어떤값이 들어왔는지 확인용
-//			 for (String key : dto.keySet()) {
-//					String value = String.valueOf(dto.get(key));
-//					System.out.println(key + " : " + value);
-//				}
+			 for (String key : dto.keySet()) {
+					String value = String.valueOf(dto.get(key));
+					System.out.println(key + " : " + value);
+				}
 			map = loginService.insertMember(dto);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

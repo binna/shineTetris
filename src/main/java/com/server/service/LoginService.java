@@ -18,12 +18,13 @@ public class LoginService{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		int successCode = 0;
+		for (String key : dto.keySet()) {
+			String value = String.valueOf(dto.get(key));
+			System.out.println(key + " : " + value);
+		}
 		successCode = memberJoinDao.insertMember(dto);
 //		map2 = list.get(0);
-//		for (String key : map2.keySet()) {
-//			String value = String.valueOf(map2.get(key));
-//			System.out.println(key + " : " + value);
-//		}
+//		
 		System.out.println("successCode >>>>"+successCode);
 		map.put("code", successCode);
 		return map;
