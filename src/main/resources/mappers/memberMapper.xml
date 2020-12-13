@@ -21,5 +21,16 @@
 			#{user_address2}
 		)
 	</insert>
-
+	
+	<update id="memberUpdate" parameterType="java.util.HashMap">
+		UPDATE tcm_member SET  
+			user_pw = #{user_pw},
+			user_name = #{user_name},
+			user_email = #{user_email},
+			user_zipcode = #{user_zipcode},
+			user_address1 = #{user_address1},
+			user_address2 = #{user_address2}
+		WHERE user_id = #{user_id}
+	</update>
+	
 </mapper>

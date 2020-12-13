@@ -30,11 +30,11 @@ public class MemberJoinDAO{
 	public List<?> sampleSelectList(Map<String, Object> dto)throws SQLException{
 		return sqlSession.selectList(NAMESPACE+"selectTest");
 	}
-	
-	public Object sampleUpdate(Map<String, Object> dto)throws SQLException{
-		return sqlSession.update(NAMESPACE+"selectTest", dto);
-	}
 	*/
+	public int updateMember(Map<String, Object> dto)throws SQLException{
+		return sqlSession.update(NAMESPACE+"memberUpdate", dto);
+	}
+	
 	public int insertMember(Map<String, Object> dto)throws SQLException{
 		return sqlSession.insert(NAMESPACE+"memberInsert", dto);
 	}

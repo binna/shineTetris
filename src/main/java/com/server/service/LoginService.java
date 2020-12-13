@@ -18,11 +18,27 @@ public class LoginService{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		int successCode = 0;
-		for (String key : dto.keySet()) {
-			String value = String.valueOf(dto.get(key));
-			System.out.println(key + " : " + value);
-		}
+//		for (String key : dto.keySet()) {
+//			String value = String.valueOf(dto.get(key));
+//			System.out.println(key + " : " + value);
+//		}
 		successCode = memberJoinDao.insertMember(dto);
+//		map2 = list.get(0);
+//		정상적으로 update되면 1값을 리턴
+		System.out.println("successCode >>>>"+successCode);
+		map.put("code", successCode);
+		return map;
+	}
+	
+	public HashMap<String, Object>updateMember(Map<String, Object> dto) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int successCode = 0;
+//		for (String key : dto.keySet()) {
+//			String value = String.valueOf(dto.get(key));
+//			System.out.println(key + " : " + value);
+//		}
+		successCode = memberJoinDao.updateMember(dto);
 //		map2 = list.get(0);
 //		
 		System.out.println("successCode >>>>"+successCode);
