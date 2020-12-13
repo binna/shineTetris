@@ -22,9 +22,9 @@ import com.client.common.Data;
 import com.client.common.GameFrame;
 
 public class CenterPanel extends JPanel {
-	public static JButton btn;
-	public static JButton Exitbtn;
-	public static JButton btnHold;
+	public static JButton btn = null;
+	public static JButton Exitbtn = null;
+	public static JButton btnHold = null;
 	/*
 	 * s: 시작 e: 끝 x: x좌표 y: y좌표
 	 * size : 증감값
@@ -68,78 +68,78 @@ public class CenterPanel extends JPanel {
 		g.fillRect(sX, sY, eX - sX, eY - sY);
 		g.setColor(Color.gray);
 		for (int i = 1; i <= 19; i++) {
-			g.drawLine(sX, sY + (Data.BlockSize * i), eX, sY + (Data.BlockSize * i));
+			g.drawLine(sX, sY + (Data.getInstance().BlockSize * i), eX, sY + (Data.getInstance().BlockSize * i));
 		}
 
 		for (int i = 1; i <= 9; i++) {
-			g.drawLine(sX + (Data.BlockSize * i), sY, sX + (Data.BlockSize * i), eY);
+			g.drawLine(sX + (Data.getInstance().BlockSize * i), sY, sX + (Data.getInstance().BlockSize * i), eY);
 		}
 		
 		//M A P block x좌표는 -20 
 		for(int i=0;i<12;i++){
 			for(int j=0;j<21;j++){
-				if(Data.map[0][i][j]&&Data.map[1][i][j]){
-					int mx = sX-Data.BlockSize+(Data.BlockSize*i);
-					int my = sY+(Data.BlockSize*j);
+				if(Data.getInstance().map[0][i][j]&&Data.getInstance().map[1][i][j]){
+					int mx = sX-Data.getInstance().BlockSize+(Data.getInstance().BlockSize*i);
+					int my = sY+(Data.getInstance().BlockSize*j);
 					g.setColor(Color.darkGray);
-					g.fillRect(mx, my, Data.BlockSize, Data.BlockSize);
+					g.fillRect(mx, my, Data.getInstance().BlockSize, Data.getInstance().BlockSize);
 					g.setColor(Color.white);
-					g.drawRect(mx, my, Data.BlockSize, Data.BlockSize);
+					g.drawRect(mx, my, Data.getInstance().BlockSize, Data.getInstance().BlockSize);
 				}
 		}}
 		
 		//게임시작  count
-		if(Data.startCount!=0) {
+		if(Data.getInstance().startCount!=0) {
 			g.setColor(Color.CYAN);
-			g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN,Data.startCountFontSize));
+			g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN,Data.getInstance().startCountFontSize));
 //			g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 40));
-			g.drawString(String.valueOf(Data.startCount), 110, 400);
-		}else if(Data.overMsg!=null) {
+			g.drawString(String.valueOf(Data.getInstance().startCount), 110, 400);
+		}else if(Data.getInstance().overMsg!=null) {
 			//gameover 타이틀
 			g.setColor(new Color(173, 173, 173));
 			g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN,50));
-			g.drawString(Data.overMsg, 50, 280);
+			g.drawString(Data.getInstance().overMsg, 50, 280);
 //			paintComponentString(Data.overMsg, -198, 280, g, Color.GRAY, new Color(211, 211, 211));
 		}
 		
 		//안쪽 블럭
-		if(Data.status) {
+		if(Data.getInstance().status) {
 			for(int i=0;i<4;i++) {
-				int bx = sX+(Data.BlockSize*Data.nowBlock[0][i]);
-				int by = sY+(Data.BlockSize*Data.nowBlock[1][i]);
+				int bx = sX+(Data.getInstance().BlockSize*Data.getInstance().nowBlock[0][i]);
+				int by = sY+(Data.getInstance().BlockSize*Data.getInstance().nowBlock[1][i]);
 				g.setColor(Color.blue);
-				g.fillRect(bx, by, Data.BlockSize, Data.BlockSize);
+				g.fillRect(bx, by, Data.getInstance().BlockSize, Data.getInstance().BlockSize);
 				g.setColor(Color.white);
-				g.drawRect(bx, by, Data.BlockSize, Data.BlockSize);
+				g.drawRect(bx, by, Data.getInstance().BlockSize, Data.getInstance().BlockSize);
 			}
 		}
 		
 		//Score
 		g.setFont(new Font("Bahnschrift", Font.BOLD, 20));	
 		g.setColor(Color.MAGENTA);
-		if(Data.lineTemp>-1) {		
-			g.drawString("+"+Data.lineCount, 310, sY+(Data.lineTemp*Data.BlockSize));
-			g.drawString("+"+Data.comboCount, 320, sY+(Data.lineTemp*Data.BlockSize)+20);		
+		if(Data.getInstance().lineTemp>-1) {		
+			g.drawString("+"+Data.getInstance().lineCount, 310, sY+(Data.getInstance().lineTemp*Data.getInstance().BlockSize));
+			g.drawString("+"+Data.getInstance().comboCount, 320, sY+(Data.getInstance().lineTemp*Data.getInstance().BlockSize)+20);		
 		}
 		
 		//라인클리어시 나오는 점수 TSPIN
-		if(Data.tSpinMsg!=null) {		
+		if(Data.getInstance().tSpinMsg!=null) {		
 			g.setFont(new Font("Bahnschrift", Font.ITALIC, 30));		
 			g.setColor(Color.MAGENTA);
-			g.drawString(Data.tSpinMsg, 70, 200);
+			g.drawString(Data.getInstance().tSpinMsg, 70, 200);
 		}
 		
 		//Combo MSG
 		g.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 50));		
-		if(Data.comboCount>0&&Data.comboCount<4) {
+		if(Data.getInstance().comboCount>0&&Data.getInstance().comboCount<4) {
 //			g.setColor(new Color(196,156,72));
 //			g.drawString("Good!", 110, 650);
 			paintComponentString("Good!", -135, 600, g, new Color(196,156,72), new Color(211, 211, 211));
-		}else if(Data.comboCount>3&&Data.comboCount<7) {		
+		}else if(Data.getInstance().comboCount>3&&Data.getInstance().comboCount<7) {		
 //			g.setColor(new Color(216,216,216));
 //			g.drawString("Very Good!!", 70, 650);
 			paintComponentString("Very Good!!", -185, 600, g, new Color(216,216,216), new Color(211, 211, 211));
-		}else if(Data.comboCount>6){		
+		}else if(Data.getInstance().comboCount>6){		
 //			g.setColor(new Color(200,159,35));
 //			g.drawString("Excellent!!!", 70, 650);
 			paintComponentString("Excellent!!!!", -185, 600, g, new Color(200,159,35), new Color(211, 211, 211));

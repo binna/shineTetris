@@ -32,27 +32,27 @@ public class SavePanel extends JPanel{
 	int sX = 100;
 	int sY = 220;
 	
-	int bsX=sX+Data.BlockSize*2-8;
-	int bsY=sY+Data.BlockSize*2;
+	int bsX=sX+Data.getInstance().BlockSize*2-8;
+	int bsY=sY+Data.getInstance().BlockSize*2;
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.white);
 		g.setFont(status);
-		g.drawString("SAVE : "+String.valueOf(Data.savestatus).toUpperCase(), sX+17, sY-60);
+		g.drawString("SAVE : "+String.valueOf(Data.getInstance().savestatus).toUpperCase(), sX+17, sY-60);
 		g.setFont(font);
 		g.drawString("[SAVE]", sX+20, sY-20);
 		
 		// Block 다음블럭
-		if(Data.saveIdx!=-1){
+		if(Data.getInstance().saveIdx!=-1){
 		for(int i=0;i<4;i++){
-			int x = bsX+(Block.getInstance().bX[Data.saveIdx][i]*Data.BlockSize);
-			int y = bsY+(Block.getInstance().bY[Data.saveIdx][i]*Data.BlockSize)-20;
+			int x = bsX+(Block.getInstance().bX[Data.getInstance().saveIdx][i]*Data.getInstance().BlockSize);
+			int y = bsY+(Block.getInstance().bY[Data.getInstance().saveIdx][i]*Data.getInstance().BlockSize)-20;
 			
 			g.setColor(Color.red);
-			g.fillRect(x, y, Data.BlockSize, Data.BlockSize);
+			g.fillRect(x, y, Data.getInstance().BlockSize, Data.getInstance().BlockSize);
 			g.setColor(Color.white);
-			g.drawRect(x, y, Data.BlockSize, Data.BlockSize);
+			g.drawRect(x, y, Data.getInstance().BlockSize, Data.getInstance().BlockSize);
 		}}else {
 			g.setFont(X);
 			g.drawString("?", sX+40, sY+40);
@@ -60,11 +60,11 @@ public class SavePanel extends JPanel{
 		}
 		g.setColor(Color.white);
 		g.setFont(font);
-		g.drawString("MAX  : "+Data.maxScore , sX-30, sY+200);
-		g.drawString("SCORE : "+Data.score , sX-30, sY+230);
-		g.drawString(Data.comboCount+" COMBO~",sX-30,sY+260);
-		if(Data.clearMsg!=null) {
-			g.drawString(Data.clearMsg, sX-30, sY+290);
+		g.drawString("MAX  : "+Data.getInstance().maxScore , sX-30, sY+200);
+		g.drawString("SCORE : "+Data.getInstance().score , sX-30, sY+230);
+		g.drawString(Data.getInstance().comboCount+" COMBO~",sX-30,sY+260);
+		if(Data.getInstance().clearMsg!=null) {
+			g.drawString(Data.getInstance().clearMsg, sX-30, sY+290);
 		}
 	}
 }

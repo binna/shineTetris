@@ -5,13 +5,13 @@ public class DropBlock extends Thread{
 	private void startCount() {
 		try{
 			for(int i=0;i<20;i++){
-				Data.startCountFontSize-=7;
+				Data.getInstance().startCountFontSize-=7;
 				Thread.sleep(50);
 				GameFrame.bgp.repaint();
 			}
-			Data.startCountFontSize=260;
-			Data.startCount--;
-			if(Data.startCount==0){
+			Data.getInstance().startCountFontSize=260;
+			Data.getInstance().startCount--;
+			if(Data.getInstance().startCount==0){
 				Block.getInstance().gameStart();
 				GameFrame.bgp.repaint();
 			}
@@ -23,7 +23,7 @@ public class DropBlock extends Thread{
 		try {
 			for(int i=1;i<=9;i++){
 				Thread.sleep(300);
-				Data.overMsg="GAME OVER".substring(0, i);
+				Data.getInstance().overMsg="GAME OVER".substring(0, i);
 				GameFrame.bgp.repaint();
 			}
 		} catch (Exception e) {}
@@ -32,7 +32,7 @@ public class DropBlock extends Thread{
 	
 	private void gameStart() {
 		try{
-			Thread.sleep(Data.levelSleep);
+			Thread.sleep(Data.getInstance().levelSleep);
 			Block.getInstance().down();
 			GameFrame.bgp.repaint();
 		}catch(Exception e){}
@@ -42,9 +42,9 @@ public class DropBlock extends Thread{
 		
 		while(true){
 			try {Thread.sleep(10);} catch (InterruptedException e1) {System.out.println("DropBlock Exit");}
-			if(Data.gameOver)	gameOver();
-			if(Data.startCount>0) startCount();		
-			if(Data.status) gameStart(); 
+			if(Data.getInstance().gameOver)	gameOver();
+			if(Data.getInstance().startCount>0) startCount();		
+			if(Data.getInstance().status) gameStart(); 
 		}
 	}
 	

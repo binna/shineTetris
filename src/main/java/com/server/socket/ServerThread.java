@@ -31,7 +31,7 @@ public class ServerThread extends Thread {
 	
 	//sql문 고정
 //	private final String rankSQL = "select T.* from (select * from trm_score order by score desc)T where T.score>''  limit 10 ";
-	private final String rankSQL = "SELECT TM.USER_NM, TS.SCORE, STR_TO_DATE(TS.REG_DT,'%Y%m%d%H%i%S') as REG_DT FROM trm_score TS LEFT OUTER JOIN tcm_member TM ON TM.USER_ID = TS.USER_ID where TS.score>''  limit 10 ";
+	private final String rankSQL = "SELECT USER_NM, SCORE, STR_TO_DATE(REG_DT,'%Y%m%d%H%i%S') as REG_DT FROM trm_score where score>''  limit 10 ";
 	
 	//private final String insertSQL = "insert into tcm_member (user_seq, user_id, pwd, user_nm, score) values(NEXTVAL(member_user_seq),?,?,?,?)";
 	private final String insertSQL = "insert into trm_score values(NEXTVAL(rank_seq), ?, ?, DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 9 HOUR),'%Y%m%d%H%i%S'));";

@@ -17,8 +17,8 @@ public class Item2 extends JMenuItem{
 		setMnemonic('s');
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Data.maxScore>0) {
-					SocketConnect.getInstance().InsertRank(Data.maxScore);
+				if(Data.getInstance().maxScore>0) {
+					SocketConnect.getInstance().InsertRank(Data.getInstance().maxScore);
 				}else {
 					JOptionPane.showMessageDialog(getParent(),"게임을 진행하세요!");
 				}
