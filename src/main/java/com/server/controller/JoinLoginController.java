@@ -19,7 +19,6 @@ import com.server.dto.AjaxResultDTO;
 import com.server.dto.UserDTO;
 import com.server.service.EmailService;
 import com.server.service.JoinLoginService;
-import com.server.util.CommonUtil;
 
 @Controller
 @RequestMapping("/login/*")

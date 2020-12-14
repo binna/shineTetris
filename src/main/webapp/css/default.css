@@ -10,7 +10,7 @@
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 12pt;
 		font-weight: 400;
-		color: #515151;
+		color: #fff;
 	}
 	
 	
@@ -65,7 +65,7 @@
 		width:100%;
 		height:100%;
 	    background: url('/tetris/images/bg.jpg') no-repeat;
-		background-size: cover
+		background-size: 100% 100%;
 	}
 /*********************************************************************************/
 /* Image Style                                                                   */
@@ -257,6 +257,22 @@
 		text-align: center;
 		color: #272925;
 	}
+	
+	.button .imgbtn
+	{
+		background-color: #ffffff;
+        opacity: 0.5;
+	}
+	.btm_image{
+        border: 1px solid skyblue;
+        background-color: rgba(0,0,0,0);
+        color: skyblue;
+        padding: 5px;
+    }
+    .btm_image:hover{
+        color:white;
+        background-color: skyblue;
+    }
 		
 /*********************************************************************************/
 /* Heading Titles                                                                */
@@ -423,6 +439,46 @@
 		height: 31.2em;
 	}
 	
+	.main-content
+	{
+		float: left;
+		width: 500px;
+		padding: 50px;
+		background-image: url('/tetris/images/welcome.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: 31.2em;
+	}
+/*********************************************************************************/
+/* main-form                                                                  */
+/*********************************************************************************/
+
+	.main-content .main-form   
+	{
+		width:100%;
+	}
+	
+	.main-content .main-form .title
+	{
+		margin-bottom: 1em;
+	}
+
+	.main-content .main-form .title h2
+	{
+		font-size: 1.8em;
+	}	
+	
+	.main-content .main-form .main-sub-title
+	{
+		width:100%;
+		min-height: 24px
+	}
+	
+	.main-content .main-form .main-sub-content
+	{
+	    width:100%;
+	    margin-top: 10%
+	}
 /*********************************************************************************/
 /* Sidebar                                                                       */
 /*********************************************************************************/
@@ -533,6 +589,7 @@
 	{
 		font-size: 1.8em;
 	}
+
 /*********************************************************************************/
 /* sign-in-form                                                                  */
 /*********************************************************************************/
