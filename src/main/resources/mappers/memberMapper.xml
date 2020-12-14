@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.server.dao.memberMapper">
 
+	<!-- 회원 가입 insert -->
 	<insert id="memberInsert" parameterType="java.util.HashMap">
 		INSERT INTO tcm_member (
 			user_id,
@@ -21,6 +22,12 @@
 			#{user_address2}
 		)
 	</insert>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM shineTetris.tcm_member
+		WHERE user_id=#{user_id}
+	</select>
 	
 	<update id="memberUpdate" parameterType="java.util.HashMap">
 		UPDATE tcm_member SET  

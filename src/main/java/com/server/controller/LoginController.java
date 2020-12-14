@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dto.EmailDTO;
 import com.server.service.EmailService;
-import com.server.service.LoginService;
+import com.server.service.JoinLoginService;
 import com.server.util.CommonUtil;
 
 @Controller
@@ -26,21 +27,7 @@ public class LoginController {
 	String joinSecurityKey = "";
 	
 	@Autowired
-	LoginService loginService;
-	
-//	private SqlSession sqlSession;
-//	
-//	public LoginController() {
-//		System.out.println("Controller() 생성");
-//	}
-//	
-//	@Autowired  
-//	public void setSqlSession(SqlSession sqlSession) {
-//		this.sqlSession = sqlSession;
-//		C.sqlSession = sqlSession;
-//	}
-	
-	
+	JoinLoginService loginService;
 	
 	@GetMapping("/all")
 	public void doAll() {  // 리턴타입 없으면 url 과 같은 경로의 jsp 파일을 찾는다.
@@ -52,34 +39,31 @@ public class LoginController {
 		System.out.println("doMember() : access member only");
 	}
 	
-	 @GetMapping("/memberJoin")
-	 public void doMemberJoin(){
-		 System.out.println("doMemberJoin()");
-	 }
+	// 회원가입
+	@GetMapping("/memberJoin")
+	public void doMemberJoin(){
+		System.out.println("doMemberJoin()");
+	}
 	 
-	 // 회원가입 insert
-	 @RequestMapping("/insert")
-	 @ResponseBody
-	 public HashMap<String, Object> doInsert(HttpServletRequest request) {
-		 HashMap<String, Object>map =  new HashMap<String, Object>();
-		 //ajax로 들어온값 Map형식으로 변환 웹의 name값 기준
-		 Map<String, Object> dto = CommonUtil.request2Map(request);
-		 try {
-			 //어떤값이 들어왔는지 확인용
-			 for (String key : dto.keySet()) {
-					String value = String.valueOf(dto.get(key));
-					System.out.println(key + " : " + value);
-				}
+	// 회원가입 insert
+	@RequestMapping("/insert")
+	@ResponseBody
+	public HashMap<String, Object> doInsert(HttpServletRequest request) {
+		HashMap<String, Object>map =  new HashMap<String, Object>();
+		 
+		//ajax로 들어온값 Map형식으로 변환 웹의 name값 기준
+		Map<String, Object> dto = CommonUtil.request2Map(request);
+		 
+		try {
 			map = loginService.insertMember(dto);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			map.put("code", "9999");
 			map.put("message", e.getMessage());
 		}
-		 
-		 return map;
-	 }
+ 
+		return map;
+	}
 	 
 	// 회원정보 update
 	 @RequestMapping("/update")

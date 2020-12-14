@@ -9,43 +9,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MemberJoinDAO{
+public class MemberJoinDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
 	private final String NAMESPACE = "com.server.dao.memberMapper.";
 	
-//	@Override
-//	public int insert(String user_id, String user_pw, int user_name, int user_email, String user_zipcode,
-//			String user_address1, String user_address2) {
-//		MemberJoinDAO dao = C.sqlSession.getMapper(MemberJoinDAO.class);
-//	
-//		return 0;
-//	}
-	
-	/*
-	public List<?> sampleSelectOne(Map<String, Object> dto)throws SQLException{
-		return sqlSession.selectOne(NAMESPACE+"selectTest");
-	}
-	public List<?> sampleSelectList(Map<String, Object> dto)throws SQLException{
-		return sqlSession.selectList(NAMESPACE+"selectTest");
-	}
-	*/
-	public int updateMember(Map<String, Object> dto)throws SQLException{
-		return sqlSession.update(NAMESPACE+"memberUpdate", dto);
+	// 회원 가입 insert
+	public int insertMember(Map<String, Object> dto) throws SQLException {
+		return sqlSession.insert(NAMESPACE + "memberInsert", dto);
 	}
 	
-	public int insertMember(Map<String, Object> dto)throws SQLException{
-		return sqlSession.insert(NAMESPACE+"memberInsert", dto);
+	// 아이디 중복 검사
+	public int idChk(Map<String, Object> dto) throws SQLException {
+		return sqlSession.selectOne(NAMESPACE + "idChk", dto);
 	}
 	
-	public int deleteMember(Map<String, Object> dto)throws SQLException{
-		return sqlSession.delete(NAMESPACE+"memberDelete", dto);
+	public int updateMember(Map<String, Object> dto) throws SQLException {
+		return sqlSession.update(NAMESPACE + "memberUpdate", dto);
 	}
 	
-
-
-
-
+	
+	public int deleteMember(Map<String, Object> dto) throws SQLException {
+		return sqlSession.delete(NAMESPACE + "memberDelete", dto);
+	}
 
 }

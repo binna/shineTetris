@@ -23,4 +23,6 @@ CREATE TABLE shineTetris.tcm_member(
 );
 
 SELECT * FROM shineTetris.tcm_member;
+SELECT COUNT(*) FROM shineTetris.tcm_member WHERE user_id="user0";
+
 DROP TABLE shineTetris.tcm_member;
