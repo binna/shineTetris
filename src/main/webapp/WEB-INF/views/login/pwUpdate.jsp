@@ -12,17 +12,17 @@
 </head>
 <body>
 
-<form name="regform" id="regform" action="${path}/tetris/login/pwUpdateOk" method="post" onclick="senditPw()">
-	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+	<form name="regform" id="regform" action="${path}/tetris/login/pwUpdateOk" method="post" onsubmit="senditPw()">
+		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+		
+		<p><label>현재 비밀번호 : <input type="password" name="userpw_now" id="userpw_now" maxlength="20"></label></p>
+		<p><label>변경할 비밀번호 : <input type="password" name="user_pw" id="user_pw" maxlength="20"></label></p>
+		<p><label>변경할 비밀번호 확인 : <input type="password" name="userpw_re" id="userpw_re" maxlength="20"></label></p>
 	
-	<p><label>현재 비밀번호 : <input type="password" name="userpw_now" id="userpw_now" maxlength="20"></label></p>
-	<p><label>변경할 비밀번호 : <input type="password" name="user_pw" id="user_pw" maxlength="20"></label></p>
-	<p><label>변경할 비밀번호 확인 : <input type="password" name="userpw_re" id="userpw_re" maxlength="20"></label></p>
-
-	<input type="button" name="user_id" id="user_id" value="${user_id}">
-								
-	<p><input type="submit" value="수정완료"></p>
-</form>
+		<input type="hidden" name="user_id" id="user_id" value="${user_id}">
+									
+		<p><input type="submit" value="수정완료"></p>
+	</form>
 
 </body>
 </html>

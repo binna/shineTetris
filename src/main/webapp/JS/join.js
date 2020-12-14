@@ -320,7 +320,7 @@ function senditEmail() {
 function senditPw() {
 	// 객체 저장
 	const userpw_now = document.getElementById('userpw_now');
-	const userpw = document.getElementById('user_pw');
+	const user_pw = document.getElementById('user_pw');
 	const userpw_re = document.getElementById('userpw_re');
 	
 	// 정규식
@@ -332,19 +332,24 @@ function senditPw() {
 		userpw_now.focus();
 		return false;
 	}
-	if(userpw.value == '') {
+	if(user_pw.value == '') {
 		alert('변경할 비밀번호를 입력하세요.');
-		userpw.focus();
+		user_pw.focus();
 		return false;
 	}
-	if(expPwText.test(userpw.value) == false) {
+	if(expPwText.test(user_pw.value) == false) {
 		alert('변경할 비밀번호 형식을 확인하세요.\n 4자이상 대소문자 특수문자 포함된 비밀번호만 가능합니다.');
-		userpw.focus();
+		user_pw.focus();
 		return false;
 	}
 	if(userpw_re.value == '') {
 		alert('변경할 비밀번호 확인을 입력하세요.');
 		userpw_re.focus();
+		return false;
+	}
+	if(user_pw.value != userpw_re.value) {
+		alert('비밀번호와 비밀번호 확인의 값이 서로 다릅니다.');
+		user_pw.focus();
 		return false;
 	}
 } // end senditPw()
