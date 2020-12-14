@@ -46,14 +46,14 @@ button:focus {
 							<p>상세주소 : <input type="text" name="address2" id="sample6_detailAddress" value="${user_address2}"></p>
 							
 							<!-- 버튼 -->
-							<p><input type="submit" value="수정완료"></p>
-							<p><button type="button" 
+							<p><input type="submit" class="button"value="수정완료"></p>
+							<p><button type="button" class="button" 
 								onclick="window.open('${pageContext.request.contextPath}/login/pwUpdate?userId=${user_id}', 
 												 	 '비밀번호 변경', 'width=500, height=500')">비밀번호 변경</button>
-							<button type="button" 
+							<button type="button" class="button"
 								onclick="window.open('${pageContext.request.contextPath}/login/emailUpdate?userId=${user_id}', 
-												 	 '이메일 변경', 'width=500, height=500')">이메일 변경</button>
-							<button type="button" onclick="doDelete()">회원 정보 삭제</button></p>
+												 	 '이메일 변경', 'width=500, height=500'),''">이메일 변경</button>
+							<button type="button" class="button" onclick="doDelete()">회원 정보 삭제</button></p>
 						</form>
 						
 					</div>
