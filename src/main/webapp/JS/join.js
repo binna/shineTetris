@@ -308,6 +308,7 @@ function senditUpdate() {
 	
 }
 
+// 이메일 변경 유효성 검사
 function senditEmail() {
 	// 이메일 유효성
 	if(isSsn.value == 'false') {
@@ -317,6 +318,7 @@ function senditEmail() {
 	}
 } // end senditEmail()
 
+// 비밀번호 유효성 검사
 function senditPw() {
 	// 객체 저장
 	const userpw_now = document.getElementById('userpw_now');
