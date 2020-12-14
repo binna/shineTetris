@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CommonController {
-	private static final String FILE_SERVER_PATH = "C:/test";
 	
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model) {
@@ -44,8 +43,8 @@ public class CommonController {
 	}
 
 	@RequestMapping("/download")
-	public ModelAndView download(@RequestParam HashMap<Object, Object> params, ModelAndView mv) {
-		String fullPath = FILE_SERVER_PATH + "/gamefile.jar";
+	public ModelAndView download(ModelAndView mv) {
+		String fullPath = "C:/test/gamefile.jar";
 		File file = new File(fullPath);
 		
 		mv.setViewName("downloadView");

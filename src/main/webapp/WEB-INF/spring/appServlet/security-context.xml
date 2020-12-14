@@ -19,8 +19,7 @@
 		<security:intercept-url pattern="/login/member" access="hasRole('ROLE_USER')"/>
 		
 		<!-- login 페이지 -->
-		<security:form-login login-page="/customLogin" />
-		
+		<security:form-login login-page="/customLogin" default-target-url="/login/member"/>
 		<!-- 로그아웃 처리 -->
 		<security:logout logout-url="/customLogout" invalidate-session="true"/>
 		
