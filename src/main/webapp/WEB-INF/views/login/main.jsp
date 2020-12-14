@@ -10,5 +10,7 @@
 <body>
 <h1>/sample/all page</h1>
 
+<button type="button" onclick="location.href='${pageContext.request.contextPath}/login/member'">로그인</button>
+
 </body>
 </html>
