@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.server.dto.UserDTO;
+
 @Repository
 public class MemberJoinDAO {
 	@Autowired
@@ -25,21 +27,21 @@ public class MemberJoinDAO {
 		return sqlSession.selectOne(NAMESPACE + "idChk", user_id);
 	}
 	
+	// 기본 회원 정보 수정 위해 검색
+	public UserDTO selectMember(String user_id) throws SQLException {
+		return sqlSession.selectOne(NAMESPACE + "selectMember", user_id);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	public int updateMember(Map<String, Object> dto) throws SQLException {
-		return sqlSession.update(NAMESPACE + "memberUpdate", dto);
+	// 기본 회원 정보 수정 Update
+	public int memberUpdate(UserDTO userdto) throws SQLException {
+		return sqlSession.update(NAMESPACE + "selectMember", userdto);
 	}
 	
 	
-	public int deleteMember(Map<String, Object> dto) throws SQLException {
-		return sqlSession.delete(NAMESPACE + "memberDelete", dto);
+	
+	// 회원정보 삭제
+	public int deleteMember(String user_id) throws SQLException {
+		return sqlSession.delete(NAMESPACE + "memberDelete", user_id);
 	}
 
-}
+} // end class

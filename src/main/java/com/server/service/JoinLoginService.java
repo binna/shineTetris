@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.server.dao.MemberJoinDAO;
+import com.server.dto.UserDTO;
 
 @Service
 public class JoinLoginService {
@@ -22,6 +23,7 @@ public class JoinLoginService {
 	@Autowired
 	public final void setPwencoder(PasswordEncoder pwencoder) {this.pwencoder = pwencoder;}
 	
+	// 회원 가입
 	public HashMap<String, Object>insertMember(Map<String, Object> dto) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -50,6 +52,7 @@ public class JoinLoginService {
 		return map;
 	}
 	
+	// 아이디 중복 검사
 	public int idChk(String user_id) throws Exception {
 		int idChkcode = 0;		// 아이디 중복 검사 -> 중복 없으면 0, 중복 개수만큼 개수 출력
 		
@@ -59,35 +62,41 @@ public class JoinLoginService {
 		return idChkcode;
 	}  
 	
-	public HashMap<String, Object>updateMember(Map<String, Object> dto) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	// 기본 회원 정보 수정 위해 검색
+	public UserDTO selectMember(String user_id) throws Exception {
+		UserDTO userdto = new UserDTO();
 		
-		int successCode = 0;
-//		for (String key : dto.keySet()) {
-//			String value = String.valueOf(dto.get(key));
-//			System.out.println(key + " : " + value);
-//		}
-		successCode = memberJoinDao.updateMember(dto);
-//		map2 = list.get(0);
-//		
-		System.out.println("successCode >>>>"+successCode);
-		map.put("code", successCode);
-		return map;
+		userdto = memberJoinDao.selectMember(user_id);
+		
+		return userdto;
 	}
 	
-	public HashMap<String, Object>deleteMember(Map<String, Object> dto) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	
+	
+	
+	// 기본 회원 정보 수정 Update
+	public int memberUpdate(UserDTO userdto) throws Exception {
+		int code = 0;
 		
-		int successCode = 0;
-//		for (String key : dto.keySet()) {
-//			String value = String.valueOf(dto.get(key));
-//			System.out.println(key + " : " + value);
-//		}
-		successCode = memberJoinDao.deleteMember(dto);
-//		map2 = list.get(0);
-//		
-		System.out.println("successCode >>>>"+successCode);
-		map.put("code", successCode);
-		return map;
+		code = memberJoinDao.memberUpdate(userdto);
+		
+		System.out.println(code);
+		
+		return code;
 	}
-}
+	
+	
+	
+	
+	
+	
+	// 회원정보 삭제
+	public int deleteMember(String user_id) throws Exception {
+		int code = 0;
+		
+		code = memberJoinDao.deleteMember(user_id);
+		
+		return code;
+	}
+	
+} // end class

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dto.AjaxResultDTO;
+import com.server.dto.UserDTO;
 import com.server.service.EmailService;
 import com.server.service.JoinLoginService;
 import com.server.util.CommonUtil;
@@ -30,14 +33,20 @@ public class JoinLoginController {
 	@Autowired
 	JoinLoginService joinLoginService;
 	
-	@GetMapping("/all")
-	public void doAll() {  // 리턴타입 없으면 url 과 같은 경로의 jsp 파일을 찾는다.
+	// 메인 페이지
+	@GetMapping("/main")
+	public void doMain() {
 		System.out.println("doAll() : access everybody");
 	}
 	
+	// 로그인 후 페이지
 	@GetMapping("/member")
-	public void doMember() {
-		System.out.println("doMember() : access member only");
+	public void doMember(Model model) {
+		// 현재 인증된(로그인한) 사용자의 정보 가져오기
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) principal;
+		String username = userDetails.getUsername();
+		model.addAttribute("user_id", username);
 	}
 	
 	// 회원가입
@@ -115,89 +124,72 @@ public class JoinLoginController {
 		
 		return emaildto;
 	}
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-		// 회원정보 update
-	 @RequestMapping("/update")
-	 @ResponseBody
-	 public HashMap<String, Object> doUpdate(HttpServletRequest request) {
-		 HashMap<String, Object>map =  new HashMap<String, Object>();
-		 //ajax로 들어온값 Map형식으로 변환 웹의 name값 기준
-		 Map<String, Object> dto = CommonUtil.request2Map(request);
-		 try {
-			 //어떤값이 들어왔는지 확인용
-			 for (String key : dto.keySet()) {
-					String value = String.valueOf(dto.get(key));
-					System.out.println(key + " : " + value);
-				}
-			map = joinLoginService.updateMember(dto);
+ 
+	// 회원정보 update
+	@RequestMapping("/update")
+	public void doUpdate(HttpServletRequest request, Model model) {
+		String user_id = request.getParameter("userId");
+		
+		UserDTO userdto = new UserDTO();
+		
+		try {
+			userdto = joinLoginService.selectMember(user_id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			map.put("code", "9999");
-			map.put("message", e.getMessage());
+			//map.put("code", "9999");
+			//map.put("message", e.getMessage());
 		}
-		 
-		 return map;
-	 }
-	 
-	 
-		// 회원정보 삭제
-	 @RequestMapping("/delete")
-	 @ResponseBody
-	 public HashMap<String, Object> doDelete(HttpServletRequest request) {
-		 HashMap<String, Object>map =  new HashMap<String, Object>();
-		 //ajax로 들어온값 Map형식으로 변환 웹의 name값 기준
-		 Map<String, Object> dto = CommonUtil.request2Map(request);
-		 try {
-			 //어떤값이 들어왔는지 확인용
-			 for (String key : dto.keySet()) {
-					String value = String.valueOf(dto.get(key));
-					System.out.println(key + " : " + value);
-				}
-			map = joinLoginService.deleteMember(dto);
+		
+		model.addAttribute("user_id", userdto.getUser_id());
+		model.addAttribute("user_name", userdto.getUser_name());
+		model.addAttribute("user_zipcode", userdto.getUser_zipcode());
+		model.addAttribute("user_address1", userdto.getUser_address1());
+		model.addAttribute("user_address2", userdto.getUser_address2());
+	}
+
+	@RequestMapping("/updateOk")
+	public void doUpdateOk(HttpServletRequest request, Model model) {
+		int success = 0;
+		UserDTO userdto = new UserDTO();
+		
+		userdto.setUser_id(request.getParameter("user_id"));
+		userdto.setUser_zipcode(request.getParameter("zipcode"));
+		userdto.setUser_address1(request.getParameter("address1"));
+		userdto.setUser_address2(request.getParameter("address2"));
+		
+		System.out.println(userdto.getUser_id() + " " + userdto.getUser_zipcode()
+				+ " " + userdto.getUser_address1() + " " + userdto.getUser_address2());
+		try {
+			success = joinLoginService.memberUpdate(userdto);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			map.put("code", "9999");
-			map.put("message", e.getMessage());
 		}
+		
+		model.addAttribute("code", success);
+	}
+	 
+	
+	
+	
+	
+	
+	 
+	// 회원정보 삭제
+	@RequestMapping("/delete")
+	public void doDelete(HttpServletRequest request, Model model) {
+		int code = 0;
 		 
-		 return map;
-	 }
+		String user_id = request.getParameter("userId");
+		try {
+			code = joinLoginService.deleteMember(user_id);
+			
+		} catch (Exception e) {
+			code = -1;
+			e.printStackTrace();
+		}
+		model.addAttribute("code", code);
+	}
 	 
 } // end Controller

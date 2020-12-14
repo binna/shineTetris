@@ -4,7 +4,7 @@
 
 	<!-- 회원 가입 insert -->
 	<insert id="memberInsert" parameterType="java.util.HashMap">
-		INSERT INTO tcm_member (
+		INSERT INTO shineTetris.tcm_member (
 			user_id,
 			user_pw,
 			user_name,
@@ -12,7 +12,7 @@
 			user_zipcode,
 			user_address1,
 			user_address2
-		)VALUES (
+		) VALUES (
 			#{user_id},
 			#{user_pw},
 			#{user_name},
@@ -29,19 +29,55 @@
 		WHERE user_id=#{user_id}
 	</select>
 	
+	<!-- 수정을 위해 기존에 입력한 자료 select -->
+	<select id="selectMember" resultType="com.server.dto.UserDTO">
+		SELECT 
+			user_id,
+			user_name,
+			user_zipcode,
+			user_address1,
+			user_address2
+		FROM 
+			shineTetris.tcm_member 
+		WHERE 
+			user_id = #{user_id}
+	</select>
+	
+	<!-- 수정된 정보 update -->
+	<update id="memberUpdate" parameterType="com.server.dto.UserDTO">
+		UPDATE shineTetris.tcm_member SET  
+			user_zipcode = #{getUser_zipcode()},
+			user_address1 = #{getUser_address1()},
+			user_address2 = #{getUser_address2()}
+		WHERE user_id = #{getUser_id()}
+	</update>
+
+	
+	<!-- 
 	<update id="memberUpdate" parameterType="java.util.HashMap">
 		UPDATE tcm_member SET  
-			user_pw = #{user_pw},
-			user_name = #{user_name},
-			user_email = #{user_email},
 			user_zipcode = #{user_zipcode},
 			user_address1 = #{user_address1},
 			user_address2 = #{user_address2}
 		WHERE user_id = #{user_id}
 	</update>
 	
-	<delete id="memberDelete" parameterType="java.util.HashMap">
-		DELETE FROM tcm_member 
+	<update id="memberUpdateEmail" parameterType="java.util.HashMap">
+		UPDATE tcm_member SET  
+			user_email = #{user_email}
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<update id="memberUpdatePw" parameterType="java.util.HashMap">
+		UPDATE tcm_member SET  
+			user_pw = #{user_pw}
+		WHERE user_id = #{user_id}
+	</update>
+	 -->
+	
+	<!-- 회원정보 삭제 -->
+	<delete id="memberDelete">
+		DELETE FROM shineTetris.tcm_member 
 		WHERE user_id = #{user_id}
 	</delete>
 	

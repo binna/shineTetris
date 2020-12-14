@@ -26,3 +26,9 @@ SELECT * FROM shineTetris.tcm_member;
 SELECT COUNT(*) FROM shineTetris.tcm_member WHERE user_id="user0";
 
 DROP TABLE shineTetris.tcm_member;
+
+UPDATE shineTetris.tcm_member SET
+user_zipcode = "zz",
+			user_address1 = "zz",
+			user_address2 = "zzzz"
+		WHERE user_id = "user1";

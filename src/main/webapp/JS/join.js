@@ -284,3 +284,22 @@ function sample6_execDaumPostcode() {
 		}
 	}).open();
 } // end sample6_execDaumPostcode()
+
+//
+
+
+
+
+
+
+// 회원 삭제
+function doDelete() {
+	const userInput = prompt('정말로 회원 탈퇴를 원하십니까?\n탈퇴하시면 복구가 어렵습니다.\n탈퇴를 원하신다면 \"탈퇴\"를 공백없이 기입해주세요.');
+	const userid = document.getElementById('user_id');
+	
+	if(userInput == '탈퇴') {
+		location.href = "delete?userId=" + userid.value;
+	} else {
+		alert('탈퇴 취소 버튼을 누르셨습니다.\n탈퇴가 진행되지 않았습니다.');
+	}
+} // end doDelete()

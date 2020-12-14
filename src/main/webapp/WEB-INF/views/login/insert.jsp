@@ -33,7 +33,7 @@
 	</c:when>
 	<c:otherwise>
 		<script>
-			// insert 에러코드 null : 디비 이외의 문제
+			// insert 에러코드 null : 알 수 없는 에러
 			alert("insert 에러코드 null\n관리자에게 문의주세요.");
 			history.back();
 		</script>
