@@ -323,6 +323,7 @@ function senditEmail() {
 
 
 
+
 // 회원 삭제
 function doDelete() {
 	const userInput = prompt('정말로 회원 탈퇴를 원하십니까?\n탈퇴하시면 복구가 어렵습니다.\n탈퇴를 원하신다면 \"탈퇴\"를 공백없이 기입해주세요.');
