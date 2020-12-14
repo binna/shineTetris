@@ -3,7 +3,7 @@
 // 전역변수 선언
 let timeId;		// 이메일 인증
 
-// 유효성 검사
+// 회원가입 유효성 검사
 function sendit() {
 	// 객체 저장 
 	const userid = document.getElementById('user_id');
@@ -285,7 +285,25 @@ function sample6_execDaumPostcode() {
 	}).open();
 } // end sample6_execDaumPostcode()
 
-//
+// 회원정보 수정 유효성 검사
+function senditUpdate() {
+	const zipcode = document.getElementById('sample6_postcode');
+	const address1 = document.getElementById('sample6_address');
+	const address2 = document.getElementById('sample6_detailAddress');
+	
+	// 집 주소 유효성
+	if(zipcode.value == '' || address1.value == '') {
+		alert('주소를 입력하세요.');
+		document.getElementById('adrBtn').focus();
+		return false;
+	}
+	if(address2.value == '') {
+		alert('주소를 입력하세요.');
+		address2.focus();
+		return false;
+	}
+	
+}
 
 
 

@@ -29,12 +29,12 @@ public class MemberJoinDAO {
 	
 	// 기본 회원 정보 수정 위해 검색
 	public UserDTO selectMember(String user_id) throws SQLException {
-		return sqlSession.selectOne(NAMESPACE + "selectMember", user_id);
+		return sqlSession.selectOne(NAMESPACE + "memberSelect", user_id);
 	}
 	
 	// 기본 회원 정보 수정 Update
-	public int memberUpdate(UserDTO userdto) throws SQLException {
-		return sqlSession.update(NAMESPACE + "selectMember", userdto);
+	public int updateMember(UserDTO userdto) throws SQLException {
+		return sqlSession.update(NAMESPACE + "memberUpdate", userdto);
 	}
 	
 	

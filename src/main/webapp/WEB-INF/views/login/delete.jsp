@@ -10,6 +10,13 @@
 			location.href = "main";
 		</script>
 	</c:when>
+	<c:when test="${code == 0}">
+		<script>
+			// delete 에러코드 -1 : DB 에러
+			alert("delete 에러코드 0\n관리자에게 문의주세요.");
+			history.back();
+		</script>
+	</c:when>
 	<c:when test="${code == -1}">
 		<script>
 			// delete 에러코드 -1 : 컨트롤러에서 에러

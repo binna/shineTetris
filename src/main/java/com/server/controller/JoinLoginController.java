@@ -6,13 +6,10 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -125,7 +122,7 @@ public class JoinLoginController {
 		return emaildto;
 	}
  
-	// 회원정보 update
+	// 회원정보 update를 위해 자료를 뿌려줌
 	@RequestMapping("/update")
 	public void doUpdate(HttpServletRequest request, Model model) {
 		String user_id = request.getParameter("userId");
@@ -135,10 +132,7 @@ public class JoinLoginController {
 		try {
 			userdto = joinLoginService.selectMember(user_id);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//map.put("code", "9999");
-			//map.put("message", e.getMessage());
 		}
 		
 		model.addAttribute("user_id", userdto.getUser_id());
@@ -148,9 +142,10 @@ public class JoinLoginController {
 		model.addAttribute("user_address2", userdto.getUser_address2());
 	}
 
+	// 회원정보 update
 	@RequestMapping("/updateOk")
 	public void doUpdateOk(HttpServletRequest request, Model model) {
-		int success = 0;
+		int code = 0;
 		UserDTO userdto = new UserDTO();
 		
 		userdto.setUser_id(request.getParameter("user_id"));
@@ -158,16 +153,14 @@ public class JoinLoginController {
 		userdto.setUser_address1(request.getParameter("address1"));
 		userdto.setUser_address2(request.getParameter("address2"));
 		
-		System.out.println(userdto.getUser_id() + " " + userdto.getUser_zipcode()
-				+ " " + userdto.getUser_address1() + " " + userdto.getUser_address2());
 		try {
-			success = joinLoginService.memberUpdate(userdto);
+			code = joinLoginService.updateMember(userdto);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			code = -1;
 		}
 		
-		model.addAttribute("code", success);
+		model.addAttribute("code", code);
 	}
 	 
 	
@@ -184,10 +177,9 @@ public class JoinLoginController {
 		String user_id = request.getParameter("userId");
 		try {
 			code = joinLoginService.deleteMember(user_id);
-			
 		} catch (Exception e) {
-			code = -1;
 			e.printStackTrace();
+			code = -1;
 		}
 		model.addAttribute("code", code);
 	}

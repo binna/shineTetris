@@ -1,4 +1,6 @@
 SELECT * FROM shineTetris.tcm_member;
+DROP TABLE shineTetris.tcm_member;
+
 
 ALTER TABLE shineTetris.tcm_member CHANGE password user_pw varchar(1000);
 ALTER TABLE shineTetris.tcm_member CHANGE username user_id varchar(45);
@@ -25,7 +27,6 @@ CREATE TABLE shineTetris.tcm_member(
 SELECT * FROM shineTetris.tcm_member;
 SELECT COUNT(*) FROM shineTetris.tcm_member WHERE user_id="user0";
 
-DROP TABLE shineTetris.tcm_member;
 
 UPDATE shineTetris.tcm_member SET
 user_zipcode = "zz",

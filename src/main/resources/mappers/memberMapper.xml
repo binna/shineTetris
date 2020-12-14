@@ -30,7 +30,7 @@
 	</select>
 	
 	<!-- 수정을 위해 기존에 입력한 자료 select -->
-	<select id="selectMember" resultType="com.server.dto.UserDTO">
+	<select id="memberSelect" resultType="com.server.dto.UserDTO">
 		SELECT 
 			user_id,
 			user_name,
@@ -46,10 +46,10 @@
 	<!-- 수정된 정보 update -->
 	<update id="memberUpdate" parameterType="com.server.dto.UserDTO">
 		UPDATE shineTetris.tcm_member SET  
-			user_zipcode = #{getUser_zipcode()},
-			user_address1 = #{getUser_address1()},
-			user_address2 = #{getUser_address2()}
-		WHERE user_id = #{getUser_id()}
+			user_zipcode = #{user_zipcode},
+			user_address1 = #{user_address1},
+			user_address2 = #{user_address2}
+		WHERE user_id = #{user_id}
 	</update>
 
 	

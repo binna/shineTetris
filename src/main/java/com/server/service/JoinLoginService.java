@@ -65,23 +65,14 @@ public class JoinLoginService {
 	// 기본 회원 정보 수정 위해 검색
 	public UserDTO selectMember(String user_id) throws Exception {
 		UserDTO userdto = new UserDTO();
-		
 		userdto = memberJoinDao.selectMember(user_id);
-		
 		return userdto;
 	}
 	
-	
-	
-	
 	// 기본 회원 정보 수정 Update
-	public int memberUpdate(UserDTO userdto) throws Exception {
+	public int updateMember(UserDTO userdto) throws Exception {
 		int code = 0;
-		
-		code = memberJoinDao.memberUpdate(userdto);
-		
-		System.out.println(code);
-		
+		code = memberJoinDao.updateMember(userdto);
 		return code;
 	}
 	
@@ -93,9 +84,7 @@ public class JoinLoginService {
 	// 회원정보 삭제
 	public int deleteMember(String user_id) throws Exception {
 		int code = 0;
-		
 		code = memberJoinDao.deleteMember(user_id);
-		
 		return code;
 	}
 	
