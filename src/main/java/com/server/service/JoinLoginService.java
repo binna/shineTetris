@@ -23,10 +23,6 @@ public class JoinLoginService {
 	@Autowired
 	public final void setPwencoder(PasswordEncoder pwencoder) {this.pwencoder = pwencoder;}
 	
-	// 복호화를 위한 자동 주입
-	//@Autowired
-	//CustomNoOpPasswordEncoder customNoOpPasswordEncoder;
-	
 	// 회원 가입
 	public int insertMember(UserDTO userdto) throws Exception {
 		int idChkcode = 0;		// 아이디 중복 검사 -> 중복 없으면 0, 중복 개수만큼 개수 출력
@@ -80,20 +76,18 @@ public class JoinLoginService {
 		return code;
 	}
 	
-	public String selectPw(String user_id) throws Exception {
-		String userpw_now = memberJoinDao.selectPw(user_id);
-		return userpw_now;
-	}
-	
 	// 비밀번호 Update
 	public int updatePw(PwDTO pwdto) throws Exception {
 		int code = 0;	// update 성공 여부
-
-		//System.out.println(customNoOpPasswordEncoder.matches(pwdto.getUserpw_now(), memberJoinDao.selectPw(pwdto.getUser_id())));
 		
-		
-		
-		
+		// 현재 비밀번호와 디비에 저장된 비밀번호가 일치하는지 확인하기,
+		// 비밀번호가 인코딩 되어 있기 때문에 사용자가 입력한 값도 인코딩해서 검사
+		if(memberJoinDao.selectPw(pwdto.getUser_id())
+			.equals(pwencoder.encode(pwdto.getUserpw_now()))) {
+			code = memberJoinDao.updatePw(pwdto);
+		} else {
+			code = -2;
+		}
 		
 		return code;
 	}
