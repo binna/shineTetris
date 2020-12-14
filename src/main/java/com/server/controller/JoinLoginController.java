@@ -1,8 +1,5 @@
 package com.server.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +16,6 @@ import com.server.dto.AjaxResultDTO;
 import com.server.dto.UserDTO;
 import com.server.service.EmailService;
 import com.server.service.JoinLoginService;
-import com.server.util.CommonUtil;
 
 @Controller
 @RequestMapping("/login/*")

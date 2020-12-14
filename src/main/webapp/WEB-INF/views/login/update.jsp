@@ -54,7 +54,8 @@ button:focus {
 							<!-- 버튼 -->
 							<p><input type="submit" value="수정완료"></p>
 							<p><button type="button" onclick="location.href='${pageContext.request.contextPath}/login/update'">비밀번호 변경</button>
-							<button type="button" data-toggle="modal" data-target="#emailUpdateModal" class="btn-toggle" id="btnEmailUpdate">이메일 변경</button>
+							<button type="button" data-toggle="modal" data-target="#emailUpdateModal" 
+								class="btn-toggle" id="btnEmailUpdate" onclick="emailModalOpen()">이메일 변경</button>
 							<button type="button" onclick="doDelete()">회원 정보 삭제</button></p>
 						</form>
 						
