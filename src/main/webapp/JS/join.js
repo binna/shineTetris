@@ -315,14 +315,39 @@ function senditEmail() {
 		isSsn.focus();
 		return false;
 	}
-}
+} // end senditEmail()
 
-
-
-
-
-
-
+function senditPw() {
+	// 객체 저장
+	const userpw_now = document.getElementById('userpw_now');
+	const userpw = document.getElementById('user_pw');
+	const userpw_re = document.getElementById('userpw_re');
+	
+	// 정규식
+	const expPwText = /^.*(?=^.{4,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()+=]).*$/;
+	
+	// 비밀번호 유효성
+	if(userpw_now.value == '') {
+		alert('현재 비밀번호를 입력하세요.');
+		userpw_now.focus();
+		return false;
+	}
+	if(userpw.value == '') {
+		alert('변경할 비밀번호를 입력하세요.');
+		userpw.focus();
+		return false;
+	}
+	if(expPwText.test(userpw.value) == false) {
+		alert('변경할 비밀번호 형식을 확인하세요.\n 4자이상 대소문자 특수문자 포함된 비밀번호만 가능합니다.');
+		userpw.focus();
+		return false;
+	}
+	if(userpw_re.value == '') {
+		alert('변경할 비밀번호 확인을 입력하세요.');
+		userpw_re.focus();
+		return false;
+	}
+} // end senditPw()
 
 // 회원 삭제
 function doDelete() {

@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form name="regform" id="regform" action="${path}/tetris/login/pwUpdateOk" method="post" onclick="senditEmail()">
+<form name="regform" id="regform" action="${path}/tetris/login/pwUpdateOk" method="post" onclick="senditPw()">
 	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 	
 	<p><label>현재 비밀번호 : <input type="password" name="userpw_now" id="userpw_now" maxlength="20"></label></p>

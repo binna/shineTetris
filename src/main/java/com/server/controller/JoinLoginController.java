@@ -136,7 +136,7 @@ public class JoinLoginController {
 		}
 		
 		model.addAttribute("user_id", userdto.getUser_id());
-		model.addAttribute("user_email", userdto.getUser_email());
+		model.addAttribute("user_name", userdto.getUser_name());
 		model.addAttribute("user_zipcode", userdto.getUser_zipcode());
 		model.addAttribute("user_address1", userdto.getUser_address1());
 		model.addAttribute("user_address2", userdto.getUser_address2());
