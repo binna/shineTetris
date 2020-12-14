@@ -50,8 +50,8 @@ button:focus {
 							<p>상세주소 : <input type="text" name="address2" id="sample6_detailAddress" value="${user_address2}"></p>
 							
 							<!-- 버튼 -->
-							<p><input type="submit" value="수정완료">
-							<button type="button" onclick="location.href='${pageContext.request.contextPath}/login/update'">비밀번호 변경</button>
+							<p><input type="submit" value="수정완료"></p>
+							<p><button type="button" onclick="location.href='${pageContext.request.contextPath}/login/update'">비밀번호 변경</button>
 							<button type="button" onclick="location.href='${pageContext.request.contextPath}/login/update'">이메일 변경</button>
 							<button type="button" onclick="doDelete()">회원 정보 삭제</button></p>
 						</form>
