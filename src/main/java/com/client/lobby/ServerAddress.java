@@ -51,7 +51,7 @@ public class ServerAddress extends JFrame {
 				}
 			}
 		});
-		ipText.setText("203.236.209.193");
+		ipText.setText("192.168.0.11");
 		panel.add(ipText, BorderLayout.CENTER);
 		ipText.setColumns(10);
 

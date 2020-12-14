@@ -19,6 +19,13 @@
 	<resources mapping="/fonts/**" location="/fonts/" />
 	<resources mapping="/images/**" location="/images/" />
 	
+	<!-- spring-donwload bean -->
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	    <beans:property name="order" value="0" />
+	</beans:bean>
+	<beans:bean id="downloadView" class="com.server.util.DownloadView" />
+	<!-- /spring-donwload bean -->
+	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
