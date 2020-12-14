@@ -57,6 +57,7 @@ public class JoinLoginController {
 		UserDTO userdto = new UserDTO();
 		userdto.setUser_id(request.getParameter("user_id"));
 		userdto.setUser_pw(request.getParameter("user_pw"));
+		userdto.setUser_name(request.getParameter("user_name"));
 		userdto.setUser_email(request.getParameter("user_email"));
 		userdto.setUser_zipcode(request.getParameter("zipcode"));
 		userdto.setUser_address1(request.getParameter("address1"));
