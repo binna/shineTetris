@@ -32,6 +32,7 @@ public class MemberJoinDAO {
 	
 	
 	
+	
 	public int updateMember(Map<String, Object> dto) throws SQLException {
 		return sqlSession.update(NAMESPACE + "memberUpdate", dto);
 	}
