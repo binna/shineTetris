@@ -17,9 +17,9 @@
 			#{user_pw},
 			#{user_name},
 			#{user_email},
-			#{user_zipcode},
-			#{user_address1},
-			#{user_address2}
+			#{zipcode},
+			#{address1},
+			#{address2}
 		)
 	</insert>
 	

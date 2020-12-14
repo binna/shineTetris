@@ -18,7 +18,7 @@ function sendit() {
 	
 	// 정규식
 	const expPwText = /^.*(?=^.{4,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()+=]).*$/;
-	const expNameText = /[가-힣]+$/; 
+	const expNameText = /[가-힣|a-z|A-Z]+$/; 
 	
 	// 아이디 유효성
 	if(userid.value == '') {
@@ -39,7 +39,7 @@ function sendit() {
 		return false;
 	}
 	if(expPwText.test(userpw.value) == false) {
-		alert('비밀번호 형식을 확인하세요.');
+		alert('비밀번호 형식을 확인하세요.\n 4자이상 대소문자 특수문자 포함된 비밀번호만 가능합니다.');
 		userpw.focus();
 		return false;
 	}
@@ -66,7 +66,7 @@ function sendit() {
 		return false;
 	}
 	if(expNameText.test(username.value) == false) {
-		alert('이름 형식을 확인하세요.');
+		alert('이름 형식을 확인하세요.\n 문자만 가능합니다.');
 		username.focus();
 		return false;
 	}

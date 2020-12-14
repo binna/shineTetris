@@ -35,7 +35,10 @@ button:focus {
 						<!-- <h2>Login</h2> -->
 					</div>
 					<div>
+						<!-- 
 						<form name="regform" id="regform" class="sign-in-reg-form" action="${path}/tetris/login/insert" method="post" onsubmit="return sendit()">
+						 -->
+						 <form name="regform" id="regform" class="sign-in-reg-form" action="${path}/tetris/login/insert" method="post">
 							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 							<p><label>아이디 : <input type="text" name="user_id" id="user_id" maxlength="20"></label>
 							&nbsp;<input type="button" id="idNumber" value="아이디 중복 검사" onclick="doIdAuth()"></p>
