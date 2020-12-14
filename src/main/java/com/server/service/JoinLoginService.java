@@ -14,7 +14,6 @@ public class JoinLoginService {
 	@Autowired
 	private MemberJoinDAO memberJoinDao;
 	
-	@Autowired
 	JoinLoginService loginService;
 	
 	// 인코딩을 위한 자동 주입
@@ -22,6 +21,9 @@ public class JoinLoginService {
 	public final PasswordEncoder getPwencoder() {return pwencoder;}
 	@Autowired
 	public final void setPwencoder(PasswordEncoder pwencoder) {this.pwencoder = pwencoder;}
+	
+	// 복호화
+	CustomNoOpPasswordEncoder customNoOpPasswordEncoder;
 	
 	// 회원 가입
 	public int insertMember(UserDTO userdto) throws Exception {
@@ -76,14 +78,26 @@ public class JoinLoginService {
 		return code;
 	}
 	
+	// 비밀번호 검색
+	public String selectPw(String user_id) throws Exception {
+		String user_pw = memberJoinDao.selectPw(user_id);
+		return user_pw;
+	}
 	// 비밀번호 Update
 	public int updatePw(PwDTO pwdto) throws Exception {
 		int code = 0;	// update 성공 여부
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println(customNoOpPasswordEncoder.matches(pwdto.getUserpw_now(), memberJoinDao.selectPw(pwdto.getUser_id())));
+		// 인코딩
+		//pwdto.setUserpw_now(pwencoder.encode(pwdto.getUserpw_now()));
+		//pwdto.setUser_pw(pwencoder.encode(pwdto.getUser_pw()));
 		
-		// 현재 비밀번호와 디비에 저장된 비밀번호가 일치하는지 확인하기,
-		// 비밀번호가 인코딩 되어 있기 때문에 사용자가 입력한 값도 인코딩해서 검사
-		if(memberJoinDao.selectPw(pwdto.getUser_id())
-			.equals(pwencoder.encode(pwdto.getUserpw_now()))) {
+		//System.out.println(pwdto.getUser_pw());
+		//System.out.println(pwdto.getUserpw_now());
+		//System.out.println(memberJoinDao.selectPw(pwdto.getUser_id()));
+
+		// 사용자가 입력한 현재 비밀번호와 디비에 저장된 비밀번호가 일치하는지 확인하기
+		if(memberJoinDao.selectPw(pwdto.getUser_id()).equals(pwdto.getUser_pw())) {
 			code = memberJoinDao.updatePw(pwdto);
 		} else {
 			code = -2;
