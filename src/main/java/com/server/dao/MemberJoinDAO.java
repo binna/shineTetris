@@ -51,7 +51,7 @@ public class MemberJoinDAO {
 	}
 	// 비밀번호 update
 	public int updatePw(PwDTO pwdto) throws SQLException {
-		return sqlSession.update(NAMESPACE + "pwUpdate", pwdto);
+		return sqlSession.update(NAMESPACE + "memberPwUpdate", pwdto);
 	}
 	
 	// 회원정보 삭제

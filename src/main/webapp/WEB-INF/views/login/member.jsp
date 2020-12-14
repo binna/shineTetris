@@ -21,16 +21,21 @@
 					<div class="main-sub-title">
 						<form action="${pageContext.request.contextPath}/customLogout" method='post' style="float: right;">
 							<input type="hidden"name="${_csrf.parameterName}" value="${_csrf.token}"/>
-							<button>로그아웃</button>
+							<button class="button">로그아웃</button>
 						</form>
-						<button onclick="location.href='${pageContext.request.contextPath}/login/update?userId=${user_id}'" style="float: left: ;">회원 정보 수정</button>
+						<button class="button" onclick="location.href='${pageContext.request.contextPath}/login/update?userId=${user_id}'" style="float: left: ;">회원 정보 수정</button>
 					</div>
 					<div class="main-sub-content">
-						<div style="text-align: center;font-size: 2em;">이름추가 님</div>
-						<button type="button" class="btm_image" id="gameStart" style="border:0; margin-top: 15%; margin-left: 26%"><img src="/tetris/images/start.png"></button>
-						<a type="button" class="btm_image" id="download" style="border:0; margin-top: 20%; margin-left: 14%" href="${pageContext.request.contextPath}/download">
+						<div style="text-align: center;font-size: 2em;">${user_id} 님</div>
+						<div style="text-align: center;font-size: 1.7em; margin-top: 2%">shineTetis에 오신것을 환영합니다.</div>
+						<button type="button" class="btm_image" id="gameStart" style="border:0; margin-top: 9%; margin-left: 26%; margin-bottom: 14%;  ">
+							<img src="/tetris/images/start.png">
+						</button>
+						<!-- 
+						<button type="button" class="btm_image" id="download" style="border:0; margin-left: 14%" onclick="location.href='${pageContext.request.contextPath}/download'">
 							<img src="/tetris/images/download.png">
-						</a>
+						</button>
+						 -->
 					</div>
 				</div>
 			</div>

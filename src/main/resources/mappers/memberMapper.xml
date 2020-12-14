@@ -71,7 +71,7 @@
 		WHERE user_id=#{user_id}
 	</select>
 	<!-- 비밀번호 변경 -->
-	<update id="memberUpdate" parameterType="com.server.dto.PwDTO">
+	<update id="memberPwUpdate" parameterType="com.server.dto.PwDTO">
 		UPDATE shineTetris.tcm_member SET  
 			user_pw = #{user_pw}
 		WHERE user_id = #{user_id}
