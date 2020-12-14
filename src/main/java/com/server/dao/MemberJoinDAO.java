@@ -18,8 +18,8 @@ public class MemberJoinDAO {
 	private final String NAMESPACE = "com.server.dao.memberMapper.";
 	
 	// 회원 가입 insert
-	public int insertMember(Map<String, Object> dto) throws SQLException {
-		return sqlSession.insert(NAMESPACE + "memberInsert", dto);
+	public int insertMember(UserDTO userdto) throws SQLException {
+		return sqlSession.insert(NAMESPACE + "memberInsert", userdto);
 	}
 	
 	// 아이디 중복 검사

@@ -55,20 +55,24 @@ public class JoinLoginController {
 	// 회원가입 insert
 	@RequestMapping("/insert")
 	public void doInsert(HttpServletRequest request, Model model) {
-		HashMap<String, Object>map =  new HashMap<String, Object>();
-		 
-		// 들어온값 Map형식으로 변환, 웹의 name값 기준
-		Map<String, Object> dto = CommonUtil.request2Map(request);
+		UserDTO userdto = new UserDTO();
+		int code = 0;
+		
+		userdto.setUser_id(request.getParameter("user_id"));
+		userdto.setUser_pw(request.getParameter("user_pw"));
+		userdto.setUser_email(request.getParameter("user_email"));
+		userdto.setUser_zipcode(request.getParameter("zipcode"));
+		userdto.setUser_address1(request.getParameter("address1"));
+		userdto.setUser_address2(request.getParameter("address2"));
 		 
 		try {
-			map = joinLoginService.insertMember(dto);
+			code = joinLoginService.insertMember(userdto);
 		} catch (Exception e) {
 			e.printStackTrace();
-			map.put("code", "9999");
-			map.put("message", e.getMessage());
+			code = -1;
 		}
 		
-		model.addAttribute("code", map.get("code"));
+		model.addAttribute("code", code);
 	}
 	 
 	// 아이디 중복 검사

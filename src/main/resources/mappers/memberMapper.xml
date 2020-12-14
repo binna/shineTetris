@@ -3,7 +3,7 @@
 <mapper namespace="com.server.dao.memberMapper">
 
 	<!-- 회원 가입 insert -->
-	<insert id="memberInsert" parameterType="java.util.HashMap">
+	<insert id="memberInsert" parameterType="com.server.dto.UserDTO">
 		INSERT INTO shineTetris.tcm_member (
 			user_id,
 			user_pw,
@@ -17,9 +17,9 @@
 			#{user_pw},
 			#{user_name},
 			#{user_email},
-			#{zipcode},
-			#{address1},
-			#{address2}
+			#{user_zipcode},
+			#{user_address1},
+			#{user_address2}
 		)
 	</insert>
 	

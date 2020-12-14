@@ -131,7 +131,9 @@ function doIdAuth() {
 		alert("select 에러코드 -1\n관리자에게 문의주세요.");
 	} else if(resultObj.result == 0) {
 		alert('중복된 아이디가 없습니다.\n가입을 지속해주세요.');
-		document.getElementById('user_id').setAttribute('disabled', 'disabled');
+		document.getElementById('user_id').setAttribute('type', 'hidden');
+		document.getElementById('idResult').innerHTML = userid.value;
+		document.getElementById('user_id').setAttribute('display', 'block');
 		document.getElementById('idNumber').setAttribute('disabled', 'disabled');
 		document.getElementById('idNumber').setAttribute('value', '중복 검사 완료');
 		document.getElementById('isIdSsn').setAttribute('value', 'true');
@@ -231,7 +233,8 @@ function doEmailNumberAuth() {
 		alert('정상적으로 인증되었습니다.');
 		clearInterval(timeId);
 		document.getElementById('result').innerHTML = "";
-		document.getElementById('user_email').setAttribute('disabled', 'disabled');
+		document.getElementById('user_email').setAttribute('type', 'hidden');
+		document.getElementById('emailResult').innerHTML = document.getElementById('user_email').value;
 		document.getElementById('emailAuthText').setAttribute('disabled', 'disabled');
 		document.getElementById('emailNumber').setAttribute('value', '인증 완료');
 		document.getElementById('emailNumber').setAttribute('disabled', 'disabled');

@@ -1,8 +1,5 @@
 package com.server.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,32 +21,22 @@ public class JoinLoginService {
 	public final void setPwencoder(PasswordEncoder pwencoder) {this.pwencoder = pwencoder;}
 	
 	// 회원 가입
-	public HashMap<String, Object>insertMember(Map<String, Object> dto) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+	public int insertMember(UserDTO userdto) throws Exception {
 		int idChkcode = 0;		// 아이디 중복 검사 -> 중복 없으면 0, 중복 개수만큼 개수 출력
-		int successCode = 0;	// insert 성공 여부 검사 -> 실패하면 0, 성공하면 1, 중복된 아이디 있으면 2
-		
-		// 비밀번호 인코딩을 위해 사용자가 입력한 비밀번호 담기
-		String user_pw = dto.get("user_pw") + "";
-		
-		// 아이디 중복 검사를 위해 사용자가 입력한 아이디 담기
-		String user_id = dto.get("user_id") + "";
+		int Code = 0;			// insert 성공 여부 검사 -> 실패하면 0, 성공하면 1, 중복된 아이디 있으면 2
 		
 		// DB 아이디 select 작업, 아이디 중복값 검사
-		idChkcode = memberJoinDao.idChk(user_id);
+		idChkcode = memberJoinDao.idChk(userdto.getUser_id());
 		
 		if(idChkcode == 0) {
-			dto.put("user_pw", pwencoder.encode(user_pw));	// 비밀번호 인코딩
-			successCode = memberJoinDao.insertMember(dto);	// DB insert 작업
+			userdto.setUser_pw(pwencoder.encode(userdto.getUser_pw()));		// 비밀번호 인코딩
+			Code = memberJoinDao.insertMember(userdto);						// DB insert 작업
 		} else {
 			// 아이디 중복값 있을 때
-			successCode = 2;
+			Code = 2;
 		}
 
-		// insert가 성공했는지 여부를 map에 담아서 리턴
-		map.put("code", successCode);					
-		return map;
+		return Code;
 	}
 	
 	// 아이디 중복 검사
