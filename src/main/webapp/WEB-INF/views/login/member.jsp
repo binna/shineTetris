@@ -27,8 +27,10 @@
 					</div>
 					<div class="main-sub-content">
 						<div style="text-align: center;font-size: 2em;">이름추가 님</div>
-						<button type="button" class="btm_image" id="img_btn" style="border:0; margin-top: 15%; margin-left: 26%"><img src="/tetris/images/start.png"></button>
-						<button type="button" class="btm_image" id="img_btn" style="border:0; margin-top: 20%; margin-left: 14%"><img src="/tetris/images/download.png"></button>
+						<button type="button" class="btm_image" id="gameStart" style="border:0; margin-top: 15%; margin-left: 26%"><img src="/tetris/images/start.png"></button>
+						<a type="button" class="btm_image" id="download" style="border:0; margin-top: 20%; margin-left: 14%" href="${pageContext.request.contextPath}/download">
+							<img src="/tetris/images/download.png">
+						</a>
 					</div>
 				</div>
 			</div>
