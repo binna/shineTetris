@@ -308,6 +308,15 @@ function senditUpdate() {
 	
 }
 
+function senditEmail() {
+	// 이메일 유효성
+	if(isSsn.value == 'false') {
+		alert('이메일 인증은 필수입니다.');
+		isSsn.focus();
+		return false;
+	}
+}
+
 
 
 

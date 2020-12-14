@@ -5,7 +5,7 @@
 <c:choose>
 	<c:when test="${code == 1}">
 		<script>
-			// 문제없음, 삭제 완
+			// 문제없음, 변경 완
 			alert("회원 정보가 정상적으로 변경되었습니다.");
 			location.href = "member";
 		</script>

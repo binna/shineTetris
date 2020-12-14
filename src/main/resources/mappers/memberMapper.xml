@@ -51,7 +51,19 @@
 			user_address2 = #{user_address2}
 		WHERE user_id = #{user_id}
 	</update>
+	
+	<!-- 이메일 수정을 위해 검색 -->
+	<select id="emailSelect" resultType="java.lang.String">
+		SELECT user_email FROM shineTetris.tcm_member
+		WHERE user_id=#{user_id}
+	</select>
 
+	<!-- 이메일 update -->
+	<update id="emailUpdate" parameterType="com.server.dto.UserDTO">
+		UPDATE shineTetris.tcm_member SET  
+			user_address2 = #{user_email}
+		WHERE user_id = #{user_id}
+	</update>
 	
 	<!-- 
 	<update id="memberUpdate" parameterType="java.util.HashMap">

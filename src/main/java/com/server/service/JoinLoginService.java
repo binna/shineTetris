@@ -38,7 +38,6 @@ public class JoinLoginService {
 
 		return Code;
 	}
-	
 	// 아이디 중복 검사
 	public int idChk(String user_id) throws Exception {
 		int idChkcode = 0;		// 아이디 중복 검사 -> 중복 없으면 0, 중복 개수만큼 개수 출력
@@ -55,11 +54,23 @@ public class JoinLoginService {
 		userdto = memberJoinDao.selectMember(user_id);
 		return userdto;
 	}
-	
 	// 기본 회원 정보 수정 Update
 	public int updateMember(UserDTO userdto) throws Exception {
 		int code = 0;
 		code = memberJoinDao.updateMember(userdto);
+		return code;
+	}
+	
+	// 이메일 수정을 위해 검색
+	public String selectEmail(String user_id) throws Exception {
+		String user_email;
+		user_email = memberJoinDao.selectEmail(user_id);
+		return user_email;
+	}
+	// 이메일 정보 수정 Update
+	public int updateEmail(UserDTO userdto) throws Exception {
+		int code = 0;
+		code = memberJoinDao.updateEmail(userdto);
 		return code;
 	}
 	

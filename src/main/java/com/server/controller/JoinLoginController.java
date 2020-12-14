@@ -51,9 +51,9 @@ public class JoinLoginController {
 	// 회원가입 insert
 	@RequestMapping("/insert")
 	public void doInsert(HttpServletRequest request, Model model) {
-		UserDTO userdto = new UserDTO();
 		int code = 0;
 		
+		UserDTO userdto = new UserDTO();
 		userdto.setUser_id(request.getParameter("user_id"));
 		userdto.setUser_pw(request.getParameter("user_pw"));
 		userdto.setUser_email(request.getParameter("user_email"));
@@ -75,12 +75,12 @@ public class JoinLoginController {
 	@RequestMapping("/idAuth")
 	@ResponseBody
 	public AjaxResultDTO doIdAuth(HttpServletRequest request) {
-		String user_id = request.getParameter("userId");
+		// result : -1 컨트롤러 문제, -2 DB 문제, 0 중복 없음, 중복 개수만큼  +정수
+		int result = -1;
 		
 		AjaxResultDTO id_dto = new AjaxResultDTO();
 		
-		// result : -1 컨트롤러 문제, -2 DB 문제, 0 중복 없음, 중복 개수만큼  +정수
-		int result = -1;
+		String user_id = request.getParameter("userId");
 		
 		try {
 			result = joinLoginService.idChk(user_id);
@@ -109,9 +109,9 @@ public class JoinLoginController {
 	@RequestMapping("/compare")
 	@ResponseBody
 	public AjaxResultDTO compareNumber(HttpServletRequest request) {
-		String myAuthNum = request.getParameter("myAuthNum");
-		 
 		AjaxResultDTO emaildto = new AjaxResultDTO();
+		
+		String myAuthNum = request.getParameter("myAuthNum");
 		 
 		if(myAuthNum.equals(joinSecurityKey)) {
 			emaildto.setResult(1);
@@ -125,9 +125,9 @@ public class JoinLoginController {
 	// 회원정보 update를 위해 자료를 뿌려줌
 	@RequestMapping("/update")
 	public void doUpdate(HttpServletRequest request, Model model) {
-		String user_id = request.getParameter("userId");
-		
 		UserDTO userdto = new UserDTO();
+		
+		String user_id = request.getParameter("userId");
 		
 		try {
 			userdto = joinLoginService.selectMember(user_id);
@@ -136,7 +136,7 @@ public class JoinLoginController {
 		}
 		
 		model.addAttribute("user_id", userdto.getUser_id());
-		model.addAttribute("user_name", userdto.getUser_name());
+		model.addAttribute("user_email", userdto.getUser_email());
 		model.addAttribute("user_zipcode", userdto.getUser_zipcode());
 		model.addAttribute("user_address1", userdto.getUser_address1());
 		model.addAttribute("user_address2", userdto.getUser_address2());
@@ -146,8 +146,8 @@ public class JoinLoginController {
 	@RequestMapping("/updateOk")
 	public void doUpdateOk(HttpServletRequest request, Model model) {
 		int code = 0;
-		UserDTO userdto = new UserDTO();
 		
+		UserDTO userdto = new UserDTO();
 		userdto.setUser_id(request.getParameter("user_id"));
 		userdto.setUser_zipcode(request.getParameter("zipcode"));
 		userdto.setUser_address1(request.getParameter("address1"));
@@ -162,13 +162,45 @@ public class JoinLoginController {
 		
 		model.addAttribute("code", code);
 	}
+
+	// 이메일 update를 위해 자료를 뿌려줌
+	@RequestMapping("/emailUpdate")
+	public void doEmailUpdate(HttpServletRequest request, Model model) {
+		String user_id = request.getParameter("userId");
+		String user_email = "";
+		
+		try {
+			user_email = joinLoginService.selectEmail(user_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("user_id", user_id);
+		model.addAttribute("user_email", user_email);
+	}
+	
+	// 이메일 update
+	@RequestMapping("/emailUpdateOk")
+	public void doEmailUpdateOk(HttpServletRequest request, Model model) {
+		int code = 0;
+
+		UserDTO userdto = new UserDTO();
+		userdto.setUser_id(request.getParameter("user_id"));
+		userdto.setUser_email(request.getParameter("user_email"));
+		
+		try {
+			code = joinLoginService.updateEmail(userdto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			code = -1;
+		}
+		
+		model.addAttribute("code", code);
+	}
+	
+	// 비밀번호 update
 	 
 	
-	
-	
-	
-	
-	 
 	// 회원정보 삭제
 	@RequestMapping("/delete")
 	public void doDelete(HttpServletRequest request, Model model) {

@@ -48,7 +48,7 @@ button:focus {
 							<p><label>이름 : <input type="text" name="user_name" id="user_name"></label></p>
 					
 							<!-- 이메일 인증 -->
-							<p><label>이메일 : <input type="text" name="user_email" id="user_email" value="${mail}"></label><span id="emailResult"></span>
+							<p><label>이메일 : <input type="text" name="user_email" id="user_email"></label><span id="emailResult"></span>
 							&nbsp;<input type="button" id="emailAuth" value="이메일 발송" onclick="doEmailAuth()"><span id="result"></span></p>
 							<p id="emailAuthArea" style="display: none;"><label>인증번호 : <input type="text" name="emailAuthText" id="emailAuthText" maxlength="10"></label>
 							&nbsp;<input type="button" id="emailNumber" value="인증번호 확인" onclick="doEmailNumberAuth()"></p>
