@@ -92,6 +92,7 @@ public class JoinLoginService {
 		//pwdto.setUserpw_now(pwencoder.encode(pwdto.getUserpw_now()));
 		//pwdto.setUser_pw(pwencoder.encode(pwdto.getUser_pw()));
 		
+		
 		//System.out.println(pwdto.getUser_pw());
 		//System.out.println(pwdto.getUserpw_now());
 		//System.out.println(memberJoinDao.selectPw(pwdto.getUser_id()));
