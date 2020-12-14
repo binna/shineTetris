@@ -21,9 +21,13 @@ public class MemberJoinDAO {
 	}
 	
 	// 아이디 중복 검사
-	public int idChk(Map<String, Object> dto) throws SQLException {
-		return sqlSession.selectOne(NAMESPACE + "idChk", dto);
+	public int idChk(String user_id) throws SQLException {
+		return sqlSession.selectOne(NAMESPACE + "idChk", user_id);
 	}
+	
+	
+	
+	
 	
 	public int updateMember(Map<String, Object> dto) throws SQLException {
 		return sqlSession.update(NAMESPACE + "memberUpdate", dto);

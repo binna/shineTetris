@@ -1,5 +1,8 @@
 'use strict'
 
+// 전역변수 선언
+let timeId;		// 이메일 인증
+
 // 유효성 검사
 function sendit() {
 	// 객체 저장 
@@ -8,9 +11,10 @@ function sendit() {
 	const userpw_re = document.getElementById('userpw_re');
 	const username = document.getElementById('user_name');
 	const isSsn = document.getElementById('isSsn');
-	const zipcode = document.getElementById('user_zipcode');
-	const address1 = document.getElementById('user_address1');
-	const address2 = document.getElementById('user_address2');
+	const isIdSsn = document.getElementById('isIdSsn');
+	const zipcode = document.getElementById('sample6_postcode');
+	const address1 = document.getElementById('sample6_address');
+	const address2 = document.getElementById('sample6_detailAddress');
 	
 	// 정규식
 	const expPwText = /^.*(?=^.{4,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()+=]).*$/;
@@ -22,9 +26,10 @@ function sendit() {
 		userid.focus();
 		return false;
 	}
-	if(userid.value.length < 4 || userid.value.length > 20) {
-		alert('아이디를 4자이상 20자 이하로 입력하세요.');
-		userid.focus(); return false;
+	if(isIdSsn.value == 'false') {
+		alert('아이디 인증은 필수입니다.');
+		isSsn.focus();
+		return false;
 	}
 	
 	// 비밀번호 유효성
@@ -33,14 +38,14 @@ function sendit() {
 		userpw.focus();
 		return false;
 	}
-	if(userpw_re.value == '') {
-		alert('비밀번호 확인을 입력하세요.');
-		userpw_re.focus();
-		return false;
-	}
 	if(expPwText.test(userpw.value) == false) {
 		alert('비밀번호 형식을 확인하세요.');
 		userpw.focus();
+		return false;
+	}
+	if(userpw_re.value == '') {
+		alert('비밀번호 확인을 입력하세요.');
+		userpw_re.focus();
 		return false;
 	}
 	if(userpw.value != userpw_re.value) {
@@ -52,6 +57,11 @@ function sendit() {
 	// 이름 유효성
 	if(username.value == '') {
 		alert('이름을 입력하세요.');
+		username.focus();
+		return false;
+	}
+	if(username.value.length < 2) {
+		alert('이름을 확인해주세요.');
 		username.focus();
 		return false;
 	}
@@ -79,10 +89,58 @@ function sendit() {
 		address2.focus();
 		return false;
 	}
-
 } // end sendit()
 
-//이메일 인증
+//아이디 중복 검사
+function doIdAuth() {
+	// 아이디 검증을 위한 객체 생성
+	const userid = document.getElementById('user_id');
+	
+	// 유효성 검사
+	if(userid.value.length < 4 || userid.value.length > 20) {
+		alert('아이디를 4자이상 20자 이하로 입력하세요.');
+		userid.focus();
+		return false;
+	}
+	
+	// XMLHttpRequest 객체 생성
+	let xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState === XMLHttpRequest.DONE) {
+			if (xhttp.status === 200) {
+				
+			} else {
+				alert('select 에러코드 null\n아이디 중복 검사가 실패되었습니다.\n관리자에게 문의주세요.');
+			}
+		}
+	};
+	
+	// request 보내기
+	xhttp.open('GET', '/tetris/login/idAuth?userId=' + userid.value, false); 
+	xhttp.send();
+	
+	// 검사한 값 response
+	const resultText = xhttp.responseText;
+	const resultObj = JSON.parse(resultText);
+	
+	// 결과 값에 따라 화면 노출
+	if(resultObj.result == -2) {
+		alert("select 에러코드 -2\n관리자에게 문의주세요.");
+	} else if(resultObj.result == -1) {
+		alert("select 에러코드 -1\n관리자에게 문의주세요.");
+	} else if(resultObj.result == 0) {
+		alert('중복된 아이디가 없습니다.\n가입을 지속해주세요.');
+		document.getElementById('user_id').setAttribute('disabled', 'disabled');
+		document.getElementById('idNumber').setAttribute('disabled', 'disabled');
+		document.getElementById('idNumber').setAttribute('value', '중복 검사 완료');
+		document.getElementById('isIdSsn').setAttribute('value', 'true');
+	} else {
+		alert('중복된 아이디가 있습니다.\n다른 아이디를 입력해주세요.');
+	}
+} // end doIdAuth()
+
+// 이메일 유효성 검사, Ajax 이메일 발송
 function doEmailAuth() {
 	// 이메일 검증을 위한 객체 생성
 	const email = document.getElementById('user_email');
@@ -111,16 +169,15 @@ function doEmailAuth() {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === XMLHttpRequest.DONE) {
 			if (xhttp.status === 200) {
-				//document.write(xhttp.responseText);		// ajax를 보내고 다시 해당페이지로 리다이렉트되어 화면을 덮어씨워서 값을 뿌려줌
-				
 				let setTime = 180;	// 3분 -> 180초
+				timeId = null;		// 객체 위치 저장하는 함수 초기화
 				
 				// 이메일 발송 버튼 숨기기
 				document.getElementById('emailAuth').setAttribute('type', 'hidden');
 				document.getElementById('emailAuthArea').style.display ='block';
 				
 				// 3분 타이머
-				let timeId = setInterval(function() {
+				timeId = setInterval(function() {
 					const m = Math.floor(setTime / 60) + "분 " + (setTime % 60) + "초";	// 남은 시간 계산
 				    document.getElementById('result').innerHTML = m;
 					setTime--;
@@ -144,14 +201,14 @@ function doEmailAuth() {
 	xhttp.send();														// send() : POST 방식으로 요구한 경우 서버로 보내고 싶은 데이터
 } // end doEmailAuth()
 
-// 이메일 인증 번호 검사
+// 이메일 인증 번호 검사, Ajax response
 function doEmailNumberAuth() {
 	// 객체 저장
 	const authNum = document.getElementById('emailAuthText');
 	
 	// 유효성 검사
 	if(authNum.value.length < 10) {
-		alert('이메일 인증번호는 10자리입니다.\다시 확인해주세요');
+		alert('이메일 인증번호는 10자리입니다.\n다시 확인해주세요');
 		authNum.focus(); return false;
 	}
 	
@@ -172,7 +229,9 @@ function doEmailNumberAuth() {
 	// 결과 값에 따라 화면 노출
 	if(resultObj.result == 1) {
 		alert('정상적으로 인증되었습니다.');
+		clearInterval(timeId);
 		document.getElementById('result').innerHTML = "";
+		document.getElementById('user_email').setAttribute('disabled', 'disabled');
 		document.getElementById('emailAuthText').setAttribute('disabled', 'disabled');
 		document.getElementById('emailNumber').setAttribute('value', '인증 완료');
 		document.getElementById('emailNumber').setAttribute('disabled', 'disabled');
@@ -180,11 +239,10 @@ function doEmailNumberAuth() {
 	} else {
 		alert('인증번호가 일치하지 않습니다.\n다시 확인 후 입력해주세요.');
 	}
-	
 } // end doEmailNumberAuth()
 
 // 우편 API
-function sample6_execDaumPostcode() { 
+function sample6_execDaumPostcode() {
 	new daum.Postcode({
 		oncomplete: function(data) {
 			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -194,37 +252,35 @@ function sample6_execDaumPostcode() {
 			var addr = ''; // 주소 변수
 			var extraAddr = ''; // 참고항목 변수
 			
-			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다. 
-			if (data.userSelectedType === 'R') { 
-				// 사용자가 도로명 주소를 선택했을 경우 
-				addr = data.roadAddress; 
-			} else { 
-				// 사용자가 지번 주소를 선택했을 경우(J) 
-				addr = data.jibunAddress; 
+			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+			    addr = data.roadAddress;
+			} else { // 사용자가 지번 주소를 선택했을 경우(J)
+			    addr = data.jibunAddress;
 			}
 			
 			// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
 			if(data.userSelectedType === 'R'){
 				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
 				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-				if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){ 
-					extraAddr += data.bname; 
-				} 
+				if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+				    extraAddr += data.bname;
+				}
 				// 건물명이 있고, 공동주택일 경우 추가한다.
 				if(data.buildingName !== '' && data.apartment === 'Y'){
 					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-				} 
-				// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다. 
+				}
+				// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
 				if(extraAddr !== ''){
 					extraAddr = ' (' + extraAddr + ')';
-				} 
+				}
 			}
-
+			
 			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			document.getElementById('user_zipcode').value = data.zonecode;
-			document.getElementById("user_address1").value = addr;
+			document.getElementById('sample6_postcode').value = data.zonecode;
+			document.getElementById("sample6_address").value = addr;
 			// 커서를 상세주소 필드로 이동한다.
-			document.getElementById("user_address2").focus();
+			document.getElementById("sample6_detailAddress").focus();
 		}
-    }).open();
+	}).open();
 } // end sample6_execDaumPostcode()

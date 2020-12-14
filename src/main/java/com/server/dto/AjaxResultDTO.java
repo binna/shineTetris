@@ -1,9 +1,9 @@
 package com.server.dto;
 
-public class EmailDTO {
+public class AjaxResultDTO {
 	private int result;
 	
-	public EmailDTO() {}
+	public AjaxResultDTO() {}
 
 	// getter, setter
 	public int getResult() {

@@ -10,9 +10,12 @@
 <!-- JS -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/JS/join.js"></script>
+
+<!-- CSS -->
 <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="${pageContext.request.contextPath}/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
+
 <style>
 input:focus {
   background-color: yellow;
@@ -21,6 +24,7 @@ button:focus {
   border: thick double #32a1ce;
 }
 </style>
+
 </head>
 <body>
 <div class="main-container">
@@ -33,9 +37,11 @@ button:focus {
 					<div>
 						<form name="regform" id="regform" class="sign-in-reg-form" action="${path}/tetris/login/insert" method="post" onsubmit="return sendit()">
 							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-							<p><label>아이디 : <input type="text" name="user_id" id="user_id" maxlength="20"></label></p>
+							<p><label>아이디 : <input type="text" name="user_id" id="user_id" maxlength="20"></label>
+							&nbsp;<input type="button" id="idNumber" value="아이디 중복 검사" onclick="doIdAuth()"></p>
+							
 							<p><label>비밀번호 : <input type="password" name="user_pw" id="user_pw" maxlength="20"></label></p>
-							<p><label>비밀번호 확인 : <input type="password" name="userpw_re" id="WWuserpw_re" maxlength="20"></label></p>
+							<p><label>비밀번호 확인 : <input type="password" name="userpw_re" id="userpw_re" maxlength="20"></label></p>
 							<p><label>이름 : <input type="text" name="user_name" id="user_name"></label></p>
 					
 							<!-- 이메일 인증 -->
@@ -46,12 +52,14 @@ button:focus {
 							
 							<!-- 이메일 인증 관련 hidden -->
 							<input type="hidden" name="isSsn" id="isSsn" value="false">
+							<!-- 아이디 중복 검사 hidden -->
+							<input type="hidden" name="isIdSsn" id="isIdSsn" value="false">
 							
 							<!-- 우편 API -->
-							<p>우편번호 : <input type="text" name="user_zipcode" id="user_zipcode" disabled="disabled">
-							&nbsp;<input type="button" id="adrBtn" value="우편번호 검색" onclick="sample6_execDaumPostcode()"></p>
-							<p><label>주소 : <input type="text" name="user_address1" id="user_address"></label></p>
-							<p><label>상세주소 : <input type="text" name="user_address2" id="user_address2"></label></p>
+							<p>우편번호 : <input type="text" name="zipcode" id="sample6_postcode">
+							&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br></p>
+							<p>주소 : <input type="text" name="address1" id="sample6_address"><br></p>
+							<p>상세주소 : <input type="text" name="address2" id="sample6_detailAddress"></p>
 							
 							<!-- 버튼 -->
 							<p><input type="submit" value="가입완료"> <input type="reset" value="다시작성"></p>
