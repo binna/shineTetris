@@ -65,27 +65,17 @@
 		WHERE user_id = #{user_id}
 	</update>
 	
-	<!-- 
-	<update id="memberUpdate" parameterType="java.util.HashMap">
-		UPDATE tcm_member SET  
-			user_zipcode = #{user_zipcode},
-			user_address1 = #{user_address1},
-			user_address2 = #{user_address2}
-		WHERE user_id = #{user_id}
-	</update>
-	
-	<update id="memberUpdateEmail" parameterType="java.util.HashMap">
-		UPDATE tcm_member SET  
-			user_email = #{user_email}
-		WHERE user_id = #{user_id}
-	</update>
-	
-	<update id="memberUpdatePw" parameterType="java.util.HashMap">
-		UPDATE tcm_member SET  
+	<!-- 현재 쓰고 있는 비밀번호 검색 -->
+	<select id="pwSelect" resultType="java.lang.String">
+		SELECT user_pw FROM shineTetris.tcm_member
+		WHERE user_id=#{user_id}
+	</select>
+	<!-- 비밀번호 변경 -->
+	<update id="memberUpdate" parameterType="com.server.dto.PwDTO">
+		UPDATE shineTetris.tcm_member SET  
 			user_pw = #{user_pw}
 		WHERE user_id = #{user_id}
 	</update>
-	 -->
 	
 	<!-- 회원정보 삭제 -->
 	<delete id="memberDelete">

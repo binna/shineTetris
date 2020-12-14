@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.server.dto.PwDTO;
 import com.server.dto.UserDTO;
 
 @Repository
@@ -44,6 +45,14 @@ public class MemberJoinDAO {
 		return sqlSession.update(NAMESPACE + "emailUpdate", userdto);
 	}
 	
+	// 현재 비밀번호 검색
+	public String selectPw(String user_id) throws SQLException {
+		return sqlSession.selectOne(NAMESPACE + "PwSelect", user_id);
+	}
+	// 비밀번호 update
+	public int updatePw(PwDTO pwdto) throws SQLException {
+		return sqlSession.update(NAMESPACE + "pwUpdate", pwdto);
+	}
 	
 	// 회원정보 삭제
 	public int deleteMember(String user_id) throws SQLException {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dto.AjaxResultDTO;
+import com.server.dto.PwDTO;
 import com.server.dto.UserDTO;
 import com.server.service.EmailService;
 import com.server.service.JoinLoginService;
@@ -198,8 +199,32 @@ public class JoinLoginController {
 		model.addAttribute("code", code);
 	}
 	
+	// 비밀번호 변경을 위한 현재, 과거 비밀번호 입력창
+	@RequestMapping("pwUpdate")
+	public void doPwUpdate(HttpServletRequest request, Model model) {
+		String user_id = request.getParameter("userId");
+		
+		model.addAttribute("user_id", user_id);
+	}
+	
 	// 비밀번호 update
-	 
+	@RequestMapping("pwUpdateOk")
+	public void doPwUpdateOk(HttpServletRequest request, Model model) {
+		int code = 0;
+		
+		PwDTO pwdto = new PwDTO();
+		pwdto.setUser_id(request.getParameter("user_id"));
+		pwdto.setUser_pw(request.getParameter("user_pw"));
+		pwdto.setUserpw_now(request.getParameter("userpw_now"));
+		
+		try {
+			joinLoginService.updatePw(pwdto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			code = -1;
+		}
+		model.addAttribute("code", code);
+	}
 	
 	// 회원정보 삭제
 	@RequestMapping("/delete")
