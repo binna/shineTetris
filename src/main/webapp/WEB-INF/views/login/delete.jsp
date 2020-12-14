@@ -7,7 +7,7 @@
 		<script>
 			// 문제없음, 삭제 완
 			alert("회원 탈퇴 처리가 정상적으로 처리되었습니다.\n그동안 이용해주셔서 감사합니다.");
-			location.href = "main";
+			location.href = "${pageContext.request.contextPath}/customLogin";
 		</script>
 	</c:when>
 	<c:when test="${code == 0}">

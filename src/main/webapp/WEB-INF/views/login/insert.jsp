@@ -7,7 +7,7 @@
 		<script>
 			// 문제없음, 가입 완
 			alert("가입해주셔서 감사합니다.\n정상적으로 가입되었습니다.\n로그인 페이지로 이동합니다.");
-			location.href = "customLogin";
+			location.href = "${pageContext.request.contextPath}/customLogin";
 		</script>
 	</c:when>
 	<c:when test="${code == 0}">

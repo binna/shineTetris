@@ -310,6 +310,7 @@ function senditUpdate() {
 
 function senditEmail() {
 	// 이메일 유효성
+	const isSsn = document.getElementById('isSsn');
 	if(isSsn.value == 'false') {
 		alert('이메일 인증은 필수입니다.');
 		isSsn.focus();

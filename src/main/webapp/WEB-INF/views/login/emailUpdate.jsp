@@ -17,7 +17,7 @@
 	<div class="main-content" style="width: 400px; height: 399px">
 		<div class="main-form">
 			<div class="main-sub-content">
-				<form name="regform" id="regform" action="${path}/tetris/login/emailUpdateOk" method="post" onsubmit="senditEmail()">
+				<form name="regform" id="regform" action="${path}/tetris/login/emailUpdateOk" method="post" onsubmit="return senditEmail()">
 					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 							
 					<!-- 이메일 인증 -->
