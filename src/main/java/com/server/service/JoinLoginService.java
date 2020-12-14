@@ -84,8 +84,11 @@ public class JoinLoginService {
 	public int updatePw(PwDTO pwdto) throws Exception {
 		int code = 0;	// update 성공 여부
 		
+		String encpwd = memberJoinDao.selectPw(pwdto.getUser_id());
+		String userpw = pwdto.getUserpw_now();
+		
 		// 사용자가 입력한 현재 비밀번호와 디비에 저장된 비밀번호가 일치하는지 확인하기
-		if(pwencoder.matches(pwdto.getUserpw_now(), memberJoinDao.selectPw(pwdto.getUser_id()))) {
+		if(pwencoder.matches(userpw, encpwd)) {
 			pwdto.setUser_pw(pwencoder.encode(pwdto.getUser_pw()));
 			code = memberJoinDao.updatePw(pwdto);
 		} else {

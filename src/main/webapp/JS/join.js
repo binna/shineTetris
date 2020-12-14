@@ -125,9 +125,8 @@ function doIdAuth() {
 	const resultObj = JSON.parse(resultText);
 	
 	// 결과 값에 따라 화면 노출
-	if(resultObj.result == -2) {
-		alert("select 에러코드 -2\n관리자에게 문의주세요.");
-	} else if(resultObj.result == -1) {
+	// -1 컨트롤러 에러, 0 중복 없음, 중복 개수만큼  +정수
+	if(resultObj.result == -1) {
 		alert("select 에러코드 -1\n관리자에게 문의주세요.");
 	} else if(resultObj.result == 0) {
 		alert('중복된 아이디가 없습니다.\n가입을 지속해주세요.');

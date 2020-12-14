@@ -52,7 +52,7 @@ public class JoinLoginController {
 	// 회원가입 insert
 	@RequestMapping("/insert")
 	public void doInsert(HttpServletRequest request, Model model) {
-		int code = 0;
+		int code = -1;
 		
 		UserDTO userdto = new UserDTO();
 		userdto.setUser_id(request.getParameter("user_id"));
@@ -77,7 +77,7 @@ public class JoinLoginController {
 	@RequestMapping("/idAuth")
 	@ResponseBody
 	public AjaxResultDTO doIdAuth(HttpServletRequest request) {
-		// result : -1 컨트롤러 문제, -2 DB 문제, 0 중복 없음, 중복 개수만큼  +정수
+		// result : -1 컨트롤러 문제, 0 중복 없음, 중복 개수만큼  +정수
 		int result = -1;
 		
 		AjaxResultDTO id_dto = new AjaxResultDTO();
@@ -88,7 +88,7 @@ public class JoinLoginController {
 			result = joinLoginService.idChk(user_id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = -2;
+			result = -1;
 		}
 		
 		id_dto.setResult(result);
@@ -147,7 +147,7 @@ public class JoinLoginController {
 	// 회원정보 update
 	@RequestMapping("/updateOk")
 	public void doUpdateOk(HttpServletRequest request, Model model) {
-		int code = 0;
+		int code = -1;
 		
 		UserDTO userdto = new UserDTO();
 		userdto.setUser_id(request.getParameter("user_id"));
@@ -184,7 +184,7 @@ public class JoinLoginController {
 	// 이메일 update
 	@RequestMapping("/emailUpdateOk")
 	public void doEmailUpdateOk(HttpServletRequest request, Model model) {
-		int code = 0;
+		int code = -1;
 
 		UserDTO userdto = new UserDTO();
 		userdto.setUser_id(request.getParameter("user_id"));
@@ -211,15 +211,20 @@ public class JoinLoginController {
 	// 비밀번호 update
 	@RequestMapping("pwUpdateOk")
 	public void doPwUpdateOk(HttpServletRequest request, Model model) {
-		int code = 0;
+		int code = -1;
 		
 		PwDTO pwdto = new PwDTO();
 		pwdto.setUser_id(request.getParameter("user_id"));
 		pwdto.setUser_pw(request.getParameter("user_pw"));
 		pwdto.setUserpw_now(request.getParameter("userpw_now"));
 		
+		System.out.println("zzzzzzzzzzzzzzzzzzzz");
+		System.out.println(pwdto.getUser_id());
+		System.out.println(pwdto.getUser_pw());
+		System.out.println(pwdto.getUserpw_now());
+		
 		try {
-			joinLoginService.updatePw(pwdto);
+			code = joinLoginService.updatePw(pwdto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			code = -1;
@@ -230,7 +235,7 @@ public class JoinLoginController {
 	// 회원정보 삭제
 	@RequestMapping("/delete")
 	public void doDelete(HttpServletRequest request, Model model) {
-		int code = 0;
+		int code = -1;
 		 
 		String user_id = request.getParameter("userId");
 		try {
