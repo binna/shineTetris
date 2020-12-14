@@ -27,9 +27,9 @@
 							<input type='text' name='username' placeholder="ShineTetris ID를 입력해주세요" style="width: 65%"/><br>
 							<input type='password' name='password' placeholder="ShineTetris 비밀번호를 입력해주세요" style="width: 65%; margin:5px 0"/><br>
 							<input type='checkbox' name='remember-me' style="margin:5px 5px;"><labal style="font-size:12px; ">ID저장하기</labal> </input> 
-							<input type="button" value="회원가입" onClick="location.href='${path}/tetris/login/memberJoin'" style="margin-left:26%">
+							<input type="button" class="button" value="회원가입" onClick="location.href='${path}/tetris/login/memberJoin'" style="margin-left:26%">
 							<br>
-							<input type='submit' value="로그인" style="width: 67%; margin:8px 0"/>
+							<input type='submit' value="로그인" class="button" style="width: 67%; margin:8px 0"/>
 							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" /> <br>
 							
 						</form>

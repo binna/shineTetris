@@ -236,33 +236,21 @@
 	.button
 	{
 		display: inline-block;
-		padding: 1em 3em 1em 2em;
-		letter-spacing: 0.20em;
-		text-decoration: none;
-		text-transform: uppercase;
 		font-weight: 400;
 		font-size: 0.90em;
-		color: #FFF;
+		color: black;
+		border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: 1px solid skyblue;
 	}
 	
-	.button:before
-	{
-		display: inline-block;
-		background: #FFC31F;
-		margin-right: 1em;
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
-		border-radius: 20px;
-		text-align: center;
-		color: #272925;
-	}
+	.button:hover{
+        color:white;
+        background-color: skyblue;
+    }
 	
-	.button .imgbtn
-	{
-		background-color: #ffffff;
-        opacity: 0.5;
-	}
 	.btm_image{
         border: 1px solid skyblue;
         background-color: rgba(0,0,0,0);
@@ -439,6 +427,18 @@
 		height: 31.2em;
 	}
 	
+	.profile-content
+	{
+		float: left;
+		width: 500px;
+		padding: 50px;
+		background-image: url('/tetris/images/profile.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: 31.2em;
+	}
+	
+	
 	.main-content
 	{
 		float: left;
@@ -446,8 +446,64 @@
 		padding: 50px;
 		background-image: url('/tetris/images/welcome.jpg');
 		background-repeat: no-repeat;
-		background-size: cover;
-		height: 31.2em;
+		background-size: 100% 100%;
+		height: 30em;
+	}
+	
+/*********************************************************************************/
+/* sign-in-form                                                                  */
+/*********************************************************************************/
+
+	.sign-in-content .sign-in-form
+	{
+		width:100%;
+	}
+	
+	.sign-in-content .sign-in-form .title
+	{
+		margin-bottom: 1em;
+	}
+
+	.sign-in-content .sign-in-form .title h2
+	{
+		font-size: 1.8em;
+	}
+	
+	.sign-in-content .sign-in-form .sign-in-reg-form
+	{
+		 margin-top: 20%;
+   		 margin-left: 18%;
+	}
+	
+/*********************************************************************************/
+/* main-form                                                                  */
+/*********************************************************************************/
+
+	.profile-content .profile-form   
+	{
+		width:100%;
+	}
+	
+	.profile-content .profile-form .title
+	{
+		margin-bottom: 1em;
+	}
+
+	.profile-content .profile-form .title h2
+	{
+		font-size: 1.8em;
+	}	
+	
+	.profile-content .profile-form .profile-mod-form
+	{
+		 margin-top: 20%;
+   		 margin-left: 18%;
+	}
+	
+	.profile-content .profile-form .profile-sub-content
+	{
+	    width:100%;
+	    margin-top: 10%
 	}
 /*********************************************************************************/
 /* main-form                                                                  */
@@ -567,25 +623,6 @@
 	}
 
 	.login-form .title h2
-	{
-		font-size: 1.8em;
-	}
-/*********************************************************************************/
-/* sign-in-form                                                                  */
-/*********************************************************************************/
-
-	.sign-in-form
-	{
-		margin-left: 25%;
-		margin-top: 7em;
-	}
-	
-	.sign-in-form .title
-	{
-		margin-bottom: 1em;
-	}
-
-	.sign-in-form .title h2
 	{
 		font-size: 1.8em;
 	}
