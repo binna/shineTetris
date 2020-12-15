@@ -34,7 +34,7 @@ public class ServerThread extends Thread {
 	private final String rankSQL = "SELECT USER_NM, SCORE, STR_TO_DATE(REG_DT,'%Y%m%d%H%i%S') as REG_DT FROM trm_score where score>''  limit 10 ";
 	
 	//private final String insertSQL = "insert into tcm_member (user_seq, user_id, pwd, user_nm, score) values(NEXTVAL(member_user_seq),?,?,?,?)";
-	private final String insertSQL = "insert into trm_score values(NEXTVAL(rank_seq), ?, ?, DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 9 HOUR),'%Y%m%d%H%i%S'));";
+	private final String insertSQL = "insert into trm_score values(NEXTVAL(rank_seq), ?, ?, ?, DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 9 HOUR),'%Y%m%d%H%i%S'));";
 	
 	private String id;
 	private String score;
@@ -104,7 +104,8 @@ public class ServerThread extends Thread {
 					ptmt.setString(1, id);
 					score = br2.readLine();			
 					System.out.println("gg: " +score);
-					ptmt.setInt(2, Integer.parseInt(score));
+					ptmt.setString(2, id);
+					ptmt.setInt(3, Integer.parseInt(score));
 					if(id!=null && score !=null) {
 						ptmt.executeUpdate();
 					}}
