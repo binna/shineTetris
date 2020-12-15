@@ -360,10 +360,14 @@ function senditPw() {
 function doDelete() {
 	const userInput = prompt('정말로 회원 탈퇴를 원하십니까?\n탈퇴하시면 복구가 어렵습니다.\n탈퇴를 원하신다면 \"탈퇴\"를 공백없이 기입해주세요.');
 	const userid = document.getElementById('user_id');
-	
+	console.log()
 	if(userInput == '탈퇴') {
 		location.href = "delete?userId=" + userid.value;
 	} else {
-		alert('탈퇴 취소 버튼을 누르셨습니다.\n탈퇴가 진행되지 않았습니다.');
+		if(typeof userInput === null){
+			alert('탈퇴 취소 버튼을 누르셨습니다.\n탈퇴가 진행되지 않았습니다.');
+		}else{
+			alert('정확하게 입력하지 않으셨습니다. \n정확하게 입력되지 않으면 탈퇴가 진행되지 않습니다.');
+		}
 	}
 } // end doDelete()

@@ -28,7 +28,7 @@
 					<div class="main-sub-content">
 						<div style="text-align: center;font-size: 2em;">${user_id} 님</div>
 						<div style="text-align: center;font-size: 1.7em; margin-top: 2%">shineTetis에 오신것을 환영합니다.</div>
-						<button type="button" class="btm_image" id="gameStart" style="border:0; margin-top: 9%; margin-left: 26%; margin-bottom: 14%;  ">
+						<button type="button" class="btm_image" id="gameStart" style="border:0; margin-top: 9%; margin-left: 26%; margin-bottom: 14%;   onclick="location.href='${pageContext.request.contextPath}/download'">
 							<img src="/tetris/images/start.png">
 						</button>
 						<!-- 
