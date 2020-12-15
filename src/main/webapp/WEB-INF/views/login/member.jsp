@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>member</title>
+<title>메인화면</title>
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/JS/join.js"></script>

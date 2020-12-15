@@ -27,12 +27,6 @@ public class JoinLoginController {
 	@Autowired
 	JoinLoginService joinLoginService;
 	
-	// 메인 페이지
-	@GetMapping("/main")
-	public void doMain() {
-		System.out.println("doAll() : access everybody");
-	}
-	
 	// 로그인 후 페이지
 	@GetMapping("/member")
 	public void doMember(Model model) {

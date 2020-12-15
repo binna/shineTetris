@@ -8,6 +8,7 @@
 <title>회원정보 수정</title>
 
 <!-- JS -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/JS/join.js"></script>
 
 <!-- CSS -->
@@ -41,12 +42,13 @@ button:focus {
 					
 							<!-- 우편 API -->
 							<p>우편번호 : <input type="text" name="zipcode" id="sample6_postcode" value="${user_zipcode}">
-							&nbsp;<input type="button" class="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br></p>
+							&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" class="button" value="우편번호 찾기"><br></p>
 							<p>주소 : <input type="text" name="address1" id="sample6_address" value="${user_address1}"><br></p>
 							<p>상세주소 : <input type="text" name="address2" id="sample6_detailAddress" value="${user_address2}"></p>
 							
 							<!-- 버튼 -->
-							<p><input type="submit" class="button"value="수정완료"></p>
+							<p><input type="submit" class="button" value="수정완료">
+							&nbsp;<input type="button" class="button" value="메인 페이지로 이동" onClick="location.href='${path}/tetris/login/member'"></p>
 							<p><button type="button" class="button" 
 								onclick="window.open('${pageContext.request.contextPath}/login/pwUpdate?userId=${user_id}', 
 												 	 '비밀번호 변경', 'width=500, height=500')">비밀번호 변경</button>
@@ -55,7 +57,6 @@ button:focus {
 												 	 '이메일 변경', 'width=500, height=500'),''">이메일 변경</button>
 							<button type="button" class="button" onclick="doDelete()">회원 정보 삭제</button></p>
 						</form>
-						
 					</div>
 				</div>
 			</div>
