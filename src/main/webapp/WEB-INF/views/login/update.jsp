@@ -55,7 +55,7 @@ button:focus {
 							<button type="button" class="button"
 								onclick="window.open('${pageContext.request.contextPath}/login/emailUpdate?userId=${user_id}', 
 												 	 '이메일 변경', 'width=500, height=500'),''">이메일 변경</button>
-							<button type="button" class="button" onclick="doDelete()">회원 정보 삭제</button></p>
+							<button type="button" class="button" onclick="doDelete()">회원 탈퇴</button></p>
 						</form>
 					</div>
 				</div>
