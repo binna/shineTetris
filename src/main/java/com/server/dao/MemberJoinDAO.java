@@ -43,10 +43,6 @@ public class MemberJoinDAO {
 		return sqlSession.update(NAMESPACE + "emailUpdate", userdto);
 	}
 	
-	// 현재 비밀번호 검색
-	public String selectPw(String user_id) throws SQLException {
-		return sqlSession.selectOne(NAMESPACE + "pwSelect", user_id);
-	}
 	// 비밀번호 update
 	public int updatePw(PwDTO pwdto) throws SQLException {
 		return sqlSession.update(NAMESPACE + "memberPwUpdate", pwdto);

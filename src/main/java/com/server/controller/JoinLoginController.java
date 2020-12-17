@@ -198,8 +198,16 @@ public class JoinLoginController {
 	@RequestMapping("pwUpdate")
 	public void doPwUpdate(HttpServletRequest request, Model model) {
 		String user_id = request.getParameter("userId");
+		String user_email = "";
+		
+		try {
+			user_email = joinLoginService.selectEmail(user_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("user_id", user_id);
+		model.addAttribute("user_email", user_email);
 	}
 	
 	// 비밀번호 update
@@ -210,12 +218,6 @@ public class JoinLoginController {
 		PwDTO pwdto = new PwDTO();
 		pwdto.setUser_id(request.getParameter("user_id"));
 		pwdto.setUser_pw(request.getParameter("user_pw"));
-		pwdto.setUserpw_now(request.getParameter("userpw_now"));
-		
-		System.out.println("zzzzzzzzzzzzzzzzzzzz");
-		System.out.println(pwdto.getUser_id());
-		System.out.println(pwdto.getUser_pw());
-		System.out.println(pwdto.getUserpw_now());
 		
 		try {
 			code = joinLoginService.updatePw(pwdto);

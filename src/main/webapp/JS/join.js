@@ -324,14 +324,17 @@ function senditPw() {
 	const userpw_now = document.getElementById('userpw_now');
 	const user_pw = document.getElementById('user_pw');
 	const userpw_re = document.getElementById('userpw_re');
+	const isSsn = document.getElementById('isSsn');
+	
+
 	
 	// 정규식
 	const expPwText = /^.*(?=^.{4,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()+=]).*$/;
 	
 	// 비밀번호 유효성
-	if(userpw_now.value == '') {
-		alert('현재 비밀번호를 입력하세요.');
-		userpw_now.focus();
+	if(isSsn.value == 'false') {
+		alert('이메일 인증은 필수입니다.');
+		isSsn.focus();
 		return false;
 	}
 	if(user_pw.value == '') {

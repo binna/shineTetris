@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.server.controller.CustomNoOpPasswordEncoder;
 import com.server.dao.MemberJoinDAO;
 import com.server.dto.PwDTO;
 import com.server.dto.UserDTO;
@@ -75,25 +74,15 @@ public class JoinLoginService {
 		return code;
 	}
 	
-	// 비밀번호 검색
-	public String selectPw(String user_id) throws Exception {
-		String user_pw = memberJoinDao.selectPw(user_id);
-		return user_pw;
-	}
 	// 비밀번호 Update
 	public int updatePw(PwDTO pwdto) throws Exception {
 		int code = 0;	// update 성공 여부
 		
-		String encpwd = memberJoinDao.selectPw(pwdto.getUser_id());
-		String userpw = pwdto.getUserpw_now();
+		// 비밀번호 암호화
+		pwdto.setUser_pw(pwencoder.encode(pwdto.getUser_pw()));
 		
-		// 사용자가 입력한 현재 비밀번호와 디비에 저장된 비밀번호가 일치하는지 확인하기
-		if(pwencoder.matches(userpw, encpwd)) {
-			pwdto.setUser_pw(pwencoder.encode(pwdto.getUser_pw()));
-			code = memberJoinDao.updatePw(pwdto);
-		} else {
-			code = -2;
-		}
+		// 비밀번호 update
+		code = memberJoinDao.updatePw(pwdto);
 		
 		return code;
 	}
