@@ -61,7 +61,7 @@
 	<!-- 이메일 update -->
 	<update id="emailUpdate" parameterType="com.server.dto.UserDTO">
 		UPDATE shineTetris.tcm_member SET  
-			user_address2 = #{user_email}
+			user_email = #{user_email}
 		WHERE user_id = #{user_id}
 	</update>
 	
