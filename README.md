@@ -1,5 +1,5 @@
 # 졸업프로젝트(shine Tetris)
-한양사이버대학교 졸업 프로젝트
+[한양사이버대학교 졸업 프로젝트](https://www.youtube.com/watch?v=jJs0xAMvsH8&t=7s)
 
 <br><br>
 
